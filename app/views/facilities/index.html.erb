@@ -1,2 +1,7 @@
-<h1>Facilities#index</h1>
-<p>Find me in app/views/facilities/index.html.erb</p>
+<ul>
+  <% @facilities.each do |facility| %>
+    <h5><%= facility.id %>. <strong>Name:</strong> <%= facility.name %></h5>
+    <p><strong>Address:</strong> <%= facility.address %></p>
+    <p><strong>Phone:</strong> <%= facility.phone_number %></p>
+    <p><strong>Type:</strong> <%= facility.facility_type %></p>
+  <% end %>
