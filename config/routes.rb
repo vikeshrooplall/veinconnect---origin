@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'notifications/show'
   get 'blood_requests/index'
   get 'blood_requests/new'
+  post 'blood_requests/create'
   get 'blood_requests/create'
   get 'blood_requests/update'
   get 'facilities/index'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   get 'donors/update'
   get 'donors/medical_new'
   get 'donors/medical_create'
+  resources :blood_requests
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
