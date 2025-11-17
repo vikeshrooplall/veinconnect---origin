@@ -1,0 +1,5 @@
+<h2>Sign Up</h2>
+<p>Please choose your account type:</p>
+
+<%= link_to "I want to be a Donor", new_user_registration_path(user_type: "donor"), class: "btn btn-primary" %>
+<%= link_to "I am a Patient", new_user_registration_path(user_type: "patient"), class: "btn btn-secondary" %>

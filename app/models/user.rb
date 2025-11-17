@@ -17,6 +17,10 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validate :age_must_be_at_least_18
 
+  def donor?
+    is_donor
+  end
+
   # Custom validation method
   def age_must_be_at_least_18
     return if date_of_birth.blank?  # Skip if no DOB
