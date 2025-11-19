@@ -16,10 +16,4 @@ class DonorsController < ApplicationController
 
   def update
   end
-
-  def medical_new
-  end
-
-  def medical_create
-  end
 end

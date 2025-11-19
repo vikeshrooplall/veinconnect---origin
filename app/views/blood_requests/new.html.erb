@@ -1,2 +1,8 @@
-<h1>BloodRequests#new</h1>
-<p>Find me in app/views/blood_requests/new.html.erb</p>
+<h1>Make a Blood Request </h1>
+<%= simple_form_for(@blood_request) do |f| %>
+  <%= f.input :blood_type %>
+  <%= f.input :quantity %>
+  <%= f.input :needed_by, as: :date %>
+  <%= f.input :facility_name %>
+  <%= f.submit %>
+<% end %>
