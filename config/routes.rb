@@ -15,4 +15,5 @@ Rails.application.routes.draw do
     get 'sign_up/choose_type', to: 'registrations#choose_type', as: :choose_user_type
   end
   resources :blood_requests
+  resources :notifications, only: [:create, :show]
 end

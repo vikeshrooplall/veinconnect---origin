@@ -16,7 +16,8 @@ class BloodRequest < ApplicationRecord
     "B-" => 4,
     "B+" => 5,
     "O-" => 6,
-    "O+" => 7
+    "O+" => 7,
+    "A" => 8
   }
 
   enum status: {
