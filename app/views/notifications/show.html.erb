@@ -1,10 +1,4 @@
-<div id="notifications" class="notifications">
-  <% @blood_request.notifications.each do |notification| %>
-    <%= render "messages/message", message: message %>
-  <% end %>
-</div>
-
-<div id="notification-<%= notification.id %>">
-  <strong><%= notification.current_user %></strong>
-  <p><%= notification.content %></p>
+<%= turbo_stream_from "notifications_#{current_user.id}" %>
+<div id="notifications">
+  <%= render current_user.notifications %>
 </div>

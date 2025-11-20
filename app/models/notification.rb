@@ -4,14 +4,14 @@ class Notification < ApplicationRecord
 
   validates :kind, presence: true
 
-  after_create_commit :broadcast_message
+  after_create_commit :broadcast_notification
 
   private
 
   def broadcast_notification
-    broadcast_append_to "blood_request_#{blood_request.id}_notifications",
+    broadcast_append_to "notifications_#{user.id}",
                         partial: "notifications/notification",
                         target: "notifications",
-                        locals: { notification: self }
+                        locals: { notification: self, current_user: user }
   end
 end
