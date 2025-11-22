@@ -9,9 +9,11 @@ class Notification < ApplicationRecord
   private
 
   def broadcast_notification
-    broadcast_append_to "notifications_#{user.id}",
-                        partial: "notifications/notification",
-                        target: "notifications",
-                        locals: { notification: self, current_user: user }
+    broadcast_append_to(
+      "notifications_#{user_id}",
+      partial: "notifications/notification",
+      locals:  { notification: self },
+      target: "notifications"
+    )
   end
 end

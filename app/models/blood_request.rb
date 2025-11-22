@@ -3,10 +3,9 @@ class BloodRequest < ApplicationRecord
   belongs_to :facility
   has_many :donations, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :messages, dependent: :destroy
+  # has_many :messages, dependent: :destroy
 
   validate :needed_by
-  validates :quantity, numericality: { greater_than: 0 }
 
   enum blood_type: {
     "A-" => 0,

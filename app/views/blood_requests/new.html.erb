@@ -1,8 +1,12 @@
 <h1>Make a Blood Request </h1>
 <%= simple_form_for(@blood_request) do |f| %>
   <%= f.input :blood_type %>
-  <%= f.input :quantity %>
+  <%= f.input :quantity, as: :integer %>
   <%= f.input :needed_by, as: :date %>
-  <%= f.input :facility_name %>
+  <%= f.input :facility_id,
+              collection: Facility.all,
+              label_method: :name,
+              value_method: :id,
+              prompt: "Select a facility" %>
   <%= f.submit %>
 <% end %>

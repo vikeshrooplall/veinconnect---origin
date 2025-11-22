@@ -1,5 +1,5 @@
 class BloodRequestsController < ApplicationController
-   before_action :authenticate_user!
+  before_action :authenticate_user!
   def index
     @blood_requests = BloodRequest.all
   end
@@ -9,13 +9,14 @@ class BloodRequestsController < ApplicationController
   end
 
   def create
-    @blood_request = BloodRequest.new(params[:BloodRequest])
+    @blood_request = BloodRequest.new(blood_request_params)
     @blood_request.user = current_user
+    # raise
     if @blood_request.save
       notify_donors(@blood_request)
-      redirect_to blood_request_path(@BloodRequest)
+      redirect_to blood_request_path(@bloodRequest)
     else
-      render "blood_request/new"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -44,6 +45,6 @@ class BloodRequestsController < ApplicationController
   private
 
   def blood_request_params
-    params.require(:blood_request).permit(:first_name, :last_name, :address, :needed_by, :blood_type, :quantity, :facility_name)
+    params.require(:blood_request).permit(:first_name, :last_name, :address, :needed_by, :blood_type, :quantity, :facility_id)
   end
 end
