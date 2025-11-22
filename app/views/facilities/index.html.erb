@@ -1,7 +1,9 @@
-<ul>
-  <% @facilities.each do |facility| %>
-    <h5><%= facility.id %>. <strong>Name:</strong> <%= facility.name %></h5>
-    <p><strong>Address:</strong> <%= facility.address %></p>
-    <p><strong>Phone:</strong> <%= facility.phone_number %></p>
-    <p><strong>Type:</strong> <%= facility.facility_type %></p>
-  <% end %>
+<p style='color: green'><%= notice %></p>
+
+<h1>Facilities</h1>
+
+<div style="width: 100%; height: 600px;"
+  data-controller="map"
+  data-map-markers-value="<%= @markers.to_json %>"
+  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+

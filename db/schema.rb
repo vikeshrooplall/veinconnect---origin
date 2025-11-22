@@ -74,6 +74,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_22_073922) do
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "blood_request_id", null: false
+    t.index ["blood_request_id"], name: "index_notifications_on_blood_request_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
@@ -102,5 +104,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_22_073922) do
   add_foreign_key "donations", "donor_profiles"
   add_foreign_key "donations", "facilities"
   add_foreign_key "donor_profiles", "users"
+  add_foreign_key "notifications", "blood_requests"
   add_foreign_key "notifications", "users"
 end
