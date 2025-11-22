@@ -6,7 +6,7 @@ class Facility < ApplicationRecord
   validates :name, :address, :phone_number, presence: true
   enum :facility_type, { hospital: 0, clinic: 1, mobile_team: 2 }
 
-  # geocoded_by :address
-  # after_validation :geocode, if: :will_save_change_to_address?
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 
 end
