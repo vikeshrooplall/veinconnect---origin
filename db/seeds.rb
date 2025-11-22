@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 puts 'Cleaning database...'
-Facility.destroy_all
+# Facility.destroy_all
 
 puts '🌱 Seeding facilities in Mauritius...'
 

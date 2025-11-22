@@ -10,11 +10,16 @@ class BloodRequestsController < ApplicationController
 
   def create
     @blood_request = BloodRequest.new(blood_request_params)
-    @blood_request.user = current_user
-    # raise
-    if @blood_request.save
+    @blood_request.user_id = current_user.id
+    @blood_request.status = "pending"
+    @blood_request.patient_name = current_user.first_name + " " + current_user.last_name
+    @blood_request.patient_phone_number = current_user.phone
+    @blood_request.message = "Hello"
+    @blood_request.completed_at = Date.today
+
+    if @blood_request.save!
       notify_donors(@blood_request)
-      redirect_to blood_request_path(@bloodRequest)
+      redirect_to blood_request_path(@blood_request), notice: "Blood request created successfully."
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,7 +27,7 @@ class BloodRequestsController < ApplicationController
 
   def show
     @blood_request = BloodRequest.find(params[:id])
-    @blood_requests = @blood_request.where(user: current_user)
+    @blood_requests = BloodRequest.where(user_id: current_user.id)
     @notification = Notification.new
   end
 
@@ -45,6 +50,6 @@ class BloodRequestsController < ApplicationController
   private
 
   def blood_request_params
-    params.require(:blood_request).permit(:first_name, :last_name, :address, :needed_by, :blood_type, :quantity, :facility_id)
+    params.require(:blood_request).permit(:blood_type, :needed_by, :quantity, :facility_id)
   end
 end
