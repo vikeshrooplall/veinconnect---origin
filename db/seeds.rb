@@ -49,3 +49,276 @@ facilities.each do |facility|
 end
 
 puts "✅ Done seeding!"
+
+users = [
+  {
+    user_id: "user 001",
+    first_name: "John",
+    last_name: "Doe",
+    date_of_birth: "1985-03-15",
+    email: "john.doe@example.com",
+    password: "password123",
+    phone_number: "52512345",
+    address: "Quatre Bornes, Mauritius"
+  },
+  {
+    user_id: "user 002",
+    first_name: "Sarah",
+    last_name: "Ramsamy",
+    date_of_birth: "1990-07-22",
+    email: "sarah.ramsamy@example.com",
+    password: "password123",
+    phone_number: "58023456",
+    address: "Port Louis, Mauritius"
+  },
+  {
+    user_id: "user 003",
+    first_name: "Kevin",
+    last_name: "Pillay",
+    date_of_birth: "1995-01-10",
+    email: "kevin.pillay@example.com",
+    password: "password123",
+    phone_number: "59098765",
+    address: "Curepipe, Mauritius"
+  },
+  {
+    user_id: "user 004",
+    first_name: "Anjali",
+    last_name: "Kumar",
+    date_of_birth: "1988-04-05",
+    email: "anjali.kumar@example.com",
+    password: "password123",
+    phone_number: "59876543",
+    address: "Rose Hill, Mauritius"
+  },
+  {
+    user_id: "user 005",
+    first_name: "Rakesh",
+    last_name: "Singh",
+    date_of_birth: "1979-12-19",
+    email: "rakesh.singh@example.com",
+    password: "password123",
+    phone_number: "52654321",
+    address: "Vacoas, Mauritius"
+  },
+  {
+    user_id: "user 006",
+    first_name: "Priya",
+    last_name: "Nath",
+    date_of_birth: "1992-11-11",
+    email: "priya.nath@example.com",
+    password: "password123",
+    phone_number: "53456789",
+    address: "Grand Baie, Mauritius"
+  },
+  {
+    user_id: "user 007",
+    first_name: "Arjun",
+    last_name: "Patel",
+    date_of_birth: "1983-06-25",
+    email: "arjun.patel@example.com",
+    password: "password123",
+    phone_number: "54781234",
+    address: "Flic en Flac, Mauritius"
+  },
+  {
+    user_id: "user 008",
+    first_name: "Leela",
+    last_name: "Reddy",
+    date_of_birth: "1996-09-17",
+    email: "leela.reddy@example.com",
+    password: "password123",
+    phone_number: "55098765",
+    address: "Mahebourg, Mauritius"
+  },
+  {
+    user_id: "user 009",
+    first_name: "Vikram",
+    last_name: "Shah",
+    date_of_birth: "1987-05-30",
+    email: "vikram.shah@example.com",
+    password: "password123",
+    phone_number: "56012345",
+    address: "Curepipe, Mauritius"
+  },
+  {
+    user_id: "user 010",
+    first_name: "Anita",
+    last_name: "Chowdhury",
+    date_of_birth: "1991-03-08",
+    email: "anita.chowdhury@example.com",
+    password: "password123",
+    phone_number: "57890123",
+    address: "Port Louis, Mauritius"
+  },
+  {
+    user_id: "user 011",
+    first_name: "Rohan",
+    last_name: "Maharaj",
+    date_of_birth: "1989-08-21",
+    email: "rohan.maharaj@example.com",
+    password: "password123",
+    phone_number: "58765432",
+    address: "Quatre Bornes, Mauritius"
+  },
+  {
+    user_id: "user 012",
+    first_name: "Nisha",
+    last_name: "Dewan",
+    date_of_birth: "1993-12-14",
+    email: "nisha.dewan@example.com",
+    password: "password123",
+    phone_number: "59987654",
+    address: "Grand Baie, Mauritius"
+  },
+  {
+    user_id: "user 013",
+    first_name: "Sanjay",
+    last_name: "Bhandari",
+    date_of_birth: "1981-02-02",
+    email: "sanjay.bhandari@example.com",
+    password: "password123",
+    phone_number: "52345678",
+    address: "Rose Hill, Mauritius"
+  },
+  {
+    user_id: "user 014",
+    first_name: "Meena",
+    last_name: "Varma",
+    date_of_birth: "1986-07-07",
+    email: "meena.varma@example.com",
+    password: "password123",
+    phone_number: "53678901",
+    address: "Vacoas, Mauritius"
+  },
+  {
+    user_id: "user 015",
+    first_name: "Aditya",
+    last_name: "Singh",
+    date_of_birth: "1994-04-28",
+    email: "aditya.singh@example.com",
+    password: "password123",
+    phone_number: "54901234",
+    address: "Flic en Flac, Mauritius"
+  },
+  {
+    user_id: "user 016",
+    first_name: "Priyanka",
+    last_name: "Rai",
+    date_of_birth: "1990-11-03",
+    email: "priyanka.rai@example.com",
+    password: "password123",
+    phone_number: "55234567",
+    address: "Curepipe, Mauritius"
+  },
+  {
+    user_id: "user 017",
+    first_name: "Rajesh",
+    last_name: "Sharma",
+    date_of_birth: "1982-06-15",
+    email: "rajesh.sharma@example.com",
+    password: "password123",
+    phone_number: "56789012",
+    address: "Mahebourg, Mauritius"
+  },
+  {
+    user_id: "user 018",
+    first_name: "Sunita",
+    last_name: "Kapoor",
+    date_of_birth: "1995-09-09",
+    email: "sunita.kapoor@example.com",
+    password: "password123",
+    phone_number: "57654321",
+    address: "Grand Baie, Mauritius"
+  },
+  {
+    user_id: "user 019",
+    first_name: "Manish",
+    last_name: "Gupta",
+    date_of_birth: "1984-12-20",
+    email: "manish.gupta@example.com",
+    password: "password123",
+    phone_number: "58345678",
+    address: "Port Louis, Mauritius"
+  },
+  {
+    user_id: "user 020",
+    first_name: "Kavita",
+    last_name: "Chopra",
+    date_of_birth: "1987-03-30",
+    email: "kavita.chopra@example.com",
+    password: "password123",
+    phone_number: "59012345",
+    address: "Quatre Bornes, Mauritius"
+  },
+  {
+    user_id: "user 021",
+    first_name: "Amit",
+    last_name: "Desai",
+    date_of_birth: "1988-08-18",
+    email: "amit.desai@example.com",
+    password: "password123",
+    phone_number: "59876543",
+    address: "Rose Hill, Mauritius"
+  },
+  {
+    user_id: "user 022",
+    first_name: "Rina",
+    last_name: "Patel",
+    date_of_birth: "1991-05-12",
+    email: "rina.patel@example.com",
+    password: "password123",
+    phone_number: "50765432",
+    address: "Vacoas, Mauritius"
+  },
+  {
+    user_id: "user 023",
+    first_name: "Vijay",
+    last_name: "Nair",
+    date_of_birth: "1983-01-25",
+    email: "vijay.nair@example.com",
+    password: "password123",
+    phone_number: "51234567",
+    address: "Curepipe, Mauritius"
+  },
+  {
+    user_id: "user 024",
+    first_name: "Nandini",
+    last_name: "Rao",
+    date_of_birth: "1996-10-11",
+    email: "nandini.rao@example.com",
+    password: "password123",
+    phone_number: "51987654",
+    address: "Flic en Flac, Mauritius"
+  },
+  {
+    user_id: "user 025",
+    first_name: "Harish",
+    last_name: "Mehta",
+    date_of_birth: "1980-07-03",
+    email: "harish.mehta@example.com",
+    password: "password123",
+    phone_number: "52345679",
+    address: "Grand Baie, Mauritius"
+  },
+  {
+    user_id: "user 026",
+    first_name: "Pooja",
+    last_name: "Sharma",
+    date_of_birth: "1992-02-28",
+    email: "pooja.sharma@example.com",
+    password: "password123",
+    phone_number: "53098765",
+    address: "Mahebourg, Mauritius"
+  },
+  {
+    user_id: "user 027",
+    first_name: "Raj",
+    last_name: "Chand",
+    date_of_birth: "1985-09-14",
+    email: "raj.chand@example.com",
+    password: "password123",
+    phone_number: "54012345",
+    address: "Quatre Bornes, Mauritius"
+  }
+]
