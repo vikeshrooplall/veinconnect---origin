@@ -8,9 +8,9 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 puts 'Cleaning database...'
-Facility.destroy_all
+# Facility.destroy_all
 
-puts '🌱 Seeding hospitals and clinics in Mauritius...'
+puts '🌱 Seeding facilities in Mauritius...'
 
 facilities = [
   { name: "Victoria", address: "Quatre Bornes, Mauritius", phone_number: "4253031", facility_type: "Hospital" },

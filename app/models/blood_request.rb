@@ -3,27 +3,11 @@ class BloodRequest < ApplicationRecord
   belongs_to :facility
   has_many :donations, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :messages, dependent: :destroy
+  # has_many :messages, dependent: :destroy
+
+  BLOOD_TYPES = %w[A- A+ B- B+ AB- AB+ O- O+].freeze
 
   validate :needed_by
-  validates :quantity, numericality: { greater_than: 0 }
-
-  enum blood_type: {
-    "A-" => 0,
-    "A+" => 1,
-    "AB-" => 2,
-    "AB+" => 3,
-    "B-" => 4,
-    "B+" => 5,
-    "O-" => 6,
-    "O+" => 7
-  }
-
-  enum status: {
-    pending: 0,
-    completed: 1
-  }
-
   private
 
   def needed_by_within_range

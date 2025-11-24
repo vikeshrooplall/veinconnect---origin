@@ -1,0 +1,7 @@
+<div id="notification-<%= notification.id %>">
+  <% if notification.user == current_user %>
+    <p>You have a new notification: <%= notification.data["message"] %></p>
+  <% else %>
+    <p><%= notification.data["message"] %></p>
+  <% end %>
+</div>

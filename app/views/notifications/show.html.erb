@@ -1,2 +1,4 @@
-<h1>Notifications#show</h1>
-<p>Find me in app/views/notifications/show.html.erb</p>
+<%= turbo_stream_from "notifications_#{current_user.id}" %>
+<div id="notifications">
+  <%= render current_user.notifications %>
+</div>

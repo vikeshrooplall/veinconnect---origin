@@ -1,6 +1,10 @@
 <h1>Blood Requests</h1>
 <ul>
-  <% @blood_requests.each do |BloodRequest| %>
-    <li><%= BloodRequest.id %></li>
+  <% @blood_requests.each do |blood_request| %>
+   <li>
+      <%= link_to "Request ##{blood_request.id}", blood_request_path(blood_request) %>
+      - Blood type: <%= blood_request.blood_type %>
+      - Quantity: <%= blood_request.quantity %>
+    </li>
   <% end %>
 </ul>

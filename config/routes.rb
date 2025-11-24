@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'sign_up/choose_type', to: 'registrations#choose_type', as: :choose_user_type
   end
+
+  resources :blood_requests do
+    resources :notifications, only: :create
+  end
 end

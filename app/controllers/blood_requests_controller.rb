@@ -1,7 +1,7 @@
 class BloodRequestsController < ApplicationController
-   before_action :authenticate_user!
+  before_action :authenticate_user!
   def index
-    @blood_requests = BloodRequest.all
+    @blood_requests = current_user.blood_requests
   end
 
   def new
@@ -9,9 +9,26 @@ class BloodRequestsController < ApplicationController
   end
 
   def create
-    @blood_request = BloodRequest.new(params[:BloodRequest])
-    @blood_request.save
-    redirect_to blood_request_path(@BloodRequest)
+    @blood_request = BloodRequest.new(blood_request_params)
+    @blood_request.user_id = current_user.id
+    @blood_request.status = "pending"
+    @blood_request.patient_name = current_user.first_name + " " + current_user.last_name
+    @blood_request.patient_phone_number = current_user.phone
+    @blood_request.message = "Hello"
+    @blood_request.completed_at = Date.today
+
+    if @blood_request.save!
+      notify_donors(@blood_request)
+      redirect_to blood_request_path(@blood_request), notice: "Blood request created successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @blood_request = BloodRequest.find(params[:id])
+    @blood_requests = BloodRequest.where(user_id: current_user.id)
+    @notification = Notification.new
   end
 
   def update
@@ -20,9 +37,19 @@ class BloodRequestsController < ApplicationController
     redirect_to blood_request_path(@blood_request)
   end
 
+  def notify_donors(blood_request)
+    donors = User.where(blood_type: blood_request.blood_type)
+    donors.each do |donor|
+      Notification.create!(
+        user: donor,
+        body: "Urgent: A patient needs blood type #{blood_request.blood_type}"
+      )
+    end
+  end
+
   private
 
   def blood_request_params
-    params.require(:blood_request).permit(:first_name, :last_name, :address, :needed_by, :blood_type, :quantity, :facility_name)
+    params.require(:blood_request).permit(:blood_type, :needed_by, :quantity, :facility_id)
   end
 end
