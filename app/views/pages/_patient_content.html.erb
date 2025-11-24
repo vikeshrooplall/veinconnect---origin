@@ -1,0 +1,79 @@
+<div class='patient-section'>
+  <div class='navbar-vertical'>
+    <div class='navbar-brand'>
+      <%= image_tag 'realistic-drops-red-blood-isolated-600nw-2444638227.webp', class: 'img-rounded', alt: 'Blood drops' %>
+      <h6><strong>VeinConnect</strong></h6>
+    </div>
+    <div class='navbar-links'>
+      <%= link_to 'Find a Center', facilities_path %>
+      <%= link_to 'Blood Requests', blood_requests_path %>
+      <%= link_to 'Donation History', donations_path %>
+    </div>
+  </div>
+
+  <%# patient home page content %>
+  <div class='container-fluid'>
+
+    <%# header %>
+    <div class='header'>
+      <div class='header-text'>
+        <% if user_signed_in? %>
+          <h2>Welcome to VeinConnect, <%= current_user.first_name %>!</h2>
+          <p>A place for modern-day heroes</p>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Total blood requests and active donor count %>
+    <div class='cards blood-request-card'>
+      <%# active donor count %>
+      <div class='card donor-count'>
+        <h3>Active Donors</h3>
+        <p class='count'><%= Donor.active.count %></p>
+      </div>
+
+      <%# Total Blood request count %>
+      <div class='card blood-request-count'>
+        <h3>My Blood Requests</h3>
+        <p class='count'><%= current_user.blood_requests.count %></p>
+      </div>
+    </div>
+
+    <%# functionalities cards%>
+    <div class='cards functionalities-cards'>
+
+      <%# create Blood request %>
+      <%= link_to new_blood_request_path, class: 'card-link' do %>
+        <div class='card'>
+          <div class='card-icon'>
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <h6><strong>Make a Blood Request</strong></h6>
+          <p>Create a new blood donation request.</p>
+        </div>
+      <% end %>
+
+      <%# index Blood requests %>
+      <%= link_to blood_requests_path, class: 'card-link' do %>
+        <div class='card'>
+          <div class='card-icon'>
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <h6><strong>View Past Requests</strong></h6>
+          <p>Track the status of your previous Blood Requests</p>
+        </div>
+      <% end %>
+
+      <%# Donors index %>
+      <%# <%= link_to  %>
+        <div class='card'>
+          <div class='card-icon'>
+          </div>
+          <h6><strong>View Donors List</strong></h6>
+          <p>Browse a directory of available donors</p>
+        </div>
+    </div>
+    <%# map for patient  %>
+    <%= render partial: 'shared/map' %>
+  </div>
+</div>

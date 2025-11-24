@@ -1,7 +1,9 @@
-  <div class="main-content">
-    <!-- Render donor content partial -->
+<div class="main-content">
+  <%# home page for donor %>
+  <% if current_user.donor? %>
     <%= render partial: 'donor_content' %>
-
-    <!-- Optional: Add other sections below -->
-    <%# <%= render partial: 'shared/map' %>
-  </div>
+  <%# home page for patient %>
+  <% else %>
+    <%= render partial: 'patient_content' %>
+  <% end %>
+</div>

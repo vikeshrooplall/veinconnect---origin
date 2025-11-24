@@ -17,8 +17,13 @@
     <!-- Header -->
     <div class='header'>
       <div class='header-text'>
-        <h2>Welcome, <%= current_user.first_name %>!</h2>
-        <p>Thank you for being a modern-day hero.</p>
+        <% if user_signed_in? %>
+          <h2>Welcome, <%= current_user.first_name %>!</h2>
+          <p>Thank you for being a modern-day hero.</p>
+        <% else %>
+          <h2>Welcome to VeinConnect!</h2>
+          <p>Please sign in to gain access</p>
+        <% end %>
       </div>
 
       <div class='header-cards'>
