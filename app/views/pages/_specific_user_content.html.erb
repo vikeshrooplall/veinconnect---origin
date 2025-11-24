@@ -1,0 +1,7 @@
+<div class="user-content">
+  <% if user_type == 'donor' %>
+    <% render partial: "donor_content" %>
+  <% else %>
+    <%= render partial: "patient_content" %>
+  <% end %>
+</div>

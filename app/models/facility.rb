@@ -1,7 +1,7 @@
 class Facility < ApplicationRecord
   has_many :blood_requests, dependent: :destroy
   has_many :donations, dependent: :destroy
-  has_many :inventories, dependent: :destroy
+  # has_many :inventories, dependent: :destroy
 
   validates :name, :address, :phone_number, presence: true
   enum :facility_type, { Hospital: 0, Clinic: 1, mobile_team: 2 }

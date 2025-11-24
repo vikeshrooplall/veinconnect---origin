@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_22_073922) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_24_070157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,24 +26,25 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_22_073922) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "urgency"
     t.integer "quantity"
     t.index ["facility_id"], name: "index_blood_requests_on_facility_id"
     t.index ["user_id"], name: "index_blood_requests_on_user_id"
   end
 
   create_table "donations", force: :cascade do |t|
-    t.bigint "donor_profile_id", null: false
+    t.bigint "donor_id", null: false
     t.bigint "blood_request_id", null: false
     t.bigint "facility_id", null: false
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["blood_request_id"], name: "index_donations_on_blood_request_id"
-    t.index ["donor_profile_id"], name: "index_donations_on_donor_profile_id"
+    t.index ["donor_id"], name: "index_donations_on_donor_id"
     t.index ["facility_id"], name: "index_donations_on_facility_id"
   end
 
-  create_table "donor_profiles", force: :cascade do |t|
+  create_table "donors", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "blood_type"
     t.string "donor_status"
@@ -51,7 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_22_073922) do
     t.date "last_donation_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_donor_profiles_on_user_id"
+    t.index ["user_id"], name: "index_donors_on_user_id"
   end
 
   create_table "facilities", force: :cascade do |t|
@@ -102,9 +103,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_22_073922) do
   add_foreign_key "blood_requests", "facilities"
   add_foreign_key "blood_requests", "users"
   add_foreign_key "donations", "blood_requests"
-  add_foreign_key "donations", "donor_profiles"
+  add_foreign_key "donations", "donors"
   add_foreign_key "donations", "facilities"
-  add_foreign_key "donor_profiles", "users"
+  add_foreign_key "donors", "users"
   add_foreign_key "notifications", "blood_requests"
   add_foreign_key "notifications", "users"
 end

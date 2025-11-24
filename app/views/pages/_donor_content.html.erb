@@ -1,0 +1,143 @@
+<div class="donor-section">
+  <!-- Sidebar -->
+  <div class='navbar-vertical'>
+    <div class='navbar-brand'>
+      <%= image_tag 'realistic-drops-red-blood-isolated-600nw-2444638227.webp', class: 'img-rounded', alt: 'Blood drops' %>
+      <h6><strong>VeinConnect</strong></h6>
+    </div>
+    <div class='navbar-links'>
+      <%= link_to 'Find a Center', facilities_path %>
+      <%= link_to 'Blood Requests', blood_requests_path %>
+      <%= link_to 'Donation History', donations_path %>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class='container-fluid'>
+    <!-- Header -->
+    <div class='header'>
+      <div class='header-text'>
+        <h2>Welcome, <%= current_user.first_name %>!</h2>
+        <p>Thank you for being a modern-day hero.</p>
+      </div>
+
+      <div class='header-cards'>
+        <!-- Last Donation Card -->
+        <%= link_to donations_path, class: 'text-decoration-none' do %>
+          <div class='card donation-card'>
+            <div class='card-body'>
+              <h5 class='card-title'><i class='fas fa-calendar-check me-2'></i>Your Last Donation</h5>
+              <% if @donor&.has_previous_donations? %>
+                <div class='text-center'>
+                  <p class='display-6 text-primary fw-bold mb-2'><%= @donor.last_donation.strftime('%b %d, %Y') %></p>
+                  <p class='text-muted small'><%= time_ago_in_words(@donor.last_donation) %> ago</p>
+                </div>
+              <% else %>
+                <div class='text-center'>
+                  <i class='fas fa-heart fa-2x text-muted mb-3'></i>
+                  <p class="text-muted mb-2">No donations yet</p>
+                </div>
+              <% end %>
+              <div class="card-arrow">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Next Donation Card -->
+        <div class='card donation-card'>
+          <div class='card-body'>
+            <h5 class='card-title'><i class='fas fa-calendar-alt me-2'></i>Next Donation</h5>
+            <% if @donor %>
+              <div class='text-center'>
+                <% if @donor.has_previous_donations? %>
+                  <% if @donor.eligible_to_donate? %>
+                    <i class='fas fa-check-circle fa-2x text-success mb-2'></i>
+                    <p class='h5 fw-bold text-success mb-1'>Ready to Donate</p>
+                    <p class='small text-muted'>You can donate now</p>
+                  <% else %>
+                    <p class='h4 text-primary fw-bold mb-1'><%= @donor.next_eligible_date.strftime('%b %d') %></p>
+                    <p class='text-muted small'><%= @donor.next_eligible_date.strftime('%Y') %> • in <%= @donor.days_until_eligible %> days</p>
+                  <% end %>
+                <% else %>
+                  <i class='fas fa-star fa-2x text-muted mb-2'></i>
+                  <p class='h6 fw-bold text-muted'>First Time Donor</p>
+                  <p class='small text-muted'>You're eligible to start donating</p>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Stats Cards -->
+    <div class='cards-grid'>
+      <!-- Urgent Requests Card -->
+      <div class='card'>
+        <% if @urgent_requests.any? %>
+          <%= link_to blood_requests_path(sort: 'urgency', urgency: 'urgent'), class: 'card-link' do %>
+            <div class="card-body text-center">
+              <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+              <h3 class='text-danger mb-2'>Urgent Blood Requests</h3>
+              <div class="urgent-count display-4 fw-bold text-danger mb-2"><%= @urgent_requests.count %></div>
+              <p class="text-muted mb-3">Critical requests need immediate attention</p>
+              <span class="btn btn-outline-danger btn-sm">View All Requests</span>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="card-body text-center">
+            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+            <h3 class="text-success mb-2">No Urgent Requests</h3>
+            <p class="text-muted">All blood needs are currently met</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class='cards-grid'>
+      <%= link_to blood_requests_path, class: 'card-link' do %>
+        <div class='card feature-card'>
+          <%= image_tag 'GettyImages-890451438.jpg', alt: 'Blood request', class: 'card-image' %>
+          <h6><strong>Current Blood Requests</strong></h6>
+          <p>View and respond to urgent needs.</p>
+          <div class="card-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      <% end %>
+      <%# <div class='card feature-card'>
+        <h6><strong>Hospitals in Mauritius</strong></h6>
+        <p>Find donation centers and hospitals near you</p>
+      </div> %>
+      <div class='card feature-card'>
+        <h6><strong>My Donation History</strong></h6>
+        <p class="text-muted mb-3">See a log of all your past life-saving donations</p>
+
+        <div class="text-center mb-3">
+          <p class="h3 text-danger mb-1"><%= @donor&.donations&.count || 0 %></p>
+          <p class="small text-muted">Total Donations</p>
+        </div>
+
+        <%= link_to donations_path, class: 'btn btn-outline-danger btn-sm w-100' do %>
+          <i class="fas fa-history me-1"></i>
+          View My History
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Map & Footer -->
+    <%= render partial: 'shared/map' %>
+
+    <div class='footer-card'>
+      <div class='footer-content'>
+        <div class='footer-text'>
+          <h4>Your Donation Saves Lives</h4>
+          <p>Every pint of blood can save up to three lives. Your contribution is a heroic act that makes a real difference in our community.</p>
+        </div>
+        <%= image_tag 'human-blood-donate-white-background_1308-111266.avif', class: 'footer-image', alt: 'Blood donation' %>
+      </div>
+    </div>
+  </div>
+</div>
