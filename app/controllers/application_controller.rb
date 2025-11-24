@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     extra_keys = [
       :first_name, :last_name, :date_of_birth, :phone, :address, :is_donor,
-      { donor_profile_attributes: [:blood_type] }
+      { donor_attributes: [:blood_type] }
     ]
 
     devise_parameter_sanitizer.permit(:sign_up, keys: extra_keys)

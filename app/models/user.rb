@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Associations
-  has_one :donor_profile, dependent: :destroy
-  accepts_nested_attributes_for :donor_profile
+  has_one :donor, dependent: :destroy
+  accepts_nested_attributes_for :donor
   has_many :blood_requests, dependent: :destroy
   has_many :donations, dependent: :destroy
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy

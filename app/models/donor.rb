@@ -1,4 +1,4 @@
-class DonorProfile < ApplicationRecord
+class Donor < ApplicationRecord
   BLOOD_TYPES = %w[A- A+ B- B+ AB- AB+ O- O+].freeze
 
   belongs_to :user
