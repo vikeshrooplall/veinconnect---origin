@@ -13,5 +13,8 @@ Rails.application.routes.draw do
 
   resources :blood_requests do
     resources :notifications, only: :create
+    collection do
+      get :donor_index
+    end
   end
 end

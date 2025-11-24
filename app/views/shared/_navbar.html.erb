@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "Veinconnect.png", alt: "logo", class: "navbar-logo" %>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,10 +12,24 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
+            <%= link_to "Find a Center", facilities_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+            <%= link_to "Blood Requests", blood_requests_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Donation History", donations_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item dropdown">
+              <a href="#" id="notificationsDropdown" class="nav-link position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                🔔
+                <span id="notification-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                  <%= current_user.notifications.unread.count %>
+                </span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown" id="notifications">
+                <%= render partial: "notifications/notification", collection: current_user.notifications.order(created_at: :desc).limit(10) %>
+              </div>
           </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

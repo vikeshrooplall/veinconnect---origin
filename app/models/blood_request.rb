@@ -14,6 +14,11 @@ class BloodRequest < ApplicationRecord
     pending: 0,
     completed: 1
   }
+
+  scope :for_donor, ->(donor_blood_type) { where(blood_type: donor_blood_type).pending }
+
+  enum urgency: { normal: 0, urgent: 1, critical: 2 }
+
   # set urgency automatically based on needed_by
   before_save :set_urgency_based_on_date
 
