@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_24_070157) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_25_114800) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_24_070157) do
     t.bigint "user_id", null: false
     t.bigint "facility_id", null: false
     t.string "blood_type"
-    t.string "status"
     t.string "patient_name"
     t.integer "patient_phone_number"
     t.date "needed_by"
@@ -28,6 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_24_070157) do
     t.datetime "updated_at", null: false
     t.integer "quantity"
     t.integer "urgency"
+    t.integer "status", default: 0, null: false
     t.index ["facility_id"], name: "index_blood_requests_on_facility_id"
     t.index ["user_id"], name: "index_blood_requests_on_user_id"
   end
