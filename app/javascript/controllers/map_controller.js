@@ -14,7 +14,7 @@ export default class extends Controller {
 
     this.map = new mapboxgl.Map({
       container: this.element,
-      style: "mapbox://styles/mapbox/streets-v10",
+      style: "mapbox://styles/mapbox/streets-v12",
       center: [57.5522, -20.3484], // Mauritius coordinates [lng, lat]
       zoom: 9 // Initial zoom level for Mauritius
     })
