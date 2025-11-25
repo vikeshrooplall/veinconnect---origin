@@ -8,9 +8,6 @@ class RegistrationsController <  Devise::RegistrationsController
       if params[:user_type] == 'donor'
         resource.is_donor = true
         resource.build_donor if resource.donor.nil?
-      elsif params[:user_type] == 'patient'
-        resource.is_donor = false
-        resource.build_patient if resource.patient.nil?
       end
     end
   end

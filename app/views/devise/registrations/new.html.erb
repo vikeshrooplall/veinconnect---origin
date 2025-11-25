@@ -11,11 +11,14 @@
     <%= f.input :date_of_birth, as: :date, start_year: 1900, end_year: Date.today.year - 18, required: true %>
     <%= f.input :phone, required: true %>
     <%= f.input :address, required: true %>
-    <%= f.input :email,
-                required: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
+
+    <%= f.input :blood_type,
+                collection: User::BLOOD_TYPES,
+                prompt: "Select your blood type",
+                required: true %>
+
+    <%= f.input :email, required: true, input_html: { autocomplete: "email" } %>
+    <%= f.input :password, required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password_confirmation,
@@ -24,28 +27,17 @@
   </div>
 
   <% if params[:user_type] == "donor" || resource.is_donor? %>
-  <h3>Donor information</h3>
+    <h3>Donor information</h3>
 
-  <% f.object.build_donor if f.object.donor.nil? %>
+    <% f.object.build_donor if f.object.donor.nil? %>
 
-  <%= f.simple_fields_for :donor do |dp| %>
-    <%= dp.input :blood_type,
-                 collection: Donor::BLOOD_TYPES,
-                 prompt: "Select your blood type",
-                 required: true %>
+    <%= f.simple_fields_for :donor do |dp| %>
+      <%= dp.input :last_donation_date, as: :date,
+                   input_html: { type: 'date', max: Date.today },
+                   label: "Last donation date (optional)",
+                   include_blank: true %>
+    <% end %>
   <% end %>
-<% elsif params[:user_type] == "patient" || !resource.is_donor? %>
-  <h3>Patient information</h3>
-
-  <% f.object.build_patient if f.object.patient.nil? %>
-
-  <%= f.simple_fields_for :patient do |pp| %>
-    <%= pp.input :blood_type,
-                 collection: Patient::BLOOD_TYPES,
-                 prompt: "Select your blood type",
-                 required: true %>
-  <% end %>
-<% end %>
 
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>

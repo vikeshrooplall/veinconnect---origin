@@ -46,9 +46,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_24_070157) do
 
   create_table "donors", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "blood_type"
-    t.string "donor_status"
-    t.string "eligibility_status"
+    t.boolean "donor_status", default: true
+    t.boolean "eligibility_status", default: true
     t.date "last_donation_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
