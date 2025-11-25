@@ -2,6 +2,11 @@ class BloodRequestsController < ApplicationController
   before_action :authenticate_user!
   def index
     @blood_requests = current_user.blood_requests
+
+    if params[:urgency].present?
+      @blood_requests = @blood_requests.where(urgency: params[:urgency])
+    end
+    @blood_requests = @blood_requests.order(created_at: :desc)
   end
 
   def new

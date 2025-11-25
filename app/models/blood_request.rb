@@ -25,17 +25,26 @@ class BloodRequest < ApplicationRecord
     pending: 0,
     completed: 1
   }
-  # set urgency automatically based on needed_by
-  before_save :set_urgency_based_on_date
+
+  enum urgency: {
+    normal: 0,
+    urgent: 1,
+    critical: 2
+  }
+
+
 
   # Urgent requests (urgent & critical)
-  scope :urgent, -> { where(urgency: [:urgent, :critical]) }
+  scope :urgent, -> { where(urgency: [1, 2]) }
 
   # Critical requests
-  scope :critical, -> { where(urgency: :critical) }
+  scope :critical, -> { where(urgency: 2) }
 
   # active requests
-  scope :active, -> { where(status: :pending) }
+  scope :active, -> { where(status: 0) }
+
+  # set urgency automatically based on needed_by
+  before_save :set_urgency_based_on_date
 
   private
 
