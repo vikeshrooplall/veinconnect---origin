@@ -1,2 +1,9 @@
-<h1>Donors#index</h1>
-<p>Find me in app/views/donors/index.html.erb</p>
+<div style="padding: 5rem;">
+  <ul>
+    <% @donors.each do |donor| %>
+      <li><%= donor.name %></li>
+      <li><%= donor.address %></li>
+      <li><%= donor.blood_type %></li>
+    <% end %>
+  </ul>
+</div>

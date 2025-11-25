@@ -38,13 +38,22 @@ class BloodRequestsController < ApplicationController
   end
 
   def notify_donors(blood_request)
-    donors = User.where(blood_type: blood_request.blood_type)
+    donors = User.where(is_donor: true).joins(:donor).where(donors: { blood_type: blood_request.blood_type })
     donors.each do |donor|
       Notification.create!(
         user: donor,
-        body: "Urgent: A patient needs blood type #{blood_request.blood_type}"
+        notifiable: blood_request,
+        kind: "new_request",
+        data: { message: "New blood request for #{blood_request.blood_type}" }
       )
     end
+  end
+
+  def donor_index
+   @blood_requests = BloodRequest
+                      .where(blood_type: current_user.donor.blood_type)
+                      .active
+                      .order(urgency: :desc, needed_by: :asc)
   end
 
   private

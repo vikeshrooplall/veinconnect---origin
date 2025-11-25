@@ -4,7 +4,7 @@
   <%= f.error_notification %>
 
   <%= f.hidden_field :is_donor, value: (params[:user_type] == "donor") %>
-  
+
   <div class="form-inputs">
     <%= f.input :first_name, autofocus: true, required: true %>
     <%= f.input :last_name, required: true %>
@@ -24,17 +24,28 @@
   </div>
 
   <% if params[:user_type] == "donor" || resource.is_donor? %>
-    <h3>Donor information</h3>
+  <h3>Donor information</h3>
 
-    <% f.object.build_donor_profile if f.object.donor_profile.nil? %>
+  <% f.object.build_donor if f.object.donor.nil? %>
 
-    <%= f.simple_fields_for :donor_profile do |dp| %>
-      <%= dp.input :blood_type,
-                   collection: DonorProfile::BLOOD_TYPES,
-                   prompt: "Select your blood type",
-                   required: true %>
-    <% end %>
+  <%= f.simple_fields_for :donor do |dp| %>
+    <%= dp.input :blood_type,
+                 collection: Donor::BLOOD_TYPES,
+                 prompt: "Select your blood type",
+                 required: true %>
   <% end %>
+<% elsif params[:user_type] == "patient" || !resource.is_donor? %>
+  <h3>Patient information</h3>
+
+  <% f.object.build_patient if f.object.patient.nil? %>
+
+  <%= f.simple_fields_for :patient do |pp| %>
+    <%= pp.input :blood_type,
+                 collection: Patient::BLOOD_TYPES,
+                 prompt: "Select your blood type",
+                 required: true %>
+  <% end %>
+<% end %>
 
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>

@@ -10,21 +10,15 @@ class BloodRequest < ApplicationRecord
   validate :needed_by_within_range
   validates :quantity, numericality: { greater_than: 0 }
 
-  enum blood_type: {
-    "A-" => 0,
-    "A+" => 1,
-    "AB-" => 2,
-    "AB+" => 3,
-    "B-" => 4,
-    "B+" => 5,
-    "O-" => 6,
-    "O+" => 7
-  }
-
   enum status: {
     pending: 0,
     completed: 1
   }
+
+  scope :for_donor, ->(donor_blood_type) { where(blood_type: donor_blood_type).pending }
+
+  enum urgency: { normal: 0, urgent: 1, critical: 2 }
+
   # set urgency automatically based on needed_by
   before_save :set_urgency_based_on_date
 

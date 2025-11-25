@@ -6,7 +6,9 @@ class User < ApplicationRecord
 
   # Associations
   has_one :donor, dependent: :destroy
+  has_one :patient, dependent: :destroy
   accepts_nested_attributes_for :donor
+  accepts_nested_attributes_for :patient
   has_many :blood_requests, dependent: :destroy
   has_many :donations, dependent: :destroy
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy

@@ -6,6 +6,8 @@ class Notification < ApplicationRecord
 
   after_create_commit :broadcast_notification
 
+  scope :unread, -> { where(read_at: nil) }
+
   private
 
   def broadcast_notification
