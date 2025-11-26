@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  BLOOD_TYPES = %w[A- A+ B- B+ AB- AB+ O- O+].freeze
+
   # Associations
   has_one :donor, dependent: :destroy
   accepts_nested_attributes_for :donor
@@ -15,6 +17,7 @@ class User < ApplicationRecord
 
   # Validations
   validates :first_name, :last_name, :date_of_birth, :email, :phone, presence: true
+  validates :blood_type, presence: true
   validates :email, uniqueness: true
   validate :age_must_be_at_least_18
 

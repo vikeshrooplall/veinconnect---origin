@@ -7,7 +7,7 @@ class RegistrationsController <  Devise::RegistrationsController
     super do |resource|
       if params[:user_type] == 'donor'
         resource.is_donor = true
-        resource.build_donor_profile if resource.donor_profile.nil?
+        resource.build_donor if resource.donor.nil?
       end
     end
   end

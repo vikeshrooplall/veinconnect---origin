@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@mapbox/mapbox-gl-directions": "^4.3.1",
+    "@mapbox/mapbox-gl-geocoder": "^5.1.2",
+    "mapbox-gl": "^3.16.0",
+    "stimulus-mapbox-gl": "^0.1.8"
+  }
+}

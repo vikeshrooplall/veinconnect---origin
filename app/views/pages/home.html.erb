@@ -1,9 +1,9 @@
 <div class="main-content">
-  <%# home page for donor %>
-  <% if current_user.donor? %>
+  <% if current_user && current_user.donor? %>
     <%= render partial: 'donor_content' %>
-  <%# home page for patient %>
-  <% else %>
+  <% elsif current_user %>
     <%= render partial: 'patient_content' %>
+  <% else %>
+    <%= render partial: 'public_home' %> 
   <% end %>
 </div>

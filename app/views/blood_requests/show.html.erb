@@ -1,4 +1,10 @@
-
-<% @blood_requests.each_with_index do |blood_request| %>
-  <%= blood_request.blood_type %> <br>
-<% end %>
+<div class="container-fluid">
+  <div class="booking-show-container">
+    <h2><%="Details of blood request"%></h2>
+    <p>Blood Type: <%= @blood_request.blood_type %></p>
+    <p>Status: <%= @blood_request.status.humanize %></p>
+    <p>Quantity: <%= @blood_request.quantity %></p>
+    <p>Needed by: <%= @blood_request.needed_by %></p>
+    <p>Hospital Name: <%= @blood_request.facility&.name.presence %></p>
+  </div>
+</div>

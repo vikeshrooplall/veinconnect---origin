@@ -10,17 +10,6 @@ class BloodRequest < ApplicationRecord
   validate :needed_by_within_range
   validates :quantity, numericality: { greater_than: 0 }
 
-  enum blood_type: {
-    "A-" => 0,
-    "A+" => 1,
-    "AB-" => 2,
-    "AB+" => 3,
-    "B-" => 4,
-    "B+" => 5,
-    "O-" => 6,
-    "O+" => 7
-  }
-
   enum status: {
     pending: 0,
     completed: 1

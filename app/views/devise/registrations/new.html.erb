@@ -4,18 +4,21 @@
   <%= f.error_notification %>
 
   <%= f.hidden_field :is_donor, value: (params[:user_type] == "donor") %>
-  
+
   <div class="form-inputs">
     <%= f.input :first_name, autofocus: true, required: true %>
     <%= f.input :last_name, required: true %>
     <%= f.input :date_of_birth, as: :date, start_year: 1900, end_year: Date.today.year - 18, required: true %>
     <%= f.input :phone, required: true %>
     <%= f.input :address, required: true %>
-    <%= f.input :email,
-                required: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
+
+    <%= f.input :blood_type,
+                collection: User::BLOOD_TYPES,
+                prompt: "Select your blood type",
+                required: true %>
+
+    <%= f.input :email, required: true, input_html: { autocomplete: "email" } %>
+    <%= f.input :password, required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password_confirmation,
@@ -26,13 +29,13 @@
   <% if params[:user_type] == "donor" || resource.is_donor? %>
     <h3>Donor information</h3>
 
-    <% f.object.build_donor_profile if f.object.donor_profile.nil? %>
+    <% f.object.build_donor if f.object.donor.nil? %>
 
-    <%= f.simple_fields_for :donor_profile do |dp| %>
-      <%= dp.input :blood_type,
-                   collection: DonorProfile::BLOOD_TYPES,
-                   prompt: "Select your blood type",
-                   required: true %>
+    <%= f.simple_fields_for :donor do |dp| %>
+      <%= dp.input :last_donation_date, as: :date,
+                   input_html: { type: 'date', max: Date.today },
+                   label: "Last donation date (optional)",
+                   include_blank: true %>
     <% end %>
   <% end %>
 
