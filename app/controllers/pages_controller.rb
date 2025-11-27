@@ -20,8 +20,8 @@ class PagesController < ApplicationController
 
     if user_signed_in? && current_user.donor?
       @urgent_requests = BloodRequest.urgent_or_critical.active
-      @blood_requests = BloodRequest.for_donor(current_user.donor.blood_type).limit(5)
-      @matching_requests = BloodRequest.active.where(blood_type: current_user.donor.blood_type).count
+      @blood_requests = BloodRequest.for_donor(current_user.blood_type).limit(5)
+      @matching_requests = BloodRequest.active.where(blood_type: current_user.blood_type).count
     end
   end
 

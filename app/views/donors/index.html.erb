@@ -3,7 +3,7 @@
     <% @donors.each do |donor| %>
       <li><h4><%= donor.user.first_name %> <%= donor.user.last_name %></h4></li>
       <li><%= donor.user.address %></li>
-      <li><%= donor.blood_type %></li>
+      <li><%= donor.user.blood_type %></li>
     <% end %>
   </ul>
 </div>

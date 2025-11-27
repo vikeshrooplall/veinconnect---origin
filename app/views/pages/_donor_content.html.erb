@@ -82,7 +82,7 @@
                 <%= @urgent_requests.count %>
               </div>
               <p class="text-muted mb-3">Your blood type needed:
-                <%= BloodRequest.urgent_or_critical.active.where(blood_type: current_user.donor.blood_type).count %></p>
+                <%= BloodRequest.urgent_or_critical.active.where(blood_type: current_user.blood_type).count %></p>
               <span class="btn btn-outline-danger btn-sm">View All Requests</span>
             </div>
           <% end %>
@@ -97,7 +97,7 @@
 
       <%# Matching blood requests card %>
       <div class='card matching-card'>
-        <% matching_count = BloodRequest.active.where(blood_type: current_user.donor.blood_type).count %>
+        <% matching_count = BloodRequest.active.where(blood_type: current_user.blood_type).count %>
         <%= link_to donor_index_blood_requests_path, class: 'card-link' do %>
           <div class='card-body text-center'>
             <i class="fas fa-tint fa-3x text-danger mb-3"></i>
@@ -105,7 +105,7 @@
             <div class="matching-count display-4 fw-bold text-danger mb-2">
               <%= matching_count %>
             </div>
-            <p class="text-muted mb-3">Requests matching <%= current_user.donor.blood_type %></p>
+            <p class="text-muted mb-3">Requests matching <%= current_user.blood_type %></p>
             <span class="btn btn-outline-danger btn-sm">View Matching Requests</span>
           </div>
         <% end %>
