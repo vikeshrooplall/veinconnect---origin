@@ -50,7 +50,7 @@ class BloodRequestsController < ApplicationController
   end
 
   def donor_index
-   @blood_requests = BloodRequest
+    @blood_requests = BloodRequest
                       .where(blood_type: current_user.donor.blood_type)
                       .active
                       .order(urgency: :desc, needed_by: :asc)
