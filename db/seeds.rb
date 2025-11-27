@@ -10,7 +10,7 @@
 puts 'Cleaning database...'
 # Facility.destroy_all
 
-puts '🌱 Seeding facilities in Mauritius...'
+puts "🌱 Seeding facilities in Mauritius..."
 
 facilities = [
   { name: "Victoria Hospital", address: "Quatre Bornes, Mauritius", phone_number: "4253031", facility_type: "hospital" },
@@ -45,7 +45,7 @@ facilities.each do |facility|
 end
 
 
-puts '🌱 Seeding for user'
+puts "🌱 Seeding for user"
 user1 = { first_name: "Aisha", last_name: "Ramdin", date_of_birth: "1993-04-12", email: "aisha.ramdin@example.com", password: "password123", phone_number: "57981234", address: "Quatre Bornes, Mauritius", created_at: Time.now, updated_at: Time.now }
 user2 = { first_name: "Kevin", last_name: "Appadoo", date_of_birth: "1988-11-22", email: "kevin.appadoo@example.com", password: "password123", phone_number: "58564321", address: "Port Louis, Mauritius", created_at: Time.now, updated_at: Time.now }
 user3 = { first_name: "Marie", last_name: "Duval", date_of_birth: "1990-02-03", email: "marie.duval@example.com", password: "password123", phone_number: "59210234", address: "Curepipe, Mauritius", created_at: Time.now, updated_at: Time.now }
@@ -74,7 +74,7 @@ user25 = { first_name: "Farah", last_name: "Abdool", date_of_birth: "1992-12-25"
 user26 = { first_name: "Ryan", last_name: "Cheung", date_of_birth: "1991-03-29", email: "ryan.cheung@example.com", password: "password123", phone_number: "58870019", address: "Quatre Bornes, Mauritius", created_at: Time.now, updated_at: Time.now }
 user27 = { first_name: "Neha", last_name: "Dowlut", date_of_birth: "1997-09-03", email: "neha.dowlut@example.com", password: "password123", phone_number: "59011098", address: "Triolet, Mauritius", created_at: Time.now, updated_at: Time.now }
 
-puts '🌱 Seeding for blood request'
+puts "🌱 Seeding for blood request"
 blood_request1 = { blood_request_id: 1, user_id: 1, facility_id: 3, blood_type: "A+", needed_by: "2025-12-05", status: "pending", patient_name: "Aisha Ramdin", patient_phone_number: "57981234", message: "Blood needed for surgery", quantity: 2, created_at: Time.now, completed_at: nil }
 blood_request2 = { blood_request_id: 2, user_id: 2, facility_id: 1, blood_type: "O-", needed_by: "2025-11-28", status: "completed", patient_name: "Kevin Appadoo", patient_phone_number: "58564321", message: "Accident emergency", quantity: 3, created_at: Time.now, completed_at: Time.now }
 blood_request3 = { blood_request_id: 3, user_id: 3, facility_id: 4, blood_type: "B+", needed_by: "2025-12-10", status: "pending", patient_name: "Marie Duval", patient_phone_number: "59210234", message: "Scheduled surgery", quantity: 1, created_at: Time.now, completed_at: nil }
@@ -103,7 +103,7 @@ blood_request25 = { blood_request_id: 25, user_id: 25, facility_id: 1, blood_typ
 blood_request26 = { blood_request_id: 26, user_id: 26, facility_id: 4, blood_type: "A+", needed_by: "2025-12-09", status: "pending", patient_name: "Ryan Cheung", patient_phone_number: "58870019", message: "Urgent transfusion", quantity: 1, created_at: Time.now, completed_at: nil }
 blood_request27 = { blood_request_id: 27, user_id: 27, facility_id: 3, blood_type: "O-", needed_by: "2025-12-15", status: "completed", patient_name: "Neha Dowlut", patient_phone_number: "59011098", message: "Surgery", quantity: 2, created_at: Time.now, completed_at: Time.now }
 
-puts "🌱 Seeding Donor profiles..."
+puts "🌱 Seeding Donor..."
 donors = [
   { donor_id: 1,  user_id: 1,  medical_history: "No major conditions", blood_type: "A+", donor_status: "active", last_donation_date: "2025-01-12", eligibility_status: "eligible", medical_history_updated_at: Time.now },
   { donor_id: 2,  user_id: 2,  medical_history: "Iron levels slightly low", blood_type: "O-", donor_status: "active", last_donation_date: "2024-12-04", eligibility_status: "eligible", medical_history_updated_at: Time.now },
@@ -195,4 +195,3 @@ notifications = [
   { notifications_id: 26, message: "We located a matching donor.",           created_at: Time.now, is_read: false, user_id: 26, blood_request_id: 26, sent_at: Time.now },
   { notifications_id: 27, message: "Your donation request has been fulfilled.", created_at: Time.now, is_read: false, user_id: 27, blood_request_id: 27, sent_at: Time.now }
 ]
-
