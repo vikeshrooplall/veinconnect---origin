@@ -102,3 +102,97 @@ blood_request24 = { blood_request_id: 24, user_id: 24, facility_id: 2, blood_typ
 blood_request25 = { blood_request_id: 25, user_id: 25, facility_id: 1, blood_type: "AB+", needed_by: "2025-12-21", status: "completed", patient_name: "Farah Abdool", patient_phone_number: "57192304", message: "Accident case", quantity: 3, created_at: Time.now, completed_at: Time.now }
 blood_request26 = { blood_request_id: 26, user_id: 26, facility_id: 4, blood_type: "A+", needed_by: "2025-12-09", status: "pending", patient_name: "Ryan Cheung", patient_phone_number: "58870019", message: "Urgent transfusion", quantity: 1, created_at: Time.now, completed_at: nil }
 blood_request27 = { blood_request_id: 27, user_id: 27, facility_id: 3, blood_type: "O-", needed_by: "2025-12-15", status: "completed", patient_name: "Neha Dowlut", patient_phone_number: "59011098", message: "Surgery", quantity: 2, created_at: Time.now, completed_at: Time.now }
+
+puts "🌱 Seeding Donor profiles..."
+donors = [
+  { donor_id: 1,  user_id: 1,  medical_history: "No major conditions", blood_type: "A+", donor_status: "active", last_donation_date: "2025-01-12", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 2,  user_id: 2,  medical_history: "Iron levels slightly low", blood_type: "O-", donor_status: "active", last_donation_date: "2024-12-04", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 3,  user_id: 3,  medical_history: "Recovered from dengue in 2023", blood_type: "B+", donor_status: "inactive", last_donation_date: "2023-11-10", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 4,  user_id: 4,  medical_history: "No complications", blood_type: "AB-", donor_status: "active", last_donation_date: "2025-02-02", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 5,  user_id: 5,  medical_history: "History of hypertension", blood_type: "O+", donor_status: "active", last_donation_date: "2024-09-18", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 6,  user_id: 6,  medical_history: "Allergic to penicillin", blood_type: "A-", donor_status: "inactive", last_donation_date: "2023-08-22", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 7,  user_id: 7,  medical_history: "No known conditions", blood_type: "B-", donor_status: "active", last_donation_date: "2025-01-20", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 8,  user_id: 8,  medical_history: "Asthma under control", blood_type: "AB+", donor_status: "active", last_donation_date: "2024-12-28", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 9,  user_id: 9,  medical_history: "Minor anemia previously", blood_type: "O-", donor_status: "inactive", last_donation_date: "2024-02-15", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 10, user_id: 10, medical_history: "Healthy", blood_type: "A+", donor_status: "active", last_donation_date: "2025-02-01", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 11, user_id: 11, medical_history: "Seasonal allergies", blood_type: "B+", donor_status: "active", last_donation_date: "2024-10-14", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 12, user_id: 12, medical_history: "No major illnesses", blood_type: "O+", donor_status: "active", last_donation_date: "2025-01-05", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 13, user_id: 13, medical_history: "Recovered from flu", blood_type: "AB-", donor_status: "inactive", last_donation_date: "2024-03-10", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 14, user_id: 14, medical_history: "No notable medical issues", blood_type: "A-", donor_status: "active", last_donation_date: "2025-01-10", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 15, user_id: 15, medical_history: "Low blood pressure managed", blood_type: "O+", donor_status: "active", last_donation_date: "2024-12-01", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 16, user_id: 16, medical_history: "No complications", blood_type: "B-", donor_status: "active", last_donation_date: "2024-09-25", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 17, user_id: 17, medical_history: "Pregnant in 2023", blood_type: "AB+", donor_status: "inactive", last_donation_date: "2023-06-18", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 18, user_id: 18, medical_history: "Surgery in 2022, cleared to donate", blood_type: "A+", donor_status: "active", last_donation_date: "2025-01-15", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 19, user_id: 19, medical_history: "Migraines occasionally", blood_type: "O-", donor_status: "active", last_donation_date: "2024-11-22", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 20, user_id: 20, medical_history: "High cholesterol", blood_type: "B+", donor_status: "active", last_donation_date: "2024-08-12", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 21, user_id: 21, medical_history: "Healthy", blood_type: "AB-", donor_status: "active", last_donation_date: "2025-01-30", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 22, user_id: 22, medical_history: "No major conditions", blood_type: "A-", donor_status: "inactive", last_donation_date: "2024-05-16", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 23, user_id: 23, medical_history: "Fit and healthy", blood_type: "O+", donor_status: "active", last_donation_date: "2024-12-18", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 24, user_id: 24, medical_history: "Recovered from infection in 2021", blood_type: "B-", donor_status: "active", last_donation_date: "2024-11-08", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 25, user_id: 25, medical_history: "Healthy", blood_type: "AB+", donor_status: "active", last_donation_date: "2025-02-03", eligibility_status: "eligible", medical_history_updated_at: Time.now },
+  { donor_id: 26, user_id: 26, medical_history: "No complications", blood_type: "A+", donor_status: "inactive", last_donation_date: "2023-12-11", eligibility_status: "ineligible", medical_history_updated_at: Time.now },
+  { donor_id: 27, user_id: 27, medical_history: "Minor surgery in 2020", blood_type: "O-", donor_status: "active", last_donation_date: "2024-10-05", eligibility_status: "eligible", medical_history_updated_at: Time.now }
+]
+
+puts "🌱 Seeding donations ..."
+donations = [
+  { donation_id: 1,  donor_id: 1,  blood_request_id: 3,  facility_id: 3, status: "accepted",   created_at: Time.now },
+  { donation_id: 2,  donor_id: 2,  blood_request_id: 1,  facility_id: 1, status: "completed",  created_at: Time.now },
+  { donation_id: 3,  donor_id: 3,  blood_request_id: 4,  facility_id: 4, status: "rejected",   created_at: Time.now },
+  { donation_id: 4,  donor_id: 4,  blood_request_id: 7,  facility_id: 2, status: "accepted",   created_at: Time.now },
+  { donation_id: 5,  donor_id: 5,  blood_request_id: 2,  facility_id: 3, status: "completed",  created_at: Time.now },
+  { donation_id: 6,  donor_id: 6,  blood_request_id: 6,  facility_id: 1, status: "accepted",   created_at: Time.now },
+  { donation_id: 7,  donor_id: 7,  blood_request_id: 8,  facility_id: 4, status: "completed",  created_at: Time.now },
+  { donation_id: 8,  donor_id: 8,  blood_request_id: 5,  facility_id: 3, status: "accepted",   created_at: Time.now },
+  { donation_id: 9,  donor_id: 9,  blood_request_id: 9,  facility_id: 2, status: "rejected",   created_at: Time.now },
+  { donation_id: 10, donor_id: 10, blood_request_id: 10, facility_id: 1, status: "completed",  created_at: Time.now },
+  { donation_id: 11, donor_id: 11, blood_request_id: 11, facility_id: 3, status: "accepted",   created_at: Time.now },
+  { donation_id: 12, donor_id: 12, blood_request_id: 12, facility_id: 2, status: "completed",  created_at: Time.now },
+  { donation_id: 13, donor_id: 13, blood_request_id: 13, facility_id: 1, status: "accepted",   created_at: Time.now },
+  { donation_id: 14, donor_id: 14, blood_request_id: 14, facility_id: 4, status: "accepted",   created_at: Time.now },
+  { donation_id: 15, donor_id: 15, blood_request_id: 15, facility_id: 3, status: "completed",  created_at: Time.now },
+  { donation_id: 16, donor_id: 16, blood_request_id: 16, facility_id: 2, status: "accepted",   created_at: Time.now },
+  { donation_id: 17, donor_id: 17, blood_request_id: 17, facility_id: 1, status: "rejected",   created_at: Time.now },
+  { donation_id: 18, donor_id: 18, blood_request_id: 18, facility_id: 4, status: "completed",  created_at: Time.now },
+  { donation_id: 19, donor_id: 19, blood_request_id: 19, facility_id: 3, status: "accepted",   created_at: Time.now },
+  { donation_id: 20, donor_id: 20, blood_request_id: 20, facility_id: 2, status: "completed",  created_at: Time.now },
+  { donation_id: 21, donor_id: 21, blood_request_id: 21, facility_id: 1, status: "accepted",   created_at: Time.now },
+  { donation_id: 22, donor_id: 22, blood_request_id: 22, facility_id: 4, status: "rejected",   created_at: Time.now },
+  { donation_id: 23, donor_id: 23, blood_request_id: 23, facility_id: 3, status: "completed",  created_at: Time.now },
+  { donation_id: 24, donor_id: 24, blood_request_id: 24, facility_id: 2, status: "accepted",   created_at: Time.now },
+  { donation_id: 25, donor_id: 25, blood_request_id: 25, facility_id: 1, status: "completed",  created_at: Time.now },
+  { donation_id: 26, donor_id: 26, blood_request_id: 26, facility_id: 4, status: "accepted",   created_at: Time.now },
+  { donation_id: 27, donor_id: 27, blood_request_id: 27, facility_id: 3, status: "completed",  created_at: Time.now }
+]
+
+puts "🌱 Seeding notifications ..."
+notifications = [
+  { notifications_id: 1,  message: "Your blood request has been received.", created_at: Time.now, is_read: false, user_id: 1,  blood_request_id: 1,  sent_at: Time.now },
+  { notifications_id: 2,  message: "A donor has accepted your request.",    created_at: Time.now, is_read: false, user_id: 2,  blood_request_id: 2,  sent_at: Time.now },
+  { notifications_id: 3,  message: "Your request is being processed.",       created_at: Time.now, is_read: false, user_id: 3,  blood_request_id: 3,  sent_at: Time.now },
+  { notifications_id: 4,  message: "A donor is on the way to the facility.", created_at: Time.now, is_read: false, user_id: 4,  blood_request_id: 4,  sent_at: Time.now },
+  { notifications_id: 5,  message: "Your blood request has been completed.", created_at: Time.now, is_read: false, user_id: 5,  blood_request_id: 5,  sent_at: Time.now },
+  { notifications_id: 6,  message: "We are searching for a compatible donor.", created_at: Time.now, is_read: false, user_id: 6,  blood_request_id: 6,  sent_at: Time.now },
+  { notifications_id: 7,  message: "A donor is reviewing your request.",     created_at: Time.now, is_read: false, user_id: 7,  blood_request_id: 7,  sent_at: Time.now },
+  { notifications_id: 8,  message: "Your request has matched with a donor.", created_at: Time.now, is_read: false, user_id: 8,  blood_request_id: 8,  sent_at: Time.now },
+  { notifications_id: 9,  message: "Donor declined your request.",           created_at: Time.now, is_read: false, user_id: 9,  blood_request_id: 9,  sent_at: Time.now },
+  { notifications_id: 10, message: "Your blood request is completed.",       created_at: Time.now, is_read: false, user_id: 10, blood_request_id: 10, sent_at: Time.now },
+  { notifications_id: 11, message: "Your request is pending donor response.",created_at: Time.now, is_read: false, user_id: 11, blood_request_id: 11, sent_at: Time.now },
+  { notifications_id: 12, message: "Donor confirmed availability.",          created_at: Time.now, is_read: false, user_id: 12, blood_request_id: 12, sent_at: Time.now },
+  { notifications_id: 13, message: "Your request has been updated.",         created_at: Time.now, is_read: false, user_id: 13, blood_request_id: 13, sent_at: Time.now },
+  { notifications_id: 14, message: "A new donor is reviewing your request.", created_at: Time.now, is_read: false, user_id: 14, blood_request_id: 14, sent_at: Time.now },
+  { notifications_id: 15, message: "Your blood request has been fulfilled.", created_at: Time.now, is_read: false, user_id: 15, blood_request_id: 15, sent_at: Time.now },
+  { notifications_id: 16, message: "A donor has accepted your request.",     created_at: Time.now, is_read: false, user_id: 16, blood_request_id: 16, sent_at: Time.now },
+  { notifications_id: 17, message: "Your blood request requires urgent review.", created_at: Time.now, is_read: false, user_id: 17, blood_request_id: 17, sent_at: Time.now },
+  { notifications_id: 18, message: "A donor is en route to the facility.",   created_at: Time.now, is_read: false, user_id: 18, blood_request_id: 18, sent_at: Time.now },
+  { notifications_id: 19, message: "Your request status has been updated.",  created_at: Time.now, is_read: false, user_id: 19, blood_request_id: 19, sent_at: Time.now },
+  { notifications_id: 20, message: "Your request has been successfully completed.", created_at: Time.now, is_read: false, user_id: 20, blood_request_id: 20, sent_at: Time.now },
+  { notifications_id: 21, message: "A donor is on standby.",                 created_at: Time.now, is_read: false, user_id: 21, blood_request_id: 21, sent_at: Time.now },
+  { notifications_id: 22, message: "Your donor has cancelled.",              created_at: Time.now, is_read: false, user_id: 22, blood_request_id: 22, sent_at: Time.now },
+  { notifications_id: 23, message: "Blood request completed.",               created_at: Time.now, is_read: false, user_id: 23, blood_request_id: 23, sent_at: Time.now },
+  { notifications_id: 24, message: "Donor accepted your request.",           created_at: Time.now, is_read: false, user_id: 24, blood_request_id: 24, sent_at: Time.now },
+  { notifications_id: 25, message: "Your blood request is finalized.",       created_at: Time.now, is_read: false, user_id: 25, blood_request_id: 25, sent_at: Time.now },
+  { notifications_id: 26, message: "We located a matching donor.",           created_at: Time.now, is_read: false, user_id: 26, blood_request_id: 26, sent_at: Time.now },
+  { notifications_id: 27, message: "Your donation request has been fulfilled.", created_at: Time.now, is_read: false, user_id: 27, blood_request_id: 27, sent_at: Time.now }
+]
+
