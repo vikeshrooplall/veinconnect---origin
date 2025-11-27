@@ -17,9 +17,11 @@
           <li class="nav-item">
             <%= link_to "Blood Requests", blood_requests_path, class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <%= link_to "Donation History", donations_path, class: "nav-link" %>
-          </li>
+          <% if current_user.donor?%>
+            <li class="nav-item">
+              <%= link_to "Donation History", donations_path, class: "nav-link" %>
+            </li>
+          <% end %>
           <li class="nav-item dropdown">
               <a href="#" id="notificationsDropdown" class="nav-link position-relative" data-bs-toggle="dropdown" aria-expanded="false">
                 🔔

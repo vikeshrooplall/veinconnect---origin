@@ -17,5 +17,15 @@ class PagesController < ApplicationController
 
     # active Blood requests sorted by urgency and date
     @normal_requests = BloodRequest.pending.active.order(urgency: :desc, needed_by: :asc)
+
+    if user_signed_in? && current_user.donor?
+      @urgent_requests = BloodRequest.urgent_or_critical.active
+      @blood_requests = BloodRequest.for_donor(current_user.donor.blood_type).limit(5)
+      @matching_requests = BloodRequest.active.where(blood_type: current_user.donor.blood_type).count
+    end
   end
+
+def show
+
+end
 end

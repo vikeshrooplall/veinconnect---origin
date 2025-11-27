@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :notifications, only: :create
     collection do
       get :donor_index
+      get :urgent_requests
     end
   end
 end

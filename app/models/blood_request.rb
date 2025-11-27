@@ -15,22 +15,56 @@ class BloodRequest < ApplicationRecord
     completed: 1
   }
 
-  scope :for_donor, ->(donor_blood_type) { where(blood_type: donor_blood_type).pending }
+  enum urgency: {
+    normal: 0,
+    urgent: 1,
+    critical: 2
+  }
 
-  enum urgency: { normal: 0, urgent: 1, critical: 2 }
+  # active requests
+  scope :active, -> { where(status: 0) }
+
+  # Urgent requests (urgent & critical)
+  scope :urgent, -> { where(urgency: [1, 2]) }
+  scope :urgent_or_critical, -> { where(urgency: ['urgent', 'critical']) }
+
+  # Critical requests
+  scope :critical, -> { where(urgency: 2) }
+
+  # Filter by blood type
+  scope :by_blood_type, ->(blood_type) { where(blood_type: blood_type) }
+
+  scope :for_donor, ->(blood_type) {
+    active.urgent_or_critical.or(active.by_blood_type(blood_type))
+          .order(urgency: :desc, created_at: :desc)
+  }
+
+  # Recently created requests (last 7 days)
+  scope :recent, -> { where('created_at >= ?', 7.days.ago) }
+
+  # Requests needed soon (within next 3 days)
+  scope :needed_soon, -> { where('needed_by <= ?', 3.days.from_now) }
 
   # set urgency automatically based on needed_by
   before_save :set_urgency_based_on_date
 
-  # Urgent requests (urgent & critical)
-  scope :urgent, -> { where(urgency: [:urgent, :critical]) }
+  def can_be_completed?
+    pending? && donations.sum(:quantity) >= quantity
+  end
 
-  # Critical requests
-  scope :critical, -> { where(urgency: :critical) }
+  def days_until_needed
+    return nil if needed_by.blank?
+    (needed_by - Date.today).to_i
+  end
 
-  # active requests
-  scope :active, -> { where(status: :pending) }
-
+  def urgency_color
+    case urgency
+    when 'critical' then 'danger'
+    when 'urgent' then 'warning'
+    when 'normal' then 'info'
+    else 'secondary'
+    end
+  end
   private
 
   def needed_by_within_range
