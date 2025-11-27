@@ -3,7 +3,7 @@ class BloodRequest < ApplicationRecord
   belongs_to :facility
   has_many :donations, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  # has_many :messages, dependent: :destroy
+  has_many :messages, as: :threadable, dependent: :destroy
 
   BLOOD_TYPES = %w[A- A+ B- B+ AB- AB+ O- O+].freeze
 

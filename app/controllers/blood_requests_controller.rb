@@ -35,6 +35,8 @@ class BloodRequestsController < ApplicationController
     @blood_request = BloodRequest.find(params[:id])
     @blood_requests = current_user.blood_requests.order(created_at: :desc)
     @notification = Notification.new
+    @message = Message.new
+    @messages = @blood_request.messages
   end
 
   def update
