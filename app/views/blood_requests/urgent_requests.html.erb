@@ -1,0 +1,11 @@
+Urgent Request
+<ul>
+  <% @blood_requests.each do |request| %>
+    <li>
+      Request ##<%= request.id %> - <%= request.blood_type %> - Quantity: <%= request.quantity %>
+      - Needed by: <%= request.needed_by %>
+      - Facility: <%= request.facility&.name %>
+      - Patient: <%= request.patient_name %>
+    </li>
+  <% end %>
+</ul>
