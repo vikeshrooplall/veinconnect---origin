@@ -1,11 +1,12 @@
 <h1>Blood Requests for Your Blood Type</h1>
 <ul>
-  <% @blood_requests.each do |request| %>
+  <% @blood_requests.each do |blood_request| %>
     <li>
-      Request ##<%= request.id %> - <%= request.blood_type %> - Quantity: <%= request.quantity %>
-      - Needed by: <%= request.needed_by %>
-      - Facility: <%= request.facility&.name %>
-      - Patient: <%= request.patient_name %>
+      <%= link_to "Request ##{blood_request.id}", blood_request_path(blood_request) %>
+      - Needed by: <%= blood_request.needed_by %>
+      - Quantity: <%= blood_request.quantity %>
+      - Facility: <%= blood_request.facility&.name %>
+      - Patient: <%= blood_request.patient_name %>
     </li>
   <% end %>
 </ul>
