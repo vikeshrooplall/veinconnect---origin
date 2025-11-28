@@ -37,6 +37,11 @@ port ENV.fetch("PORT") { 3000 }
 # Specifies the `environment` that Puma will run in.
 environment rails_env
 
+# Solid Queue integration for development
+if ENV['RAILS_ENV'] == 'development'
+  plugin :solid_queue
+end
+
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 

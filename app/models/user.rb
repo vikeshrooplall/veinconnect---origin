@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :received_messages, class_name: 'Message', foreign_key: 'recipient_id', dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :questions
 
   # Validations
   validates :first_name, :last_name, :date_of_birth, :email, :phone, presence: true

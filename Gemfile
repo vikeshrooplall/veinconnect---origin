@@ -77,3 +77,8 @@ gem "devise"
 gem 'geocoder'
 gem 'faker'
 # gem 'ostruct'
+gem "ruby-openai"
+gem "solid_cable", "~> 1.0.3"
+gem "solid_queue"
+gem 'neighbor'
+gem 'pgvector'
