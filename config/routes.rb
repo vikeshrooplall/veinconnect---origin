@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :blood_requests do
     collection do
+      resources :messages, only: :create
       get :donor_index
       get :urgent_requests
     end

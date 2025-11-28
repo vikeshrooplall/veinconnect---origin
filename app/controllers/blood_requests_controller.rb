@@ -60,6 +60,22 @@ class BloodRequestsController < ApplicationController
                                   .order(urgency: :desc, created_at: :desc)
   end
 
+  def accept
+    authorize_donor_for_blood_request!
+    if @blood_request.pending?
+      @blood_request.accepted!
+      redirect_to blood_request_path(@blood_request), notice: "Blood request accepted."
+    end
+  end
+
+  def reject
+    authorize_donor_for_blood_request!
+    if @blood_request.pending?
+      @blood_request.rejected!
+      redirect_to blood_request_path(@blood_request), notice: "Blood request rejected."
+    end
+  end
+
   private
 
   def blood_request_params

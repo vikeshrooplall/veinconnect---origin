@@ -9,24 +9,27 @@
   </div>
 </div>
 
-<% if current_user.donor? == current_user %>
- <%= link_to "Accept Blood Request", blood_request_path(@blood_request),
-                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+ <div class="blood-request-card">
+    <% if current_user.donor? == current_user %>
+      <div class="d-flex gap-3">
+          <%= button_to "Accept", accept_blood_request_path(@blood_request), method: :patch, class: "btn btn-outline-light" %>
+          <%= button_to "Reject", reject_blood_request_path(@blood_request), method: :patch, class: "btn btn-outline-danger" %>
+      </div>
+    <% end %>
 
 <div class="container chat">
-  <h1>Thank you for your booking for <%= @booking.vehicle.title %></h1>
-  <p>Feel free to chat with the owner below</p>
+  <h1>Feel free to chat with the patient below </h1>
 
-  <%= turbo_stream_from "thread_Booking_#{@booking.id}_messages" %>
+  <%= turbo_stream_from "thread_Booking_#{@blood_request.id}_messages" %>
 
   <div id="messages" class="messages">
-    <% @booking.messages.each do |message| %>
+    <% @blood_request.messages.each do |message| %>
       <%= render "messages/message", message: message %>
     <% end %>
   </div>
 
   <div class="message-form mt-3">
-    <%= simple_form_for [@booking.vehicle, @booking, @message],
+    <%= simple_form_for [@blood_request, @message],
       html: {
         class: "d-flex gap-2",
         data: {
@@ -35,7 +38,7 @@
         }
       } do |f| %>
 
-      <% other_user = current_user == @booking.vehicle.user ? @booking.user : @booking.vehicle.user %>
+      <% other_user = current_user == @blood_request.user ? %>
 
       <%= f.input :body,
         label: false,
