@@ -25,6 +25,9 @@ class User < ApplicationRecord
     is_donor
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
   # Custom validation method
   def age_must_be_at_least_18
     return if date_of_birth.blank?  # Skip if no DOB
