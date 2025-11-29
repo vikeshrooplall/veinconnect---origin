@@ -30,7 +30,7 @@ class BloodRequest < ApplicationRecord
     accepted_by_id == user.id
   end
   # active requests
-  scope :active, -> { where(status: 0) }
+  scope :active, -> { where(status: statuses[:pending]) }
 
   # Urgent requests (urgent & critical)
   scope :urgent, -> { where(urgency: [1, 2]) }
@@ -43,7 +43,7 @@ class BloodRequest < ApplicationRecord
   scope :by_blood_type, ->(blood_type) { where(blood_type: blood_type) }
 
   scope :for_donor, -> {
-    active
+    active.order(urgency: :desc, needed_by: :asc)
   }
 
   # Recently created requests (last 7 days)
