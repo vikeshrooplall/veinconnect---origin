@@ -104,6 +104,31 @@
           </div>
         <% end %>
       </div>
+
+      <!-- Accepted Blood Requests Card -->
+      <div class='card accepted-card'>
+        <% accepted_count = @accepted_requests&.count || 0 %>
+        <% if accepted_count > 0 %>
+          <%= link_to accepted_requests_blood_requests_path, class: 'card-link' do %>
+            <div class='card-body text-center'>
+              <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+              <h3 class='text-success mb-2'>Accepted Blood Requests</h3>
+              <div class="accepted-count display-4 fw-bold text-success mb-2">
+                <%= accepted_count %>
+              </div>
+              <p class="text-muted mb-3">Requests you have accepted to donate</p>
+              <span class="btn btn-outline-success btn-sm">View Accepted Requests</span>
+            </div>
+          <% end %>
+        <% else %>
+          <div class='card-body text-center'>
+            <i class="fas fa-info-circle fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted mb-2">No Accepted Requests</h3>
+            <p class="text-muted">You haven’t accepted any requests yet</p>
+          </div>
+        <% end %>
+      </div>
+
     </div>
 
     <!-- Feature cards -->

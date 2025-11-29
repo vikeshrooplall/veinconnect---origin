@@ -15,6 +15,13 @@ Rails.application.routes.draw do
     collection do
       get :donor_index
       get :urgent_requests
+      get :accepted_requests
+    end
+
+    member do
+      patch :accept
+      # patch :reject
+      patch :complete
     end
   end
 
