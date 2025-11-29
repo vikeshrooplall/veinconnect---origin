@@ -390,7 +390,10 @@ DEPENDENCIES
   geocoder
   importmap-rails (~> 1.2.3)
   jbuilder
+<<<<<<< HEAD
   neighbor
+=======
+>>>>>>> master
   pg (~> 1.1)
   pgvector
   puma (>= 5.0)

@@ -4,7 +4,7 @@ class BloodRequestsController < ApplicationController
   def index
     # Blood request for donor's blood type
     if current_user.donor?
-      @blood_requests = BloodRequest.for_donor(current_user.blood_type)
+      @blood_requests = BloodRequest.for_donor
     else
       # patient blood request history
       @blood_requests = current_user.blood_requests.order(created_at: :desc)
@@ -57,6 +57,55 @@ class BloodRequestsController < ApplicationController
     @blood_requests = BloodRequest.urgent_or_critical.active
                                   .order(urgency: :desc, created_at: :desc)
   end
+
+  def accepted_requests
+    @blood_requests = BloodRequest.accepted_by(current_user)
+  end
+
+
+  def accept
+    @blood_request = BloodRequest.find(params[:id])
+
+    if @blood_request.pending? && current_user.is_donor?
+      @blood_request.update(status: :accepted, accepted_by: current_user)
+      redirect_to blood_request_path(@blood_request), notice: "You accepted this request."
+    else
+      redirect_to blood_request_path(@blood_request), alert: "Cannot accept this request."
+    end
+  end
+
+
+  # def reject
+  #   @blood_request = BloodRequest.find(params[:id])
+
+  #   if @blood_request.pending? && current_user.is_donor?
+  #     @blood_request.update(status: :pending)
+  #     redirect_to blood_request_path(@blood_request), notice: "You rejected this request."
+  #   else
+  #     redirect_to blood_request_path(@blood_request), alert: "Cannot reject this request."
+  #   end
+  # end
+
+  def complete
+    @blood_request = BloodRequest.find(params[:id])
+
+    if @blood_request.accepted_by?(current_user) || @blood_request.pending?
+      @blood_request.update(status: :completed)
+
+        Notification.create!(
+          user: @blood_request.user,
+          notifiable: @blood_request,
+          blood_request_id: @blood_request.id,
+          kind: "request_completed",
+          data: { message: "Your blood request ##{@blood_request.id} has been completed by #{@blood_request.accepted_by&.full_name || 'a donor'}." }
+        )
+
+      redirect_to blood_request_path(@blood_request), notice: "Marked as completed."
+    else
+      redirect_to blood_request_path(@blood_request), alert: "Cannot complete this request."
+    end
+  end
+
 
   private
 
