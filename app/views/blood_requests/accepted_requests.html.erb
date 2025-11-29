@@ -1,0 +1,14 @@
+<h2>Accepted Blood Requests</h2>
+
+<% if @blood_requests.any? %>
+  <ul>
+    <% @blood_requests.each do |request| %>
+      <li>
+        <%= link_to request.patient_name, blood_request_path(request) %>
+        - <%= request.blood_type %> - Needed by <%= request.needed_by %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven’t accepted any blood requests yet.</p>
+<% end %>

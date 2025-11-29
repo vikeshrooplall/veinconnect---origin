@@ -8,14 +8,13 @@ class Donor < ApplicationRecord
   before_validation :set_default_statuses
   before_save :update_eligibility_status
 
-
   scope :active, -> { where(donor_status: true) }
 
   def last_donation
     donations.order(created_at: :desc).first&.created_at
   end
 
-  def has_previous_donations?
+  def previous_donations?
     donations.any?
   end
 
@@ -46,5 +45,4 @@ class Donor < ApplicationRecord
       self.eligibility_status = last_donation_date <= 90.days.ago.to_date
     end
   end
-
 end

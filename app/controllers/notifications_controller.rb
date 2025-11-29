@@ -15,6 +15,24 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def show
+    @notification = current_user.notifications.find(params[:id])
+    @notification.update(read: true)
+
+    if @notification.notifiable.is_a?(BloodRequest)
+      redirect_to blood_request_path(@notification.notifiable)
+    else
+      redirect_to root_path
+    end
+  end
+
+  def mark_as_read
+    notification = current_user.notifications.find(params[:id])
+    notification.update(read_at: Time.current)
+
+    redirect_to notification.notifiable
+  end
+
   private
 
   def notification_params

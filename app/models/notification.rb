@@ -8,6 +8,10 @@ class Notification < ApplicationRecord
 
   scope :unread, -> { where(read_at: nil) }
 
+  def unread?
+    read_at.nil?
+  end
+
   private
 
   def broadcast_notification

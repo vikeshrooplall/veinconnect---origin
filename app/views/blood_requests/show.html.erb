@@ -1,10 +1,84 @@
 <div class="container-fluid">
   <div class="booking-show-container">
-    <h2><%="Details of blood request"%></h2>
+    <h2>Details of Blood Request</h2>
     <p>Blood Type: <%= @blood_request.blood_type %></p>
     <p>Status: <%= @blood_request.status.humanize %></p>
     <p>Quantity: <%= @blood_request.quantity %></p>
     <p>Needed by: <%= @blood_request.needed_by %></p>
     <p>Hospital Name: <%= @blood_request.facility&.name.presence %></p>
+  </div>
+
+    <% if current_user.is_donor? %>
+
+    <%# Donor can accept a pending request %>
+    <% if @blood_request.pending? %>
+      <div class="mt-3">
+        <%= button_to "Accept Request",
+                      accept_blood_request_path(@blood_request),
+                      method: :patch,
+                      class: "btn btn-success me-2" %>
+      </div>
+
+    <%# Donor can complete ONLY if they accepted it %>
+    <% elsif @blood_request.accepted? && @blood_request.accepted_by == current_user %>
+      <div class="mt-3">
+        <%= button_to "Mark as Completed",
+                      complete_blood_request_path(@blood_request),
+                      method: :patch,
+                      class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+  <% if current_user == @blood_request.user %>
+
+    <%# Patient can complete if pending or accepted %>
+    <% if @blood_request.pending? || @blood_request.accepted? %>
+      <div class="mt-4">
+        <%= button_to "Mark as Completed",
+                      complete_blood_request_path(@blood_request),
+                      method: :patch,
+                      class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+
+  <div class="container chat mt-5">
+    <h1>Feel free to chat with the patient below</h1>
+
+    <%= turbo_stream_from "thread_Booking_#{@blood_request.id}_messages" %>
+
+    <div id="messages" class="messages">
+      <% @blood_request.messages.each do |message| %>
+        <%= render "messages/message", message: message %>
+      <% end %>
+    </div>
+
+    <div class="message-form mt-3">
+      <%= simple_form_for [@blood_request, @message],
+        html: {
+          class: "d-flex gap-2",
+          data: {
+            controller: "reset-form",
+            action: "turbo:submit-end->reset-form#reset"
+          }
+        } do |f| %>
+
+        <% recipient =
+            current_user == @blood_request.user ?
+            @blood_request.donations.first&.user :    # donor who accepted
+            @blood_request.user %>
+
+        <%= f.input :body,
+          label: false,
+          placeholder: "Message #{recipient&.first_name || 'User'}",
+          wrapper_html: { class: "flex-grow-1" } %>
+
+        <%= f.submit "Send", class: "btn-light mb-3" %>
+      <% end %>
+    </div>
   </div>
 </div>

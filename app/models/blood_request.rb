@@ -3,7 +3,8 @@ class BloodRequest < ApplicationRecord
   belongs_to :facility
   has_many :donations, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  # has_many :messages, dependent: :destroy
+  has_many :messages, as: :threadable, dependent: :destroy
+  belongs_to :accepted_by, class_name: "User", optional: true
 
   BLOOD_TYPES = %w[A- A+ B- B+ AB- AB+ O- O+].freeze
 
@@ -12,7 +13,9 @@ class BloodRequest < ApplicationRecord
 
   enum status: {
     pending: 0,
-    completed: 1
+    accepted: 1,
+    # rejected: 2,
+    completed: 2
   }
 
   enum urgency: {
@@ -21,8 +24,13 @@ class BloodRequest < ApplicationRecord
     critical: 2
   }
 
+  scope :accepted_by, ->(user) { where(status: statuses[:accepted], accepted_by_id: user.id) }
+
+  def accepted_by?(user)
+    accepted_by_id == user.id
+  end
   # active requests
-  scope :active, -> { where(status: 0) }
+  scope :active, -> { where(status: statuses[:pending]) }
 
   # Urgent requests (urgent & critical)
   scope :urgent, -> { where(urgency: [1, 2]) }
@@ -34,9 +42,8 @@ class BloodRequest < ApplicationRecord
   # Filter by blood type
   scope :by_blood_type, ->(blood_type) { where(blood_type: blood_type) }
 
-  scope :for_donor, ->(blood_type) {
-    active.urgent_or_critical.or(active.by_blood_type(blood_type))
-          .order(urgency: :desc, created_at: :desc)
+  scope :for_donor, -> {
+    active.order(urgency: :desc, needed_by: :asc)
   }
 
   # Recently created requests (last 7 days)
