@@ -86,23 +86,51 @@ class BloodRequestsController < ApplicationController
   #   end
   # end
 
+  # def complete
+  #   @blood_request = BloodRequest.find(params[:id])
+
+  #   if @blood_request.accepted_by?(current_user) || @blood_request.pending?
+  #     @blood_request.update(status: :completed)
+
+  #       Notification.create!(
+  #         user: @blood_request.user,
+  #         notifiable: @blood_request,
+  #         blood_request_id: @blood_request.id,
+  #         kind: "request_completed",
+  #         data: { message: "Your blood request ##{@blood_request.id} has been completed by #{@blood_request.accepted_by&.full_name || 'a donor'}." }
+  #       )
+
+  #     redirect_to blood_request_path(@blood_request), notice: "Marked as completed."
+  #   else
+  #     redirect_to blood_request_path(@blood_request), alert: "Cannot complete this request."
+  #   end
+  # end
+
   def complete
     @blood_request = BloodRequest.find(params[:id])
 
-    if @blood_request.accepted_by?(current_user) || @blood_request.pending?
+    # Patient who created the request OR donor who accepted it
+    if current_user == @blood_request.user || @blood_request.accepted_by == current_user
+
       @blood_request.update(status: :completed)
 
+      # Notify patient ONLY if donor marked complete
+      if current_user.is_donor?
         Notification.create!(
           user: @blood_request.user,
           notifiable: @blood_request,
           blood_request_id: @blood_request.id,
           kind: "request_completed",
-          data: { message: "Your blood request ##{@blood_request.id} has been completed by #{@blood_request.accepted_by&.full_name || 'a donor'}." }
+          data: {
+            message: "Your blood request ##{@blood_request.id} has been marked completed by #{@blood_request.accepted_by.full_name}."
+          }
         )
+      end
 
       redirect_to blood_request_path(@blood_request), notice: "Marked as completed."
+
     else
-      redirect_to blood_request_path(@blood_request), alert: "Cannot complete this request."
+      redirect_to blood_request_path(@blood_request), alert: "You are not authorized to complete this request."
     end
   end
 
