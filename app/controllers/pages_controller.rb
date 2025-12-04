@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
+
   def home
     @donor = current_user.donor if user_signed_in?
     # map to show locations of facilities
@@ -21,12 +22,9 @@ class PagesController < ApplicationController
     if user_signed_in? && current_user.donor?
       @urgent_requests = BloodRequest.urgent_or_critical.active
       @blood_requests = BloodRequest.for_donor
-      # @matching_requests = BloodRequest.active.where(blood_type: current_user.blood_type).count
       @accepted_requests = BloodRequest.accepted_by(current_user)
-
     end
-  end
 
-  def show
+    @facilities_for_dashboard = @facilities.limit(5)
   end
 end

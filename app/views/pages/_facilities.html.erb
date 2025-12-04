@@ -1,0 +1,72 @@
+    <!-- Map with Sidebar -->
+    <div class='map-sidebar-section'>
+      <div class='section-header'>
+        <h3><i class="fas fa-search-location me-2"></i>Find Nearby Facilities</h3>
+        <p class='section-subtitle'>Browse and explore donation centers in your area</p>
+      </div>
+
+      <div class='map-sidebar-container'>
+        <!-- Sidebar with facilities -->
+        <div class='facilities-sidebar'>
+          <div class='sidebar-header'>
+            <h5><i class="fas fa-hospital me-2"></i>Nearby Centers</h5>
+            <p class='small text-muted'><%= @facilities_for_dashboard.count %> facilities found</p>
+          </div>
+
+          <div class='facilities-list'>
+            <% @facilities_for_dashboard.each do |facility| %>
+              <div class='facility-sidebar-item' data-facility-id="<%= facility.id %>">
+                <div class='facility-sidebar-icon <%= facility.facility_type %>'>
+                  <% icon_class = case facility.facility_type
+                                   when 'hospital' then 'fas fa-hospital'
+                                   when 'clinic' then 'fas fa-clinic-medical'
+                                   when 'mobile_team' then 'fas fa-ambulance'
+                                   when 'blood_donation_center' then 'fas fa-tint'
+                                   else 'fas fa-map-marker-alt'
+                                   end %>
+                  <i class="<%= icon_class %>"></i>
+                </div>
+                <div class='facility-sidebar-info'>
+                  <h6><%= facility.name %></h6>
+                  <p class='small text-muted mb-1'>
+                    <i class="fas fa-map-marker-alt fa-xs me-1"></i>
+                    <%= facility.address.truncate(30) %>
+                  </p>
+                  <span class='facility-type-badge <%= facility.facility_type %>'>
+                    <%= facility.facility_type&.titleize %>
+                  </span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class='sidebar-footer'>
+            <%= link_to facilities_path, class: 'btn btn-outline-primary w-100' do %>
+              <i class="fas fa-list me-2"></i>
+              View All Facilities
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Main Map Area -->
+        <div class='main-map-area'>
+          <div class='map-container'>
+            <div class='map-controls'>
+              <span class='map-title'>
+                <i class="fas fa-map me-2"></i>
+                Interactive Map
+              </span>
+              <div class='map-legend'>
+                <span class='legend-item'><i class="fas fa-circle text-danger"></i> Hospital</span>
+                <span class='legend-item'><i class="fas fa-circle text-primary"></i> Clinic</span>
+                <span class='legend-item'><i class="fas fa-circle text-success"></i> Mobile Team</span>
+                <span class='legend-item'><i class="fas fa-circle text-warning"></i> Donation Center</span>
+              </div>
+            </div>
+            <div id="facilities-map" style="height: 550px; width: 100%;">
+              <%= render partial: 'shared/map' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

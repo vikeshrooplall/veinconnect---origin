@@ -1,0 +1,165 @@
+/* Map with Sidebar */
+.map-sidebar-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 40px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.map-sidebar-container {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.facilities-sidebar {
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  background: white;
+}
+
+.sidebar-header h5 {
+  color: #343a40;
+  display: flex;
+  align-items: center;
+}
+
+.facilities-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 450px;
+  padding: 15px;
+}
+
+.facility-sidebar-item {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e9ecef;
+}
+
+.facility-sidebar-item:hover {
+  border-color: #dc3545;
+  box-shadow: 0 3px 10px rgba(220, 53, 69, 0.1);
+  transform: translateX(5px);
+}
+
+.facility-sidebar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.facility-sidebar-icon.hospital { background: #dc3545; }
+.facility-sidebar-icon.clinic { background: #17a2b8; }
+.facility-sidebar-icon.mobile_team { background: #28a745; }
+.facility-sidebar-icon.blood_donation_center { background: #fd7e14; }
+
+.facility-sidebar-info h6 {
+  color: #343a40;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.facility-type-badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.facility-type-badge.hospital {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.facility-type-badge.clinic {
+  background: rgba(23, 162, 184, 0.1);
+  color: #17a2b8;
+}
+
+.facility-type-badge.mobile_team {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.facility-type-badge.blood_donation_center {
+  background: rgba(253, 126, 20, 0.1);
+  color: #fd7e14;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  background: white;
+}
+
+.main-map-area .map-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  height: 100%;
+}
+
+.map-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.map-legend {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  font-size: 0.8rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .map-sidebar-container {
+    grid-template-columns: 1fr;
+  }
+
+  .facilities-sidebar {
+    max-height: 300px;
+  }
+
+  .map-container {
+    height: 400px;
+  }
+}
