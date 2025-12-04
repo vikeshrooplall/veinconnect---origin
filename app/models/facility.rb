@@ -4,10 +4,10 @@ class Facility < ApplicationRecord
   # has_many :inventories, dependent: :destroy
 
   validates :name, :address, :phone_number, presence: true
-  enum :facility_type, { hospital: 0, clinic: 1, mobile_team: 2 }
+  enum :facility_type, { hospital: 0, clinic: 1, mobile_team: 2, blood_donation_center: 3 }
 
   geocoded_by :address
-  
+
   after_validation :geocode, if: :will_save_change_to_address?
 
 end

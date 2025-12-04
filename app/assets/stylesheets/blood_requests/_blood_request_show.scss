@@ -1,0 +1,46 @@
+/* Perfect fit for Samsung S23 (width: 384px) */
+@media (max-width: 400px) {
+
+  body {
+    zoom: 0.92;
+  }
+
+  .card {
+    padding: 0.8rem !important;
+    border-radius: 12px;
+  }
+
+  h4, h5, h6 {
+    font-size: 1rem !important;
+  }
+
+  .patient-avatar {
+    width: 55px !important;
+    height: 55px !important;
+  }
+
+  .blood-type-bubble {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .circle-icon {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 1.05rem !important;
+  }
+
+  .container {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+  }
+
+  #messages {
+    height: 180px !important;
+  }
+
+  .btn {
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+}
