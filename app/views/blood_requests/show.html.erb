@@ -1,84 +1,201 @@
-<div class="container-fluid">
-  <div class="booking-show-container">
-    <h2>Details of Blood Request</h2>
-    <p>Blood Type: <%= @blood_request.blood_type %></p>
-    <p>Status: <%= @blood_request.status.humanize %></p>
-    <p>Quantity: <%= @blood_request.quantity %></p>
-    <p>Needed by: <%= @blood_request.needed_by %></p>
-    <p>Hospital Name: <%= @blood_request.facility&.name.presence %></p>
+<div class="container my-1">
+
+  <!-- Page Title -->
+  <h4 class="fw-bold text-center mb-3 pt-4">Request Details</h4>
+
+  <!-- PINK BACKGROUND WRAPPER -->
+  <div class="p-3 rounded mb-3" style="background:#FFF1F2;">
+
+    <!-- CARD 1 — PATIENT DETAILS -->
+    <div class="card shadow-sm p-3 mb-3">
+
+      <div class="d-flex align-items-center">
+
+        <!-- Avatar -->
+        <div class="rounded-circle bg-light patient-avatar d-flex justify-content-center align-items-center me-3"
+             style="width: 65px; height: 65px;">
+          <i class="bi bi-person fs-2 text-secondary"></i>
+        </div>
+
+        <!-- Patient Info -->
+        <div class="flex-grow-1">
+          <h6 class="fw-bold mb-1">Patient #<%= @blood_request.id %></h6>
+          <small class="text-muted">
+            Requesting <strong><%= @blood_request.blood_type %></strong> blood
+          </small>
+        </div>
+
+        <!-- Blood Type Badge -->
+        <div class="rounded-circle text-white blood-type-bubble d-flex justify-content-center align-items-center"
+             style="width: 55px; height: 55px; background:#EC1B35;">
+          <strong><%= @blood_request.blood_type %></strong>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- END CARD 1 -->
+
+    <!-- CARD 2 — STATUS / QUANTITY / NEEDED BY  -->
+    <div class="card shadow-sm p-3 mb-3">
+
+      <div class="row text-center g-3">
+
+        <!-- STATUS -->
+        <div class="col-4">
+          <div class="rounded-circle bg-secondary text-white circle-icon mx-auto mb-1 d-flex justify-content-center align-items-center"
+               style="width: 45px; height: 45px;">
+            <i class="bi bi-clipboard-check fs-5"></i>
+          </div>
+          <p class="text-muted small mb-0">Status</p>
+          <p class="fw-bold small mb-0"><%= @blood_request.status.humanize %></p>
+        </div>
+
+        <!-- QUANTITY -->
+        <div class="col-4">
+          <div class="rounded-circle bg-danger text-white circle-icon mx-auto mb-1 d-flex justify-content-center align-items-center"
+               style="width: 45px; height: 45px;">
+            <i class="bi bi-droplet-half fs-5"></i>
+          </div>
+          <p class="text-muted small mb-0">Quantity</p>
+          <p class="fw-bold small mb-0"><%= @blood_request.quantity %> bags</p>
+        </div>
+
+        <!-- NEEDED BY -->
+        <div class="col-4">
+          <div class="rounded-circle bg-warning text-white circle-icon mx-auto mb-1 d-flex justify-content-center align-items-center"
+               style="width: 45px; height: 45px;">
+            <i class="bi bi-clock fs-5"></i>
+          </div>
+          <p class="text-muted small mb-0">Needed By</p>
+          <p class="fw-bold small mb-0"><%= @blood_request.needed_by %></p>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- END CARD 2 -->
+
+    <!-- DETAILS CARD -->
+    <% urgency_color =
+          case @blood_request.urgency
+          when "critical" then "#EC1B35"
+          when "urgent"   then "#FFA500"
+          else "#0D6EFD"
+          end %>
+
+    <div class="card p-3 mb-2">
+
+      <!-- URGENCY -->
+      <div class="d-flex align-items-center mb-3">
+        <div class="rounded-circle text-white circle-icon d-flex justify-content-center align-items-center me-3"
+             style="width: 45px; height: 45px; background:<%= urgency_color %>;">
+          !
+        </div>
+        <div>
+          <p class="fw-bold mb-0" style="color:<%= urgency_color %>;">
+            Urgency: <%= @blood_request.urgency.humanize %>
+          </p>
+        </div>
+      </div>
+
+      <!-- LOCATION -->
+      <div class="d-flex align-items-start mb-3">
+        <div class="rounded-circle bg-primary text-white circle-icon d-flex justify-content-center align-items-center me-3"
+             style="width: 45px; height: 45px;">
+          <i class="bi bi-geo-alt fs-5"></i>
+        </div>
+        <div class="small">
+          <p class="fw-bold mb-0">Location</p>
+          <p class="text-muted mb-0">
+            <%= @blood_request.facility&.name %><br>
+            <%= @blood_request.facility&.address %>
+          </p>
+        </div>
+      </div>
+
+      <!-- PATIENT NOTE -->
+      <div class="d-flex align-items-start">
+        <div class="rounded-circle bg-success text-white circle-icon d-flex justify-content-center align-items-center me-3"
+             style="width: 45px; height: 45px;">
+          <i class="bi bi-file-text fs-5"></i>
+        </div>
+        <div class="small">
+          <p class="fw-bold mb-0">Patient Note</p>
+          <p class="text-muted mb-0">
+            <%= @blood_request.message.presence || "No additional information." %>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <!-- END DETAILS CARD -->
+
   </div>
+  <!-- END PINK BACKGROUND WRAPPER -->
 
-    <% if current_user.is_donor? %>
-
-    <%# Donor can accept a pending request %>
+  <!-- ACTION BUTTONS -->
+  <% if current_user.is_donor? %>
     <% if @blood_request.pending? %>
-      <div class="mt-3">
-        <%= button_to "Accept Request",
-                      accept_blood_request_path(@blood_request),
-                      method: :patch,
-                      class: "btn btn-success me-2" %>
-      </div>
-
-    <%# Donor can complete ONLY if they accepted it %>
-    <% elsif @blood_request.accepted? && @blood_request.accepted_by == current_user %>
-      <div class="mt-3">
-        <%= button_to "Mark as Completed",
-                      complete_blood_request_path(@blood_request),
-                      method: :patch,
-                      class: "btn btn-primary" %>
-      </div>
+      <%= button_to "Accept Request",
+          accept_blood_request_path(@blood_request),
+          method: :patch,
+          class: "btn btn-outline-danger btn-sm w-100 mb-2",
+          style: "border-radius: 10px;" %>
     <% end %>
 
+    <% if @blood_request.accepted? && @blood_request.accepted_by == current_user %>
+      <%= button_to "Mark as Completed",
+          complete_blood_request_path(@blood_request),
+          method: :patch,
+          class: "btn btn-outline-danger btn-sm w-100 mb-2",
+          style: "border-radius: 10px;" %>
+    <% end %>
   <% end %>
 
   <% if current_user == @blood_request.user %>
-
-    <%# Patient can complete if pending or accepted %>
     <% if @blood_request.pending? || @blood_request.accepted? %>
-      <div class="mt-4">
-        <%= button_to "Mark as Completed",
-                      complete_blood_request_path(@blood_request),
-                      method: :patch,
-                      class: "btn btn-secondary" %>
-      </div>
+      <%= button_to "Mark as Completed",
+          complete_blood_request_path(@blood_request),
+          method: :patch,
+          class: "btn btn-outline-danger btn-sm w-100 mb-2",
+          style: "border-radius: 10px;" %>
     <% end %>
-
   <% end %>
 
+  <!-- CHAT SECTION -->
+  <h6 class="fw-bold mt-3 mb-2">Chat with Patient</h6>
 
-  <div class="container chat mt-5">
-    <h1>Feel free to chat with the patient below</h1>
+  <%= turbo_stream_from "thread_Booking_#{@blood_request.id}_messages" %>
 
-    <%= turbo_stream_from "thread_Booking_#{@blood_request.id}_messages" %>
+  <div id="messages"
+       class="p-2 rounded bg-light mb-2"
+       style="height: 200px; overflow-y: auto;">
+    <% @blood_request.messages.each do |message| %>
+      <%= render "messages/message", message: message %>
+    <% end %>
+  </div>
 
-    <div id="messages" class="messages">
-      <% @blood_request.messages.each do |message| %>
-        <%= render "messages/message", message: message %>
-      <% end %>
-    </div>
-
-    <div class="message-form mt-3">
-      <%= simple_form_for [@blood_request, @message],
+  <!-- MESSAGE FORM -->
+  <div class="message-form mt-2">
+    <%= simple_form_for [@blood_request, @message],
         html: {
-          class: "d-flex gap-2",
-          data: {
-            controller: "reset-form",
-            action: "turbo:submit-end->reset-form#reset"
-          }
+          class: "d-flex gap-2 align-items-center",
+          data: { controller: "reset-form",
+                  action: "turbo:submit-end->reset-form#reset" }
         } do |f| %>
 
-        <% recipient =
-            current_user == @blood_request.user ?
-            @blood_request.donations.first&.user :    # donor who accepted
-            @blood_request.user %>
-
-        <%= f.input :body,
+      <%= f.input :body,
           label: false,
-          placeholder: "Message #{recipient&.first_name || 'User'}",
+          placeholder: "Type your message...",
           wrapper_html: { class: "flex-grow-1" } %>
 
-        <%= f.submit "Send", class: "btn-light mb-3" %>
-      <% end %>
-    </div>
+      <button class="btn btn-outline-danger btn-sm"
+              style="width:50px; height:50px; border-radius: 10px;">
+        <i class="bi bi-send fs-5"></i>
+      </button>
+
+    <% end %>
   </div>
+
 </div>
