@@ -10,9 +10,8 @@ class User < ApplicationRecord
   has_one :donor, dependent: :destroy
   accepts_nested_attributes_for :donor
   has_many :blood_requests, dependent: :destroy
-  has_many :donations, dependent: :destroy
-  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
-  has_many :received_messages, class_name: 'Message', foreign_key: 'recipient_id', dependent: :destroy
+  has_many :donations, through: :donor
+  has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :questions
 

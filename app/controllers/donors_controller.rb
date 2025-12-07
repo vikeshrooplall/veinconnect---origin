@@ -5,12 +5,12 @@ class DonorsController < ApplicationController
     @donors = Donor.active.all
 
     if params[:blood_type].present?
-      @donors = @donors.where(blood_type: params[:blood_type])
+      @donors = @donors.joins(:user).where(users: { blood_type: params[:blood_type] })
     end
 
     # Filter by location if any selected
     if params[:location].present?
-      @donors = @donors.where(address: params[:location])
+      @donors = @donors.joins(:user).where(users: { address: params[:location] })
     end
   end
 end

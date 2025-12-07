@@ -1,69 +1,58 @@
 <h1>Find a Donor</h1>
-<!-- Filter Dropdowns -->
-<div class="d-flex gap-3">
 
-  <!-- Blood Type Dropdown -->
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="bloodTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      Select Blood Type
-    </button>
-    <ul class="dropdown-menu p-3" aria-labelledby="bloodTypeDropdown">
-      <li>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="blood_type[]" value="A+" id="bloodAPlus">
-          <label class="form-check-label" for="bloodAPlus">A+</label>
-        </div>
-      </li>
-      <li>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="blood_type[]" value="A-" id="bloodAMinus">
-          <label class="form-check-label" for="bloodAMinus">A-</label>
-        </div>
-      </li>
-      <li>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="blood_type[]" value="B+" id="bloodBPlus">
-          <label class="form-check-label" for="bloodBPlus">B+</label>
-        </div>
-      </li>
-      <!-- Add remaining blood types similarly -->
-    </ul>
+<!-- Search / Filter Section -->
+<div class="search mb-4">
+  <div class="d-flex gap-3 flex-wrap">
+
+    <!-- Blood Type Dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="bloodTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Select Blood Type
+      </button>
+      <ul class="dropdown-menu p-3" aria-labelledby="bloodTypeDropdown">
+        <% ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].each do |type| %>
+          <li>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="blood_type[]" value="<%= type %>" id="blood<%= type.gsub('+','plus').gsub('-','minus') %>">
+              <label class="form-check-label" for="blood<%= type.gsub('+','plus').gsub('-','minus') %>"><%= type %></label>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Location Dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Select Location
+      </button>
+      <ul class="dropdown-menu p-3" aria-labelledby="locationDropdown">
+        <% ["Port Louis", "Curepipe", "Quatre Bornes", "Moka"].each do |city| %>
+          <li>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="location[]" value="<%= city %>" id="loc<%= city.gsub(' ','') %>">
+              <label class="form-check-label" for="loc<%= city.gsub(' ','') %>"><%= city %></label>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary align-self-center">Filter</button>
   </div>
-
-  <!-- Location Dropdown -->
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      Select Location
-    </button>
-    <ul class="dropdown-menu p-3" aria-labelledby="locationDropdown">
-      <li>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="location[]" value="Port Louis" id="locPortLouis">
-          <label class="form-check-label" for="locPortLouis">Port Louis</label>
-        </div>
-      </li>
-      <li>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="location[]" value="Curepipe" id="locCurepipe">
-          <label class="form-check-label" for="locCurepipe">Curepipe</label>
-        </div>
-      </li>
-      <!-- Add remaining locations similarly -->
-    </ul>
-  </div>
-
-  <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary">Filter</button>
-
 </div>
 
-
-<div style="padding: 5rem;">
-  <ul>
-    <% @donors.each do |donor| %>
-      <li><h4><%= donor.user.first_name %> <%= donor.user.last_name %></h4></li>
-      <li><%= donor.user.address %></li>
-      <li><%= donor.user.blood_type %></li>
-    <% end %>
-  </ul>
+<div class="donors-container d-flex flex-wrap gap-3">
+  <% @donors.each do |donor| %>
+    <div class="donor-card">
+      <img src="<%= donor.user.avatar_url %>" />
+      <div class="donor-infos">
+        <h2><%= donor.user.first_name %> <%= donor.user.last_name %></h2>
+        <p>
+          <i class="bi bi-geo-alt"></i> <%= donor.user.address %><br>
+          <i class="bi bi-droplet"></i> Blood Type: <%= donor.user.blood_type %>
+        </p>
+      </div>
+    </div>
+  <% end %>
 </div>
