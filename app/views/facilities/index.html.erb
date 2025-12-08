@@ -1,20 +1,53 @@
-<p style='color: green'><%= notice %></p>
-
-<h1>Facilities</h1>
+  <div class="map-container" style="width: 454px; height: 400px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 <div class='container-fluid'>
-  <div class='d-flex'>
-    <ul>
+  <div class="facilities-wrapper">
+    <h2 class="facilities-title text-center">Healthcare Facilities</h2>
+    <div class="search-container mb-4">
+          <%# Creates a search form that submits to facilities_path (index action) %>
+          <%= form_with url: facilities_path, method: :get, local: true, class: "search-form" do |f| %>
+            <div class="input-group">
+              <%# Search input field with Stimulus action on input %>
+              <%= f.text_field :search,
+                    value: params[:search],
+                    placeholder: "Search hospitals by name or address...",
+                    class: "form-control",
+                    data: { action: "input->facilities#search" } %>
+              <div class="input-group-append">
+                <%# Submit button for search %>
+                <%= f.submit "Search", class: "btn btn-primary" %>
+                <%# Clear button appears only when there's a search term %>
+                <%= link_to "Clear", facilities_path, class: "btn btn-outline-secondary" if params[:search].present? %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+    <div class="facilities-container">
       <% @facilities.each do |facility| %>
-      <li>
-        <%= facility.id %>
-        <%= facility.name %>
-        <%= facility.address %>
+        <div class="facility-card">
+          <div class='card-head'>
+            <div class="hospital-icon">
+              <i class="fas fa-hospital"></i>
+            </div>
+            <div class='hospital-name'>
+              <h3><%= facility.name %></h3>
+            </div>
+          </div>
+          <div class='card-content'>
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <p><%= facility.address %></p>
+            </div>
+              <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <p><%= facility.phone_number %></p>
+            </div>
+          </div>
+        </div>
       <% end %>
-      </li>
-    </ul>
-    <div style="width: 100%; height: 600px;"
-      data-controller="map"
-      data-map-markers-value="<%= @markers.to_json %>"
-      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    </div>
   </div>
 </div>
