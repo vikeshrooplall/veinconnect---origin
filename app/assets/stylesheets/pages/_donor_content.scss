@@ -16,14 +16,14 @@
 
 .header-text h2 {
   color: #EC1B35;
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   margin-bottom: 0px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .header-text p {
   color: #6c757d;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 300;
   font-style: italic;
   margin: 6px;
@@ -46,6 +46,10 @@
 .header-card .card-body {
   margin-top: 15px;
   text-align: center;
+}
+
+.card-body .donation {
+  display: flex;
 }
 
 .header-card i {
@@ -100,6 +104,7 @@
   padding: 20px 0px;
   // justify-content: space-between;
   height: 100%;
+  margin-bottom: 20px;
 }
 
 .card-icon {

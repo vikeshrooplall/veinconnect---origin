@@ -15,13 +15,13 @@
             <div class='card-body'>
               <i class='fas fa-calendar-check me-2'></i>
               <h5 class='card-title'>Your Last Donation</h5>
-              <% if @donor&.previous_donations? && @donor.last_donation.present? %>
+              <% if @donor.last_donation_date.present? %>
                 <div class='text-center'>
                   <p class='display-6 text-primary fw-bold mb-2'>
-                    <%= @donor.last_donation.strftime('%b %d, %Y') %>
+                    <%= @donor.last_donation_date.strftime('%b %d, %Y') %>
                   </p>
                   <p class='text-muted small'>
-                    <%= time_ago_in_words(@donor.last_donation) %> ago
+                    <%= time_ago_in_words(@donor.last_donation_date) %> ago
                   </p>
                   <p>click to view previous donations</p>
                 </div>
