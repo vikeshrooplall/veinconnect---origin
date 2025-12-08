@@ -1,14 +1,82 @@
-<div style="padding: 5rem;">
-  <h1>Make a Blood Request </h1>
-  <%= simple_form_for(@blood_request) do |f| %>
-    <%= f.input :blood_type, collection: BloodRequest::BLOOD_TYPES, prompt: "Select blood type" %>
-    <%= f.input :quantity, as: :integer %>
-    <%= f.input :needed_by, as: :date %>
-    <%= f.input :facility_id,
-                collection: Facility.all,
-                label_method: :name,
-                value_method: :id,
-                prompt: "Select a facility" %>
-    <%= f.submit %>
-  <% end %>
+<div class="container"
+     style="max-width:420px; background:#FFF6F7; min-height:100vh; padding:22px 12px;">
+
+  <!-- Page Title -->
+  <h3 class="fw-bold text-center mb-4" style="color:#EC1B35;">
+    Make a Blood Request
+  </h3>
+
+  <!-- Soft Pink Form Card -->
+  <div class="card shadow-sm border-0"
+       style="background:#FFE5EA; border-radius:18px; padding:22px;">
+
+    <%= simple_form_for(@blood_request) do |f| %>
+
+      <!-- BLOOD TYPE -->
+      <div class="mb-3">
+        <%= f.input :blood_type,
+                    collection: BloodRequest::BLOOD_TYPES,
+                    prompt: "Select blood type",
+                    label: "Blood Type",
+                    input_html: { class: "form-select", style:"border-radius:10px; background:white;" },
+                    label_html: { style:"color:#EC1B35; font-weight:600;" } %>
+      </div>
+
+      <!-- QUANTITY (with placeholder e.g. 2) -->
+      <div class="mb-3">
+        <%= f.input :quantity,
+                    as: :integer,
+                    label: "Quantity (units)",
+                    placeholder: "e.g. 2",
+                    input_html: { class: "form-control", style:"border-radius:10px; background:white;" },
+                    label_html: { style:"color:#EC1B35; font-weight:600;" } %>
+      </div>
+
+      <!-- NEEDED BY -->
+      <div class="mb-3">
+        <%= f.input :needed_by,
+                    as: :date,
+                    label: "Needed By",
+                    input_html: {
+                      class: "form-control",
+                      style: "border-radius:10px; background:white; color:#333; padding:10px;"
+                    },
+                    label_html: { style:"color:#EC1B35; font-weight:600;" } %>
+      </div>
+
+      <!-- FACILITY -->
+      <div class="mb-3">
+        <%= f.input :facility_id,
+                    collection: Facility.all,
+                    prompt: "Select a facility",
+                    label_method: :name,
+                    value_method: :id,
+                    label: "Facility",
+                    input_html: { class: "form-select", style:"border-radius:10px; background:white;" },
+                    label_html: { style:"color:#EC1B35; font-weight:600;" } %>
+      </div>
+
+      <!-- NOTES -->
+      <div class="mb-3">
+        <%= f.input :message,
+                    as: :text,
+                    label: "Notes (optional)",
+                    input_html: {
+                      class: "form-control",
+                      rows: 3,
+                      style:"border-radius:10px; background:white; resize:none;"
+                    },
+                    label_html: { style:"color:#EC1B35; font-weight:600;" } %>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="d-grid mt-4">
+        <%= f.button :submit, "Submit Request",
+                     class: "btn",
+                     style: "background:#EC1B35; color:white; font-weight:600; padding:12px; border-radius:12px;" %>
+      </div>
+
+    <% end %>
+
+  </div>
 </div>
