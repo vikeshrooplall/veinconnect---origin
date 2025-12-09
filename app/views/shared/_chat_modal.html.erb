@@ -1,0 +1,102 @@
+<div data-controller="chat-modal">
+  <%# Floating chat icon %>
+  <div class="chat-icon-wrapper">
+    <%# Button to open/close the chat modal %>
+    <button class="chat-icon-button"
+    <%# call the toggle() method when clicked %>
+            data-action="click->chat-modal#toggle"
+            <%# Accessibility: Screen readers will read "Open chat" %>
+            aria-label="Open chat">
+      <%# Chat icon SVG - visual representation %>
+      <svg class="chat-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2
+          12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+      </svg>
+      <%# Notification badge %>
+      <span class="chat-notification-badge hidden"
+<%# This is a target that our controller can access as "notification" %>
+            data-chat-modal-target="notification">
+      </span>
+    </button>
+  </div>
+
+  <%# Modal covers entire screen when modal is open %>
+  <div data-chat-modal-target="modal" class="chat-modal-overlay hidden"
+<%# When clicked anywhere on overlay, close the modal %>
+        data-action="click->chat-modal#close">
+
+    <%# modal container %>
+    <div class="chat-modal-container"
+<%# stopProgation prevents clicks inside modal from closing it %>
+          data-action="click->chat-modal#stopPropagation">
+
+      <%# Modal Header - top section with title and buttons %>
+      <div class="chat-modal-header">
+        <%# Title with icon %>
+        <h3 class="chat-modal-title">
+          <svg class="chat-header-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2
+              12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+          </svg>
+          Veinbot Assistant
+        </h3>
+
+        <%# buttons in header %>
+        <div class="chat-modal-actions">
+          <%= link_to "View Full Chat", questions_path,
+              class: "chat-action-button",
+              target: "_blank",
+              title: "Open full chat page" %>
+
+          <%# close modal button %>
+          <button class="chat-close-button"
+<%# When clicked, call close() method %>
+                  data-action="click->chat-modal#close"
+                  aria-label="Close chat">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <%# Messages Container - holds all chat messages %>
+      <div class="chat-messages-container">
+        <div class="chat-messages"
+              data-chat-modal-target="messages">
+          <%# Messages will be loaded here via JavaScript %>
+        </div>
+      </div>
+
+      <%# input form for user to type questions %>
+      <div class="chat-input-container">
+        <%= form_with model: Question.new,
+                        url: questions_path,
+                      data: {
+            chat_modal_target: "form",
+            action: "submit->chat-modal#send"
+          } do |f| %>
+
+            <div class="chat-input-group">
+              <%# Text input field %>
+              <%= f.text_field :user_question,
+                          class: "chat-input",
+                    placeholder: "Ask me anything...",
+                  autocomplete: "off",
+                          data: { chat_modal_target: "input" } %>
+
+              <%# Send button %>
+              <button type="submit"
+                      class="chat-send-button"
+                      aria-label="Send message">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

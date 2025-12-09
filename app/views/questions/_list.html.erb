@@ -1,0 +1,23 @@
+<% questions.each do |question| %>
+  <div class="question-item" id="question-<%= question.id %>">
+    <div class="message user">
+      <div class="message-bubble">
+        <%= question.user_question %>
+      </div>
+      <div class="message-time">
+        <%= question.created_at.strftime("%I:%M %p") %>
+      </div>
+    </div>
+
+    <% if question.ai_answer.present? %>
+      <div class="message ai">
+        <div class="message-bubble">
+          <%= question.ai_answer %>
+        </div>
+        <div class="message-time">
+          <%= question.updated_at.strftime("%I:%M %p") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
