@@ -1,5 +1,5 @@
 
-<div class="search-section mb-4 p-3 rounded-3" style="background-color: #FFF1F2;;">
+<div class="search-section mb-4 p-3 rounded-3" style="background-color: #FFF1F2;">
   <h1 class="mb-4">Find a Donor</h1>
     <%= form_with url: donors_path, method: :get, local: true do |f| %>
       <div class="search mb-4">
@@ -7,7 +7,7 @@
 
           <!-- Blood Type Dropdown -->
           <div class="dropdown flex-grow-1 flex-sm-grow-0">
-            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" id="bloodTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" id="bloodTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false" border-radius: 12px;>
               Select Blood Type
             </button>
             <ul class="dropdown-menu p-3" aria-labelledby="bloodTypeDropdown">
@@ -24,7 +24,7 @@
 
           <!-- Location Dropdown -->
           <div class="dropdown flex-grow-1 flex-sm-grow-0">
-            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false" border-radius= 12px;>
               Select Location
             </button>
             <ul class="dropdown-menu p-3" aria-labelledby="locationDropdown">
@@ -41,7 +41,7 @@
 
           <!-- Filter Button -->
           <div class="w-100 mt-2 mt-sm-0 flex-sm-grow-0">
-            <button type="submit" class="btn w-100" style="background-color: #EC1B35; color: #fff;">Filter</button>
+            <button type="submit" class="btn w-100" style="background-color: #EC1B35; color: #fff; border-radius: 12px;">Filter</button>
           </div>
         </div>
       </div>
