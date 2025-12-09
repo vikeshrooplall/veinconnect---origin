@@ -108,22 +108,6 @@ class QuestionsController < ApplicationController
 
   private
 
-  def wait_for_ai_response(question, max_wait = 15)
-    # Wait for AI response to be generated
-    # Maximum wait time in seconds
-    start_time = Time.current
-
-    while question.reload.ai_answer.blank? && (Time.current - start_time) < max_wait
-      sleep 0.5 # Wait half a second between checks
-    end
-
-    # Check if we got a response
-    if question.ai_answer.blank?
-      Rails.logger.warn "AI response timeout after #{max_wait} seconds for question #{question.id}"
-      question.update(ai_answer: "Still processing your question... Please check back in a moment.")
-    end
-  end
-
   def question_params
     params.require(:question).permit(:user_question)
   end

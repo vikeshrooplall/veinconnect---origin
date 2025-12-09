@@ -152,7 +152,7 @@ export default class extends Controller {
     } catch (error) {
       console.error("Chat error:", error)
       // Remove optimistic update if failed
-      this.removeLastUserMessage()
+      this.removeMessage(thinkingMessageId)
       this.showError("Network error. Please try again.")
     }
   }
@@ -185,7 +185,6 @@ export default class extends Controller {
           // If status endpoint doesn't exist, try show endpoint
           if (response.status === 404) {
             console.log("Status endpoint 404, trying show endpoint...")
-            await this.pollViaShowEndpoint(questionId, placeholderId)
             return
           }
           throw new Error(`HTTP ${response.status}`)
@@ -209,9 +208,7 @@ export default class extends Controller {
         console.error("Polling error:", error)
 
         // On error, try the show endpoint as fallback
-        if (attempts % 5 === 0) { // Every 5 attempts
-          await this.pollViaShowEndpoint(questionId, placeholderId)
-        }
+
 
         if (attempts >= maxAttempts) {
           this.replacePlaceholderWithAnswer(placeholderId, "Error getting response. Please try again.")
@@ -226,31 +223,6 @@ export default class extends Controller {
     this.pollInterval = setInterval(poll, 2000)
   }
 
-  // Poll using the show endpoint as fallback
-  async pollViaShowEndpoint(questionId, placeholderId) {
-    try {
-      console.log(`Trying show endpoint for question ${questionId}`)
-      const response = await fetch(`/questions/${questionId}.json`)
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log("Show endpoint response:", data)
-
-        if (data.question && data.question.ai_answer && data.question.ai_answer !== "AI is thinking...") {
-          console.log("✅ AI answer ready via show endpoint")
-          this.replacePlaceholderWithAnswer(placeholderId, data.question.ai_answer)
-          if (this.pollInterval) {
-            clearInterval(this.pollInterval)
-            this.pollInterval = null
-          }
-          return true
-        }
-      }
-    } catch (error) {
-      console.error("Show endpoint polling error:", error)
-    }
-    return false
-  }
 
   // Update placeholder text with loading animation
   updatePlaceholderText(placeholderId, attemptNumber) {
@@ -305,7 +277,6 @@ export default class extends Controller {
 
       if (!response.ok) {
         console.error(`❌ Server error: ${response.status} ${response.statusText}`)
-        this.showEmptyState()
         return
       }
 
@@ -376,15 +347,7 @@ export default class extends Controller {
     return messageDiv
   }
 
-  // find and remove last user message in container when optimistic update fails
-  removeLastUserMessage() {
-    const lastUserMessage = this.messagesTarget.querySelector('.message.user:last-child')
-    if (lastUserMessage) {
-      lastUserMessage.remove()
-    }
-  }
-
-  // Remove a specific message by ID
+ // Remove a specific message by ID
   removeMessage(messageId) {
     const message = this.messagesTarget.querySelector(`[data-message-id="${messageId}"]`)
     if (message) {
@@ -433,7 +396,7 @@ export default class extends Controller {
         // Show success message
         this.addMessage("Chat history cleared successfully", "system")
       } else {
-        alert("Failed to clear history: " + (data.message || "Unknown error"))
+        alert("Failed to clear history: " + ( "Unknown error"))
 
       }
     } catch (error) {
