@@ -38,8 +38,8 @@
       <%# Blood requests count %>
       <div class='card blood-request-count'>
         <h3>My Blood Requests</h3>
-        <p class='count'><%= current_user.blood_requests.count %></p>
-        <%= link_to 'View All Requests', blood_requests_path, class: 'btn btn-outline-danger btn-sm' %>
+        <p class='count'><%= current_user.blood_requests.where(status: [:pending, :accepted]).count %></p>
+        <%= link_to 'View All Requests', blood_requests_path(filter: "active"), class: 'btn btn-outline-danger btn-sm' %>
       </div>
     </div>
 
@@ -57,7 +57,7 @@
           </div>
         </div>
         <p>Track the status of your previous Blood Requests</p>
-        <%= link_to 'Previous Requests' , blood_requests_path, class: 'btn btn-outline-danger btn-sm' %>
+        <%= link_to 'Previous Requests' , blood_requests_path(filter: "completed"), class: 'btn btn-outline-danger btn-sm' %>
       </div>
 
       <%# Donors index %>

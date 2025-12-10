@@ -1,6 +1,21 @@
-<div id="<%= dom_id(question) %>" class="question">
-  <%= turbo_stream_from dom_id(question) %>
+<div id="question-<%= question.id %>" class="question-item">
+  <div class="message user">
+    <div class="message-bubble">
+      <%= question.user_question %>
+    </div>
+    <div class="message-time">
+      <%= question.created_at.strftime("%I:%M %p") %>
+    </div>
+  </div>
 
-  <p class="user-question"><%= question.user_question %></p>
-  <p class="ai-answer"><%= question.ai_answer || "..." %></p>
+  <% if question.ai_answer.present? %>
+    <div class="message ai">
+      <div class="message-bubble">
+        <%= question.ai_answer %>
+      </div>
+      <div class="message-time">
+        <%= question.updated_at.strftime("%I:%M %p") %>
+      </div>
+    </div>
+  <% end %>
 </div>
