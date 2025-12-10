@@ -1,66 +1,97 @@
-
-<div class="search-section mb-4 p-3 rounded-3" style="background-color: #FFF1F2;;">
+<div class="search-section mb-4 p-3 rounded-3" style="background-color: #FFF1F2;">
   <h1 class="mb-4">Find a Donor</h1>
-    <%= form_with url: donors_path, method: :get, local: true do |f| %>
-      <div class="search mb-4">
-        <div class="d-flex flex-wrap gap-2 gap-sm-3 align-items-start">
 
-          <!-- Blood Type Dropdown -->
-          <div class="dropdown flex-grow-1 flex-sm-grow-0">
-            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" id="bloodTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              Select Blood Type
-            </button>
-            <ul class="dropdown-menu p-3" aria-labelledby="bloodTypeDropdown">
-              <% ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].each do |type| %>
-                <li>
-                  <div class="form-check">
-                    <%= check_box_tag "blood_type[]", type, params[:blood_type]&.include?(type), id: "blood#{type.gsub('+','plus').gsub('-','minus')}", class: "form-check-input" %>
-                    <%= label_tag "blood#{type.gsub('+','plus').gsub('-','minus')}", type, class: "form-check-label" %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+  <%= form_with url: donors_path, method: :get, local: true do |f| %>
+    <div class="search mb-4">
+      <div class="d-flex flex-wrap gap-2 gap-sm-3 align-items-start">
 
-          <!-- Location Dropdown -->
-          <div class="dropdown flex-grow-1 flex-sm-grow-0">
-            <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              Select Location
-            </button>
-            <ul class="dropdown-menu p-3" aria-labelledby="locationDropdown">
-              <% ["Port Louis", "Curepipe", "Quatre Bornes", "Moka"].each do |city| %>
-                <li>
-                  <div class="form-check">
-                    <%= check_box_tag "location[]", city, params[:location]&.include?(city), id: "loc#{city.gsub(' ','')}", class: "form-check-input" %>
-                    <%= label_tag "loc#{city.gsub(' ','')}", city, class: "form-check-label" %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+        <!-- Blood Type Dropdown -->
+        <div class="dropdown flex-grow-1 flex-sm-grow-0">
+          <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto"
+                  type="button" id="bloodTypeDropdown" data-bs-toggle="dropdown"
+                  aria-expanded="false" style="border-radius: 12px;">
+            Select Blood Type
+          </button>
+          <ul class="dropdown-menu p-3" aria-labelledby="bloodTypeDropdown">
+            <% ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].each do |type| %>
+              <li>
+                <div class="form-check">
+                  <%= check_box_tag "blood_type[]", type, params[:blood_type]&.include?(type),
+                                    id: "blood#{type.gsub('+','plus').gsub('-','minus')}",
+                                    class: "form-check-input" %>
+                  <%= label_tag "blood#{type.gsub('+','plus').gsub('-','minus')}", type,
+                                class: "form-check-label" %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
 
-          <!-- Filter Button -->
-          <div class="w-100 mt-2 mt-sm-0 flex-sm-grow-0">
-            <button type="submit" class="btn w-100" style="background-color: #EC1B35; color: #fff;">Filter</button>
+        <!-- Location Dropdown -->
+        <div class="dropdown flex-grow-1 flex-sm-grow-0">
+          <button class="btn btn-secondary dropdown-toggle w-100 w-sm-auto"
+                  type="button" id="locationDropdown" data-bs-toggle="dropdown"
+                  aria-expanded="false" style="border-radius: 12px;">
+            Select Location
+          </button>
+          <ul class="dropdown-menu p-3" aria-labelledby="locationDropdown">
+            <% ["Port Louis", "Curepipe", "Quatre Bornes", "Moka"].each do |city| %>
+              <li>
+                <div class="form-check">
+                  <%= check_box_tag "location[]", city, params[:location]&.include?(city),
+                                    id: "loc#{city.gsub(' ','')}",
+                                    class: "form-check-input" %>
+                  <%= label_tag "loc#{city.gsub(' ','')}", city, class: "form-check-label" %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <!-- Filter Button -->
+        <div class="w-100 mt-2 mt-sm-0 flex-sm-grow-0">
+          <button type="submit" class="btn w-100"
+                  style="background-color: #EC1B35; color: #fff; border-radius: 12px;">
+            Filter
+          </button>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row g-3" style="background-color: #FFF1F2; padding: 12px; border-radius: 12px;">
+    <% @donors.each do |donor| %>
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <div class="card h-100 shadow-sm p-3" style="border: 2px solid #EC1B35; border-radius: 10px;">
+          <div class="d-flex align-items-center mb-3">
+
+            <img src="<%= donor.user.avatar_url %>"
+                 alt="Avatar" class="rounded-circle me-3"
+                 style="width:48px; height:48px; object-fit:cover;">
+
+            <div>
+              <!-- FIXED: Added custom class -->
+              <h5 class="card-title donor-name fw-bold mb-1">
+                <%= donor.user.first_name %> <%= donor.user.last_name %>
+              </h5>
+
+              <!-- FIXED: Added donor-info, removed small -->
+              <p class="donor-info mb-0 text-muted">
+                <i class="bi bi-geo-alt" style="color: #EC1B35;"></i>
+                <%= donor.user.address %>
+              </p>
+
+              <p class="donor-info mb-0 text-muted">
+                <i class="bi bi-droplet" style="color: #EC1B35;"></i>
+                <%= donor.user.blood_type %>
+              </p>
+
+            </div>
           </div>
         </div>
       </div>
     <% end %>
+  </div>
 
-    <div class="row g-3" style="background-color: #FFF1F2; padding: 12px; border-radius: 12px;">
-      <% @donors.each do |donor| %>
-        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-          <div class="card h-100 shadow-sm p-3" style="border: 2px solid #EC1B35; border-radius: 10px;">
-            <div class="d-flex align-items-center mb-3">
-              <img src="<%= donor.user.avatar_url %>" alt="Avatar" class="rounded-circle me-3" style="width:48px; height:48px; object-fit:cover;">
-              <div>
-                <h5 class="card-title mb-1 fw-bold"><%= donor.user.first_name %> <%= donor.user.last_name %></h5>
-                <p class="mb-0 text-muted small"><i class="bi bi-geo-alt" style="color: #EC1B35;"></i> <%= donor.user.address %></p>
-                <p class="mb-0 text-muted small"><i class="bi bi-droplet" style="color: #EC1B35;"></i> <%= donor.user.blood_type %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
 </div>

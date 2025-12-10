@@ -1,5 +1,5 @@
 .search-section {
-  background-color: #FFF1F2;;
+  background-color: #FFF1F2;
   padding: 12px;
   border-radius: 12px;
 }
@@ -35,8 +35,20 @@
   opacity: 0.7;
 }
 
-/* Responsive */
+/* Custom Donor Text Size */
+.donor-name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.donor-info {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* Responsive Mobile Adjustments */
 @media (max-width: 576px) {
+
   .search-section .d-flex {
     flex-direction: column;
     gap: 8px;
@@ -52,15 +64,25 @@
   }
 
   .card-title {
-    font-size: 14px;
+    font-size: 22px;
+    font-weight: 700;
   }
 
   .card p {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .search-section .btn,
   .search-section .dropdown-toggle {
     width: 100%;
+  }
+
+  /* Mobile donor text */
+  .donor-name {
+    font-size: 22px;
+  }
+
+  .donor-info {
+    font-size: 17px;
   }
 }
