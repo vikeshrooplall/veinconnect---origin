@@ -1,15 +1,15 @@
 .patient-section {
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #FFF1F2;
-  padding: 1px;
+  background-color: white;
+  padding: 10px;
 }
 
 .header-text h2 {
   justify-content: center;
   color: #EC1B35;
   margin: 15px 0px 0px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 .header-text p {
@@ -40,21 +40,20 @@
 .card-icon {
   background-color: #EC1B35;
   color: #FFF1F2;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .card-icon-text h6 {
-  font-size: 1.4rem;
+  font-size: 1.6rem !important;
   font-weight: 700;
   color: #FFF1F2;
-  // margin: 0;
 }
 
 .blood-request p {
   color: #FFF1F2;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 5px;
 }
 
@@ -78,9 +77,9 @@
 }
 
 .donor-count {
-  padding: 20px 0px 0px;
-  color: #FFF1F2;
-  background-color: #EC1B35;
+  padding: 20px !important;
+  color: #EC1B35;
+  background-color: #FFF1F2;
   max-height: 100px;
   border-radius: 20px;
   display: flex;
@@ -88,25 +87,27 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  // border-color: #EC1B35;
 }
 
 .donor-count h3 {
-  font-size: 1.4rem;
+  margin-top: 15px !important;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #FFF1F2;
+  color: #EC1B35;
 }
 
 .donor-count p {
-  color: #FFF1F2;
-  font-size: 1.1rem;
+  color: #EC1B35;
+  font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .blood-request-count {
   padding: 20px;
-  color: #FFF1F2;
-  background-color: #EC1B35;
+  color: #EC1B35;
+  background-color: #FFF1F2;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -117,20 +118,22 @@
 }
 
 .blood-request-count h3 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #FFF1F2;
+  color: #EC1B35;
 }
 
 .blood-request-count p {
-  color: #FFF1F2;
-  font-size: 1.1rem;
+  color: #EC1B35;
+  font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 0px;
 }
 
 .blood-request-count .btn {
   background-color: #FFF1F2;
+  border-width: 0.5px !important;
+  border-color: #EC1B35 !important;
   color: #EC1B35;
   width: 70%;
   justify-content: center;
@@ -145,22 +148,43 @@
 .blood-request-history {
   border-radius: 20px;
   display: flex;
-  background-color: #EC1B35;
+  background-color: #FFF1F2;
   padding: 15px 20px;
-  color: #FFF1F2;
+  color: #EC1B35;
   margin: 20px 0px 20px;
   align-items: center;
 }
+.blood-request-history .card-icon {
+  background-color: #FFF1F2;
+  color: #EC1B35;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px !important;
+}
+
+.blood-request-history .card-head {
+  border-bottom: 2px solid #EC1B35;
+  padding-top: 15px;
+  margin-bottom: 10px;
+}
+
+.blood-request-history .card-icon-text h6 {
+  font-size: 1.6rem !important;
+  font-weight: 700;
+  color: #EC1B35;
+}
 
 .blood-request-history p {
-  color: #FFF1F2;
+  color: #EC1B35;
   font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0px;
+  font-weight: 400;
+  margin-bottom: 5px;
   text-align: center;
 }
 
 .blood-request-history .btn {
+  border-width: 0.5px !important;
+  border-color: #EC1B35 !important;
   background-color: #FFF1F2;
   color: #EC1B35;
   width: 70%;
@@ -177,24 +201,46 @@
   border-radius: 20px;
   display: flex;
   justify-content: center;
-  background-color: #EC1B35;
+  background-color: #FFF1F2;
   padding: 15px 20px;
-  color: #FFF1F2;
+  color: #EC1B35;
   margin-top: 20px;
   align-items: center;
   padding: 20px;
   margin-bottom: 20px;
 }
 
-.donors-card p {
-  color: #FFF1F2;
-  font-size: 1.1rem;
+.donors-card .card-head {
+  border-bottom: 2px solid #EC1B35;
+  padding-top: 15px;
+  margin-bottom: 10px;
+}
+
+.donors-card .card-icon {
+  background-color: #FFF1F2;
+  color: #EC1B35;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px !important;
+}
+
+.donors-card .card-icon-text h6 {
+  font-size: 1.6rem !important;
   font-weight: 700;
-  margin-bottom: 0px;
+  color: #EC1B35;
+}
+
+.donors-card p {
+  color: #EC1B35;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 5px;
   text-align: center;
 }
 
 .donors-card .btn {
+  border-width: 0.5px !important;
+  border-color: #EC1B35 !important;
   background-color: #FFF1F2;
   color: #EC1B35;
   width: 70%;
