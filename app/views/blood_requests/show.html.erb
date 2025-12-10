@@ -1,70 +1,55 @@
 <div class="container my-1">
 
-  <!-- Page Title -->
   <h4 class="fw-bold text-center mb-3 pt-4">Request Details</h4>
 
-  <!-- PINK BACKGROUND WRAPPER -->
   <div class="p-3 rounded mb-3" style="background:#FFF1F2;">
 
-    <!-- CARD 1 — PATIENT DETAILS -->
     <div class="card shadow-sm p-3 mb-3">
 
-      <div class="d-flex align-items-center">
+      <div class="show-grid-row">
 
-        <!-- Avatar -->
-        <div class="rounded-circle bg-light patient-avatar d-flex justify-content-center align-items-center me-3"
-             style="width: 65px; height: 65px;">
+        <div class="show-icon bg-light">
           <i class="bi bi-person fs-2 text-secondary"></i>
         </div>
 
-        <!-- Patient Info -->
-        <div class="flex-grow-1">
+        <div>
           <h6 class="fw-bold mb-1">Patient #<%= @blood_request.id %></h6>
           <small class="text-muted">
             Requesting <strong><%= @blood_request.blood_type %></strong> blood
           </small>
         </div>
 
-        <!-- Blood Type Badge -->
-        <div class="rounded-circle text-white blood-type-bubble d-flex justify-content-center align-items-center"
-             style="width: 55px; height: 55px; background:#EC1B35;">
+        <div class="show-icon text-white"
+             style="background:#EC1B35; grid-column: 3 / 4;">
           <strong><%= @blood_request.blood_type %></strong>
         </div>
 
       </div>
 
     </div>
-    <!-- END CARD 1 -->
 
-    <!-- CARD 2 — STATUS / QUANTITY / NEEDED BY  -->
     <div class="card shadow-sm p-3 mb-3">
 
       <div class="row text-center g-3">
 
-        <!-- STATUS -->
         <div class="col-4">
-          <div class="rounded-circle bg-secondary text-white circle-icon mx-auto mb-1 d-flex justify-content-center align-items-center"
-               style="width: 45px; height: 45px;">
+          <div class="show-icon bg-secondary text-white mx-auto mb-1">
             <i class="bi bi-clipboard-check fs-5"></i>
           </div>
           <p class="text-muted small mb-0">Status</p>
           <p class="fw-bold small mb-0"><%= @blood_request.status.humanize %></p>
         </div>
 
-        <!-- QUANTITY -->
         <div class="col-4">
-          <div class="rounded-circle bg-danger text-white circle-icon mx-auto mb-1 d-flex justify-content-center align-items-center"
-               style="width: 45px; height: 45px;">
+          <div class="show-icon bg-danger text-white mx-auto mb-1">
             <i class="bi bi-droplet-half fs-5"></i>
           </div>
           <p class="text-muted small mb-0">Quantity</p>
           <p class="fw-bold small mb-0"><%= @blood_request.quantity %> bags</p>
         </div>
 
-        <!-- NEEDED BY -->
         <div class="col-4">
-          <div class="rounded-circle bg-warning text-white circle-icon mx-auto mb-1 d-flex justify-content-center align-items-center"
-               style="width: 45px; height: 45px;">
+          <div class="show-icon bg-warning text-white mx-auto mb-1">
             <i class="bi bi-clock fs-5"></i>
           </div>
           <p class="text-muted small mb-0">Needed By</p>
@@ -74,9 +59,7 @@
       </div>
 
     </div>
-    <!-- END CARD 2 -->
 
-    <!-- DETAILS CARD -->
     <% urgency_color =
           case @blood_request.urgency
           when "critical" then "#EC1B35"
@@ -86,10 +69,8 @@
 
     <div class="card p-3 mb-2">
 
-      <!-- URGENCY -->
-      <div class="d-flex align-items-center mb-3">
-        <div class="rounded-circle text-white circle-icon d-flex justify-content-center align-items-center me-3"
-             style="width: 45px; height: 45px; background:<%= urgency_color %>;">
+      <div class="show-grid-row mb-3">
+        <div class="show-icon text-white" style="background:<%= urgency_color %>;">
           !
         </div>
         <div>
@@ -99,14 +80,12 @@
         </div>
       </div>
 
-      <!-- LOCATION -->
-      <div class="d-flex align-items-start mb-3">
-        <div class="rounded-circle bg-primary text-white circle-icon d-flex justify-content-center align-items-center me-3"
-             style="width: 45px; height: 45px;">
+      <div class="show-grid-row mb-3">
+        <div class="show-icon bg-primary text-white">
           <i class="bi bi-geo-alt fs-5"></i>
         </div>
         <div class="small">
-          <p class="fw-bold mb-0">Location</p>
+          <p class="fw-bold mb-1">Location</p>
           <p class="text-muted mb-0">
             <%= @blood_request.facility&.name %><br>
             <%= @blood_request.facility&.address %>
@@ -114,14 +93,12 @@
         </div>
       </div>
 
-      <!-- PATIENT NOTE -->
-      <div class="d-flex align-items-start">
-        <div class="rounded-circle bg-success text-white circle-icon d-flex justify-content-center align-items-center me-3"
-             style="width: 45px; height: 45px;">
+      <div class="show-grid-row">
+        <div class="show-icon bg-success text-white">
           <i class="bi bi-file-text fs-5"></i>
         </div>
         <div class="small">
-          <p class="fw-bold mb-0">Patient Note</p>
+          <p class="fw-bold mb-1">Patient Note</p>
           <p class="text-muted mb-0">
             <%= @blood_request.message.presence || "No additional information." %>
           </p>
@@ -129,12 +106,9 @@
       </div>
 
     </div>
-    <!-- END DETAILS CARD -->
 
   </div>
-  <!-- END PINK BACKGROUND WRAPPER -->
 
-  <!-- ACTION BUTTONS -->
   <% if current_user.is_donor? %>
     <% if @blood_request.pending? %>
       <%= button_to "Accept Request",
@@ -163,7 +137,6 @@
     <% end %>
   <% end %>
 
-  <!-- CHAT SECTION -->
   <h6 class="fw-bold mt-3 mb-2">Chat with Patient</h6>
 
   <%= turbo_stream_from "thread_Booking_#{@blood_request.id}_messages" %>
@@ -176,7 +149,6 @@
     <% end %>
   </div>
 
-  <!-- MESSAGE FORM -->
   <div class="message-form mt-2">
     <%= simple_form_for [@blood_request, @message],
         html: {

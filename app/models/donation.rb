@@ -3,8 +3,8 @@ class Donation < ApplicationRecord
   belongs_to :blood_request
   belongs_to :facility
 
-  validates :donor_id, :blood_request_id, presence: true
-  enum :status, { accepted: 0, rejected: 1, completed: 2 }
+  enum status: { accepted: 0, rejected: 1, completed: 2 }
+
   after_create :update_donor_last_donation_date
 
   private

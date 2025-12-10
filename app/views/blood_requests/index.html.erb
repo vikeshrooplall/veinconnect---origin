@@ -1,10 +1,32 @@
 <div class="container mt-1" style="max-width:420px; padding-top:0; margin-top:0;">
 
-  <h4 class="fw-bold text-center mb-3 pt-4">Blood Requests</h4>
+  <h4 class="fw-bold text-center mb-3 pt-4">
+    <% if current_user.donor? %>
+      Blood Requests
+    <% elsif params[:filter] == "active" %>
+      My Active Requests
+    <% elsif params[:filter] == "completed" %>
+      Previous Requests
+    <% else %>
+      My Blood Requests
+    <% end %>
+  </h4>
 
   <% @blood_requests.each do |r| %>
 
     <%= link_to blood_request_path(r), class:"text-decoration-none", style:"color:inherit;" do %>
+
+      <% status_label = {
+        "pending" => "Pending",
+        "accepted" => "Accepted",
+        "completed" => "Completed"
+      }[r.status] %>
+
+      <% status_color = {
+        "pending" => "#EC1B35",
+        "accepted" => "#e951cb",
+        "completed" => "#22C55E"
+      }[r.status] %>
 
       <div class="card border-0 shadow-sm mb-4"
            style="background:#FFF1F2; border-radius:18px; max-width:360px; margin:0 auto; cursor:pointer;">
@@ -17,50 +39,50 @@
             </span>
 
             <span class="badge rounded-pill px-3 py-1"
-                  style="background:#EC1B35; color:white;">
-              Pending
+                  style="background:<%= status_color %>; color:white;">
+              <%= status_label %>
             </span>
           </div>
 
-          <div class="d-flex align-items-center mb-2">
+          <div class="blood-row-grid mb-2">
 
-            <div class="d-flex justify-content-center align-items-center me-3"
-                 style="width:55px; height:55px; background:white;
-                        border:2px solid #EC1B35; border-radius:14px;
-                        font-size:1.6rem; font-weight:700; color:#EC1B35;">
+            <div class="blood-type-box">
               <%= r.blood_type %>
             </div>
 
-            <div class="flex-grow-1">
+            <div class="blood-row-right">
 
-              <div class="fw-bold" style="font-size:1.05rem; color:#222;">
+              <div class="facility-name">
                 <%= r.facility&.name %>
               </div>
 
               <% urgency_label = {
-                "normal"=>"Normal","urgent"=>"Urgent","critical"=>"Critical"
+                "normal"=>"Normal",
+                "urgent"=>"Urgent",
+                "critical"=>"Critical"
               }[r.urgency] %>
 
               <% urgency_color = {
-                "normal"=>"#3B82F6","urgent"=>"#F59E0B","critical"=>"#DC2626"
+                "normal"=>"#3B82F6",
+                "urgent"=>"#F59E0B",
+                "critical"=>"#DC2626"
               }[r.urgency] %>
 
-              <div style="color:<%= urgency_color %>; font-size:0.9rem;" class="fw-semibold">
+              <div class="urgency-row" style="color:<%= urgency_color %>;">
                 ⚠️ <%= urgency_label %>
               </div>
 
-              <div class="text-muted" style="font-size:0.85rem;">
+              <div class="needed-row">
                 Needed by: <%= r.needed_by.strftime('%d %b %Y') %>
               </div>
 
             </div>
           </div>
 
-          <div class="mt-2 text-secondary d-flex align-items-center flex-wrap"
-               style="font-size:0.95rem; gap:8px;">
+          <div class="info-row">
 
             <span>
-              <i class="bi bi-box-seam"></i>
+              <i class="bi bi-droplet-half"></i>
               <strong><%= r.quantity %></strong> units
             </span>
 
