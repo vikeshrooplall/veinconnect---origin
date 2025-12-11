@@ -101,6 +101,18 @@ input[type="submit"] {
   }
 }
 
+select,
+.form-select {
+  border-radius: 10px !important;
+  border: 1px solid #EC1B35 !important;
+  padding: 10px !important;
+  background-color: white !important;
+  height: 45px !important;
+  color: #444 !important;
+  width: 100%;
+}
+
+
 .signup-form-container {
   .form-inputs {
     display: flex;
