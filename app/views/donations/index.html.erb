@@ -1,48 +1,35 @@
-<div class='container-fluid'>
-  <div class='container'>
-    <div class='navbar border-bottom'>
-      <div class='d-flex ms-4'>
-        <%= image_tag 'realistic-drops-red-blood-isolated-600nw-2444638227.webp',
-          class: 'img-rounded me-3', style: 'width: 60px; height: 60px;', alt: 'Blood drops illustration' %>
-        <h6 class='pt-3'><strong>VeinConnect</strong></h6>
-      </div>
-      <div class='d-flex justify-content-between gap-4 me-4'>
-        <%= link_to 'Home', root_path %>
-        <%= link_to 'Find a Center', facilities_path %>
-      </div>
-    </div>
-    <div class='body'>
-      <h1 class='pt-4'>Donation History</h1>
-      <p>A record of your Lifesaving Contributions</p>
-      <table class='table table-bordered'>
-        <thead>
+<div class="container py-4">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">Donation History</h2>
+    <p class="text-muted">A record of your lifesaving contributions</p>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Hospital</th>
+          <th>Blood Request</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @donations.each do |donation| %>
           <tr>
-            <th>Hospital</th>
-            <th>Blood Request</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Last Updated</th>
+            <td data-label="Hospital"><%= donation.facility.name %></td>
+            <td data-label="Blood Request"><%= donation.blood_request_id %></td>
+            <td data-label="Date"><%= donation.created_at.strftime('%d %b %Y') %></td>
+            <td data-label="Status"><%= donation.status %></td>
+            <td data-label="Last Updated"><%= donation.updated_at.strftime('%d %b %Y') %></td>
           </tr>
-        </thead>
-        <tbody>
-          <% @donations.each do |donation| %>
-            <tr>
-              <td data-label="Hospital"><%= donation.facility.name %></td>
-              <td data-label="Blood Request"><%= donation.blood_request_id %></td>
-              <td data-label="Date"><%= donation.created_at.strftime('%d %b %Y') %></td>
-              <td data-label="Status">
-                <span>
-                  <%= donation.status %>
-                </span>
-              </td>
-              <td data-label="Last Updated"><span><%= donation.updated_at.strftime('%d %b %Y') %></span></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <div class='d-flex justify-content-center m-5'>
-        <%= link_to 'Blood Requests', blood_requests_path, class: 'btn btn-danger' %>
-      </div>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to 'Back to Blood Requests', blood_requests_path, class: 'btn btn-danger px-4' %>
   </div>
 </div>
