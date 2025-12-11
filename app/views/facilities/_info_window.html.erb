@@ -1,2 +1,29 @@
-<h2><%= facility.name %></h2>
-<p><%= facility.address %></p>
+<div class="info-window">
+  <h3><%= facility.name %></h3>
+
+  <% if facility.facility_type.present? %>
+    <p style="color: #8b5cf6; font-size: 12px; font-weight: 500; margin-bottom: 12px;">
+      <%= facility.facility_type.humanize.upcase %>
+    </p>
+  <% end %>
+
+  <div class="address">
+    <i class="fas fa-map-marker-alt"></i>
+    <span><%= facility.address %></span>
+  </div>
+
+  <% if facility.phone_number.present? %>
+    <div class="phone">
+      <i class="fas fa-phone"></i>
+      <span><%= facility.phone_number %></span>
+    </div>
+  <% end %>
+
+  <div class="info-window-actions">
+    <a href="https://maps.google.com/?q=<%= facility.latitude %>,<%= facility.longitude %>"
+       target="_blank"
+       class="btn-sm btn-outline">
+      Directions
+    </a>
+  </div>
+</div>
