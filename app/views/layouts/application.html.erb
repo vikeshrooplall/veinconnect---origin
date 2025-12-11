@@ -13,7 +13,12 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
+    <%= render("shared/navbar") unless (
+          (controller_name == "registrations" && action_name == "new") ||
+          (controller_name == "sessions" && action_name == "new")
+        )
+    %>
+
     <%= yield %>
     <%= render "shared/flashes" %>
     <%= render partial: "shared/chat_modal" if user_signed_in? %>

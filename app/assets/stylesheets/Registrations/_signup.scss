@@ -1,0 +1,155 @@
+.signup-wrapper {
+  min-height: 100vh;
+  background: #FFF1F2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.signup-box {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-logo {
+  width: 120px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.signup-subtitle {
+  font-size: 16px;
+  color: #444;
+}
+
+.input,
+.form-control {
+  border-radius: 10px !important;
+  border: 1px solid #EC1B35 !important;
+  padding: 10px !important;
+}
+
+input[type="date"] {
+  border-radius: 10px !important;
+  border: 1px solid #EC1B35 !important;
+}
+
+button,
+input[type="submit"] {
+  background: #EC1B35 !important;
+  border: none !important;
+  color: white !important;
+  padding: 12px;
+  width: 100%;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.signup-links {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.signup-page {
+  background-color: #FFF1F2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 400px; // perfect for S23 Plus
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.signup-logo {
+  margin-bottom: 1rem;
+  .logo-img {
+    height: 60px;
+    width: auto;
+  }
+}
+
+.signup-header {
+  margin-bottom: 1.5rem;
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  p {
+    font-size: 1rem;
+    color: #EC1B35;
+    font-weight: 500;
+  }
+}
+
+.signup-form-container {
+  .form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .form-actions {
+    margin-top: 1.5rem;
+  }
+
+  .signup-btn {
+    width: 100%;
+    background-color: #EC1B35;
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #d0142a;
+    }
+  }
+
+  .login-link {
+    color: #EC1B35;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Responsive tweaks for smaller devices */
+@media (max-width: 360px) {
+  .signup-container {
+    padding: 1.5rem;
+  }
+
+  .signup-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .signup-header p {
+    font-size: 0.9rem;
+  }
+}
