@@ -6,163 +6,181 @@
         <h2>Welcome, <%= current_user.first_name %>!</h2>
         <p>Thank you for being a modern-day hero.</p>
       </div>
-
-      <!-- Header cards -->
-      <div class='header-cards'>
-        <!-- Last donation card -->
-        <%= link_to donations_path, class: 'text-decoration-none' do %>
-          <div class='card header-card'>
-            <div class='card-body'>
-              <i class='fas fa-calendar-check me-2'></i>
-              <h5 class='card-title'>Your Last Donation</h5>
-              <% if @donor.last_donation_date.present? %>
-                <div class='text-center'>
-                  <p class='display-6 text-primary fw-bold mb-2'>
-                    <%= @donor.last_donation_date.strftime('%b %d, %Y') %>
-                  </p>
-                  <p class='text-muted small'>
-                    <%= time_ago_in_words(@donor.last_donation_date) %> ago
-                  </p>
-                  <p>click to view previous donations</p>
-                </div>
-              <% else %>
-                <div class='text-center'>
-                  <i class='fas fa-heart fa-2x text-muted mb-3'></i>
-                  <p class="text-muted mb-2">No donations yet</p>
-                </div>
-              <% end %>
-            </div>
+    </div>
+    <div class="cards-container">
+      <%# Donation stats %>
+      <!-- Last donation card -->
+      <div class='card donation-stat'>
+        <div class='card-body'>
+          <div class='card-icon'>
+            <i class='fas fa-calendar-check'></i>
           </div>
-        <% end %>
-
-        <!-- Next eligible donation date -->
-        <div class='card header-card'>
-          <div class='card-body'>
-            <i class='fas fa-calendar-alt me-2'></i>
-            <h5 class='card-title'>Next Donation</h5>
-            <div class='text-center'>
-              <% if @donor&.previous_donations? %>
-                <% if @donor.eligible_to_donate %>
-                  <i class='fas fa-check-circle fa-2x text-success mb-2'></i>
-                  <p class='h5 fw-bold text-success mb-1'>Ready to Donate</p>
-                  <p class='small text-muted'>You can donate now</p>
-                <% else %>
-                  <p class='h4 text-primary fw-bold mb-1'>
-                    <%= @donor.next_eligible_date.strftime('%b %d') %>
-                  </p>
-                  <p class='text-muted small'>
-                    <%= @donor.next_eligible_date.strftime('%Y') %> • in <%= (@donor.next_eligible_date - Date.today).to_i %> days
-                  </p>
-                <% end %>
-              <% else %>
-                <i class='fas fa-star fa-2x text-muted mb-2'></i>
-                <p class='h6 fw-bold text-muted'>First Time Donor</p>
-                <p class='small text-muted'>You're eligible to start donating</p>
-              <% end %>
-            </div>
+          <div class='card-icon-text'>
+            <h5 class='card-title'>Last Donation</h5>
           </div>
         </div>
+        <% if @donor.last_donation_date.present? %>
+          <div class='text-center'>
+            <p class='date'>
+              <%= @donor.last_donation_date.strftime('%b %d, %Y') %>
+            </p>
+            <p class='text-muted small'>
+              <%= time_ago_in_words(@donor.last_donation_date) %> ago
+            </p>
+            <%= link_to "View Donations", donations_path, class: "btn btn-outline-danger btn-sm" %>
+          </div>
+        <% else %>
+          <div class='text-center'>
+            <i class='fas fa-heart fa-2x text-muted'></i>
+            <p class="text">No donations yet</p>
+            <%= link_to "Start Donating", donations_path, class: "start-donating-btn" %>
+          </div>
+        <% end %>
       </div>
-    </div>
 
-    <!-- Stats cards -->
-    <div class='cards-grid'>
-      <!-- Urgent requests card -->
-      <div class='card stats-card'>
-        <% if @urgent_requests.any? %>
-          <%= link_to urgent_requests_blood_requests_path, class: 'card-link' do %>
-            <div class='card-body text-center'>
-              <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
-              <h3 class='text-danger mb-2'>Urgent Blood Requests</h3>
-              <div class="urgent-count display-4 fw-bold text-danger mb-2">
-                <%= @urgent_requests.count %>
-              </div>
-              <p class="text-muted mb-3">
-                Your blood type needed: <%= BloodRequest.urgent_or_critical.active.where(blood_type: current_user.blood_type).count %>
+      <!-- Next eligible donation date -->
+      <div class='card donation-stat'>
+        <div class='card-body'>
+          <div class ='card-icon'>
+            <i class='fas fa-calendar-alt'></i>
+          </div>
+          <div class='card-icon-text'>
+            <h5 class='card-title'>Next Donation</h5>
+          </div>
+        </div>
+        <div class='text-center'>
+          <% if @donor&.previous_donations? %>
+            <% if @donor.eligible_to_donate %>
+              <i class='fas fa-check-circle fa-2x text-success'></i>
+              <p class='h5 fw-bold text-success'>Ready to Donate</p>
+              <%# <p class='small text'>You can donate now</p> %>
+            <% else %>
+              <p class='date'>
+                <%= @donor.next_eligible_date.strftime('%b %d') %>
               </p>
-              <span class="btn btn-outline-danger btn-sm">View All Requests</span>
-            </div>
+              <p class='text-muted small'>
+                <%= @donor.next_eligible_date.strftime('%Y') %> • in <%= (@donor.next_eligible_date - Date.today).to_i %> days
+              </p>
+            <% end %>
+          <% else %>
+            <i class='fas fa-star fa-2x text-muted'></i>
+            <p class='h6 fw-bold text'>First Time Donor</p>
+            <p class='small text'>You're eligible to start donating</p>
           <% end %>
+        </div>
+      </div>
+      <!-- Urgent requests card -->
+      <div class='card blood-request-card'>
+        <% if @urgent_requests.any? %>
+          <div class='card-body'>
+            <div class='card-icon'>
+              <i class="fas fa-exclamation-triangle fa-2x"></i>
+            </div>
+            <div class='card-icon-text'>
+              <h5 class='text-danger'>Urgent Blood Requests</h5>
+            </div>
+          </div>
+          <div class="urgent-count">
+            <%= @urgent_requests.count %>
+          </div>
+          <p class="text count">
+            Your blood type needed: <%= BloodRequest.urgent_or_critical.active.where(blood_type: current_user.blood_type).count %>
+          </p>
+          <%= link_to "View Urgent Requests", urgent_requests_blood_requests_path, class: "btn btn-outline-danger btn-sm urgent" %>
         <% else %>
           <div class='card-body text-center'>
-            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-            <h3 class="text-success mb-2">No Urgent Requests</h3>
-            <p class="text-muted">All blood needs are currently met</p>
+            <i class="fas fa-check-circle fa-3x text-success"></i>
+            <h5 class="text-success">No Urgent Requests</h5>
+            <p class="text">All blood needs are currently met</p>
           </div>
         <% end %>
       </div>
-      <!-- Accepted Blood Requests Card -->
-      <div class='card stats-card'>
-        <% accepted_count = @accepted_requests&.count || 0 %>
-        <% if accepted_count > 0 %>
-          <%= link_to accepted_requests_blood_requests_path, class: 'card-link' do %>
-            <div class='card-body text-center'>
-              <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-              <h3 class='text-success mb-2'>Accepted Blood Requests</h3>
-              <div class="accepted-count display-4 fw-bold text-success mb-2">
-                <%= accepted_count %>
-              </div>
-              <p class="text-muted mb-3">Requests you have accepted to donate</p>
-              <span class="btn btn-outline-success btn-sm">View Accepted Requests</span>
-            </div>
-          <% end %>
-        <% else %>
-          <div class='card-body text-center'>
-            <i class="fas fa-info-circle fa-3x text-muted mb-3"></i>
-            <h3 class="text-muted mb-2">No Accepted Requests</h3>
-            <p class="text-muted">You haven’t accepted any requests yet</p>
+      <!-- Matching blood requests card -->
+      <div class='card blood-request-card'>
+        <div class="matching-count">
+          <% matching_count = BloodRequest.active.where(blood_type: current_user.blood_type).count %>
+        </div>
+        <div class='card-body'>
+          <div class ='card-icon'>
+            <i class="fas fa-tint fa-2x"></i>
           </div>
-        <% end %>
-      </div>
-    </div>
-    <!-- Matching blood requests card -->
-    <div class='card matching-request'>
-      <% matching_count = BloodRequest.active.where(blood_type: current_user.blood_type).count %>
-      <div class='card-body text-center'>
-        <i class="fas fa-tint fa-3x text-danger mb-3"></i>
-        <h3 class='text-danger'>Matching Your Blood Type</h3>
-        <div class="matching-count display-4 fw-bold text-danger">
+          <div class='card-icon-text'>
+            <h5 class='text-danger'>Matching Your Blood Type</h5>
+          </div>
+        </div>
+        <div class="matching-count fw-bold text-danger">
           <%= matching_count %>
         </div>
-        <p class="text-muted">Requests matching <%= current_user.blood_type %></p>
+        <p class="text count mb-o">Requests matching <%= current_user.blood_type %></p>
 
-        <div class="card-button-wrapper">
+        <div class="card-button-wrapper mt-o">
           <%= link_to donor_index_blood_requests_path, class: "btn btn-outline-danger btn-sm" do %>
             View Matching Requests
           <% end %>
         </div>
       </div>
-    </div>
-
-    <!-- Feature cards -->
-    <div class='card feature-card'>
-      <div class='card card-icon'>
-        <i class="fas fa-hand-holding-medical"></i>
-      </div>
-      <div class='card-text text-center mb-2'>
-        <h6><strong>All Blood Requests</strong></h6>
-        <p>View all requests including urgent and matching ones.</p>
-        <div class="text-center">
-          <p class="h4 text-primary"><%= @blood_requests&.count || 0 %></p>
-          <p class="small text-muted">Relevant Requests</p>
+      <%# All blood request card  %>
+      <div class='card blood-request-card'>
+        <div class='card-body'>
+          <div class ='card-icon'>
+            <i class="fas fa-hand-holding-medical fa-2x"></i>
+          </div>
+          <div class='card-icon-text'>
+            <h5><strong>All Blood Requests</strong></h5>
+          </div>
         </div>
+        <div class='card-text text-center'>
+            <p class="urgent-count"><%= @blood_requests&.count || 0 %></p>
+          <p class="view-all">Pending Blood Request</p>
+          <!-- Button to redirect to blood requests index -->
+          <%= link_to blood_requests_path, class: "btn btn-outline-danger btn-sm" do %>
+            View All Requests
+          <% end %>
+        </div>
+      </div>
+      <!-- Accepted Blood Requests Card -->
+      <div class='card accepted-request' id="accepted-card">
+        <% accepted_count = @accepted_requests&.count || 0 %>
+        <% if accepted_count > 0 %>
+          <div class='card-body'>
+            <div class='card-icon '>
+              <i class="fas fa-check-circle fa-3x text-success"></i>
+            </div>
+            <div class='card-icon-text'>
+              <h5 class='text-success mb-2'>Accepted Blood Requests</h5>
+            </div>
+          </div>
+          <div class="accepted-count fw-bold text-success">
+            <%= accepted_count %>
+          </div>
+          <p class="text mb-2">Requests you have accepted to donate</p>
 
-        <!-- Button to redirect to blood requests index -->
-        <%= link_to blood_requests_path, class: "btn btn-outline-danger btn-sm" do %>
-          View All Requests
+          <div class="card-button-wrapper">
+            <%= link_to "View Accepted Requests", accepted_requests_blood_requests_path, class: "btn btn-outline-success btn-sm" %>
+          </div>
+        <% else %>
+          <div class='card-body'>
+            <div class='card-icon'>
+              <i class="fas fa-info-circle fa-3x"></i>
+            </div>
+            <div class='card-icon-text'>
+              <h5 class="text">No Accepted Requests</h5>
+            </div>
+          </div>
+            <p class="text">You haven't accepted any requests yet</p>
         <% end %>
       </div>
     </div>
+  </div>
     <!-- Map and Footer -->
     <%= render partial: 'shared/map' %>
-    <div class='footer-card'>
-      <div class='footer-content'>
-        <div class='footer-text'>
-          <h4>Your Donation Saves Lives</h4>
-          <p>Every pint of blood can save up to three lives. Your contribution is a heroic act that makes a real difference in our community.</p>
-        </div>
-        <%# <%= image_tag 'human-blood-donate-white-background_1308-111266.avif', class: 'footer-image', alt: 'Blood donation' %>
+  <div class='footer-card'>
+    <div class='footer-content'>
+      <div class='footer-text'>
+        <h4>Your Donation Saves Lives</h4>
+        <p>Every pint of blood can save up to three lives. Your contribution is a heroic act that makes a real difference in our community.</p>
       </div>
+      <%# <%= image_tag 'human-blood-donate-white-background_1308-111266.avif', class: 'footer-image', alt: 'Blood donation' %>
     </div>
   </div>
 </div>
