@@ -53,7 +53,7 @@
             <% if @donor.eligible_to_donate %>
               <i class='fas fa-check-circle fa-2x text-success'></i>
               <p class='h5 fw-bold text-success'>Ready to Donate</p>
-              <p class='small text'>You can donate now</p>
+              <%# <p class='small text'>You can donate now</p> %>
             <% else %>
               <p class='date'>
                 <%= @donor.next_eligible_date.strftime('%b %d') %>

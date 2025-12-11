@@ -84,6 +84,15 @@ body {
   font-size: 1.5rem;
 }
 
+.donation-stat .text-center {
+  margin-top: 20px;
+}
+
+.donation-stat .text-center .h5 {
+  margin-top: 10px;
+  font-size: 1.25rem !important;
+}
+
 .blood-request-card .card-icon {
   color: #EC1B35;
   background-color: #FFF1F2;
@@ -208,11 +217,9 @@ body {
 }
 
 .footer-card {
-  background-color: #EC1B35;
-  border-radius: 20px;
+  background-color: #FFF1F2;
   padding: 30px;
-  margin: 30px 15px 0px;
-  color: white;
+  color: #EC1B35;
 }
 
 .footer-content {
