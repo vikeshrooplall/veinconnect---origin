@@ -2,6 +2,24 @@
     data-controller="map"
     data-map-markers-value="<%= @markers.to_json %>"
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    <div class="map-legend">
+      <div class="legend-item">
+        <div class="legend-dot hospital"></div>
+        <span>Hospital</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot clinic"></div>
+        <span>Clinic</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot blood-donation-center"></div>
+        <span>Blood Center</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot mobile-team"></div>
+        <span>Mobile Team</span>
+      </div>
+    </div>
   </div>
 <div class='container-fluid'>
   <div class="facilities-wrapper">

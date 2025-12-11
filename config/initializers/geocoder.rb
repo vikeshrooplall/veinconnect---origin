@@ -18,10 +18,19 @@ Geocoder.configure(
   # Calculation options
   units: :km,                 # :km for kilometers or :mi for miles
   # distances: :linear          # :spherical or :linear
-
+  bounds: [[57.2, -20.6], [57.9, -19.9]],
   # Cache configuration
   # cache_options: {
   #   expiration: 2.days,
   #   prefix: 'geocoder:'
   # }
 )
+
+# custom geocoding lookup for Mauritius
+module MauritiusGeocoder
+  def self.bias_to_mauritius(address)
+    # Always append "Mauritius" to ensure proper geocoding
+    return address if address.downcase.include?('mauritius')
+    "#{address}, Mauritius"
+  end
+end
