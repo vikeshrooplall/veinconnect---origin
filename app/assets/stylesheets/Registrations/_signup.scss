@@ -1,0 +1,92 @@
+.signup-page {
+  background-color: #FFF1F2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 400px; // perfect for S23 Plus
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.signup-logo {
+  margin-bottom: 1rem;
+  .logo-img {
+    height: 60px;
+    width: auto;
+  }
+}
+
+.signup-header {
+  margin-bottom: 1.5rem;
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  p {
+    font-size: 1rem;
+    color: #EC1B35;
+    font-weight: 500;
+  }
+}
+
+.signup-form-container {
+  .form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .form-actions {
+    margin-top: 1.5rem;
+  }
+
+  .signup-btn {
+    width: 100%;
+    background-color: #EC1B35;
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #d0142a;
+    }
+  }
+
+  .login-link {
+    color: #EC1B35;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Responsive tweaks for smaller devices */
+@media (max-width: 360px) {
+  .signup-container {
+    padding: 1.5rem;
+  }
+
+  .signup-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .signup-header p {
+    font-size: 0.9rem;
+  }
+}
