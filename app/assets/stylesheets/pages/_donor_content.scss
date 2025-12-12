@@ -52,13 +52,8 @@ body {
   margin: 0px !important;
 }
 
-.blood-request-card,
-.accepted-request {
-  padding: 25px;
-}
-
-.donation-stat .card-body,
 .blood-request-card .card-body,
+.donation-stat .card-body,
 .accepted-request .card-body {
   display: flex;
   gap: 20px;
@@ -67,10 +62,15 @@ body {
   padding: 10px;
   padding-top: 2px !important;
   border-bottom: 2px solid #EC1B35 !important;
+
+}
+.blood-request-card > .matching-count:first-child {
+  display: none !important;
 }
 
 .accepted-request .card-body {
-  margin-bottom: 20px;
+  margin: 0px;
+  padding-top: 0px !important;
 }
 
 .donation-stat .card-icon {
@@ -150,13 +150,31 @@ body {
   font-weight: 700;
   padding-top: 0px !important;
   margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+.text-accept {
+  color: black !important;
+  font-size: 1.1rem !important;
+  line-height: 1.5;
+  margin: 15px 0px;
 }
 
 .text {
   color: black !important;
   font-size: 1.1rem !important;
   line-height: 1.5;
-  margin-bottom: 10px;
+  margin: 15px 0px;
+}
+
+.accepted-count.text-danger {
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+  color: #EC1B35 !important;
+  padding-top: 0px !important;
+  margin: 0px !important;
+  margin-bottom: 0px !important;
+  margin-top: 20px !important;
 }
 
 .text.count {
@@ -164,7 +182,7 @@ body {
   font-weight: 400;
   color: #EC1B35;
   padding-top: 0px !important;
-  margin: 0px !important;
+  margin: 1rem !important;
 }
 
 .text-muted {
@@ -190,9 +208,28 @@ body {
   border: none;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
   padding: 10px 20px;
+  min-width: 300px;
+  min-height: 45px;
+  width: auto;
+  box-sizing: border-box;
+}
+
+#accepted-card .btn {
+    background-color: #EC1B35;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  min-width: 300px;
+  min-height: 45px;
+  width: auto;
+  box-sizing: border-box;
 }
 
 .blood-request-card .urgent {
