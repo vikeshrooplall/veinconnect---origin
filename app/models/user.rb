@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :donations, through: :donor
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   # Validations
   validates :first_name, :last_name, :date_of_birth, :email, :phone, presence: true
