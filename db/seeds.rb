@@ -1,7 +1,6 @@
 require 'faker'
 require 'open-uri'
 require 'openssl'
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 puts 'Cleaning database...'
 # Destroy all previous records
@@ -86,8 +85,6 @@ mauritian_last_names = ["Gopaul", "Henri", "Bunwaree", "Ramsamy", "Richard", "Du
 FEMALE_AVATARS = ["female4.png", "female5.png", "female6.png"]
 MALE_AVATARS = ["1.png", "2.png", "3.png"]
 
-avatar = is_female ? FEMALE_AVATARS.sample : MALE_AVATARS.sample
-
 users = 20.times.map do
   is_female = [true, false].sample
   if is_female
@@ -97,6 +94,9 @@ users = 20.times.map do
     first_name = MALE_NAMES.sample
     avatar = MALE_AVATARS.sample
   end
+
+  avatar = is_female ? FEMALE_AVATARS.sample : MALE_AVATARS.sample
+
 
   User.create!(
     first_name: first_name,

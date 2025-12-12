@@ -17,10 +17,10 @@
               <li>
                 <div class="form-check">
                   <%= check_box_tag "blood_type[]", type, params[:blood_type]&.include?(type),
-                                    id: "blood#{type.gsub('+','plus').gsub('-','minus')}",
-                                    class: "form-check-input" %>
+                        id: "blood#{type.gsub('+','plus').gsub('-','minus')}",
+                        class: "form-check-input" %>
                   <%= label_tag "blood#{type.gsub('+','plus').gsub('-','minus')}", type,
-                                class: "form-check-label" %>
+                        class: "form-check-label" %>
                 </div>
               </li>
             <% end %>
@@ -39,8 +39,8 @@
               <li>
                 <div class="form-check">
                   <%= check_box_tag "location[]", city, params[:location]&.include?(city),
-                                    id: "loc#{city.gsub(' ','')}",
-                                    class: "form-check-input" %>
+                        id: "loc#{city.gsub(' ','')}",
+                        class: "form-check-input" %>
                   <%= label_tag "loc#{city.gsub(' ','')}", city, class: "form-check-label" %>
                 </div>
               </li>
@@ -60,26 +60,23 @@
     </div>
   <% end %>
 
+  <!-- Donor Cards -->
   <div class="row g-3" style="background-color: #FFF1F2; padding: 12px; border-radius: 12px;">
     <% @donors.each do |donor| %>
       <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-        <div class="card h-100 shadow-sm p-3" style="border: 2px solid #EC1B35; border-radius: 10px;">
-          <div class="d-flex align-items-center mb-3">
+        <div class="card h-100 shadow-sm p-3"
+             style="border: 2px solid #EC1B35; border-radius: 10px;">
 
-            <img
-                src="/avatars/<%= donor.user.avatar_url %>"
-                alt="Avatar"
-                class="rounded-circle me-3"
-                style="width:48px; height:48px; object-fit:cover;"
-            >
+          <div class="d-flex align-items-center mb-3">
+            <%= image_tag "avatars/#{donor.user.avatar_url}",
+                  class: "rounded-circle me-3",
+                  style: "width:48px; height:48px; object-fit:cover;" %>
 
             <div>
-              <!-- FIXED: Added custom class -->
               <h5 class="card-title donor-name fw-bold mb-1">
                 <%= donor.user.first_name %> <%= donor.user.last_name %>
               </h5>
 
-              <!-- FIXED: Added donor-info, removed small -->
               <p class="donor-info mb-0 text-muted">
                 <i class="bi bi-geo-alt" style="color: #EC1B35;"></i>
                 <%= donor.user.address %>
@@ -89,9 +86,9 @@
                 <i class="bi bi-droplet" style="color: #EC1B35;"></i>
                 <%= donor.user.blood_type %>
               </p>
-
             </div>
           </div>
+
         </div>
       </div>
     <% end %>
