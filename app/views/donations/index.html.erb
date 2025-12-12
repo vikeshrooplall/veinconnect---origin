@@ -1,9 +1,32 @@
 <div class="container py-4">
-  <div class="text-center mb-4">
-    <h2 class="fw-bold">Donation History</h2>
-    <p class="text-muted">A record of your lifesaving contributions</p>
+
+  <!-- Page Header -->
+  <div class="d-flex align-items-center mb-4">
+
+    <!-- Left: Back arrow → HOME -->
+    <div style="width: 40px;">
+      <button type="button"
+              onclick="window.location.href='<%= root_path %>'"
+              class="p-0 border-0 bg-transparent text-dark fs-4"
+              style="outline:none;">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+    </div>
+
+    <!-- Center: Title -->
+    <div class="flex-grow-1 text-center">
+      <h2 class="fw-bold mb-0">Donation History</h2>
+      <p class="text-muted mb-0">
+        A record of your lifesaving contributions
+      </p>
+    </div>
+
+    <!-- Right spacer -->
+    <div style="width: 40px;"></div>
+
   </div>
 
+  <!-- Donation Table -->
   <div class="table-responsive">
     <table class="table table-bordered align-middle">
       <thead class="table-light">
@@ -11,24 +34,31 @@
           <th>Hospital</th>
           <th>Blood Request</th>
           <th>Date</th>
-          <%# <th>Status</th> %>
           <th>Last Updated</th>
         </tr>
       </thead>
       <tbody>
         <% @donations.each do |donation| %>
           <tr>
-            <td data-label="Hospital"><%= donation.facility.name %></td>
-            <td data-label="Blood Request"><%= donation.blood_request_id %></td>
-            <td data-label="Date"><%= donation.created_at.strftime('%d %b %Y') %></td>
-            <%# <td data-label="Status"> <%= donation.status.humanize %></td>
-            <td data-label="Last Updated"><%= donation.updated_at.strftime('%d %b %Y') %></td>
+            <td data-label="Hospital">
+              <%= donation.facility.name %>
+            </td>
+            <td data-label="Blood Request">
+              <%= donation.blood_request_id %>
+            </td>
+            <td data-label="Date">
+              <%= donation.created_at.strftime('%d %b %Y') %>
+            </td>
+            <td data-label="Last Updated">
+              <%= donation.updated_at.strftime('%d %b %Y') %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 
+  <!-- Bottom Button -->
   <div class="d-flex justify-content-center mt-4">
     <%= link_to 'Back to Blood Requests',
           blood_requests_path,

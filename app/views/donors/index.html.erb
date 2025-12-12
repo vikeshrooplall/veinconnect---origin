@@ -1,5 +1,29 @@
 <div class="search-section mb-4 p-3 rounded-3" style="background-color: #FFF1F2;">
-  <h1 class="mb-4">Find a Donor</h1>
+  <!-- Page Header -->
+  <div class="d-flex align-items-center mb-3">
+
+    <!-- Left: Back arrow → HOME -->
+    <div style="width: 40px;">
+      <button type="button"
+              onclick="window.location.href='<%= root_path %>'"
+              class="p-0 border-0 bg-transparent text-dark fs-4"
+              style="outline:none;">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+    </div>
+
+    <!-- Center: Title -->
+    <div class="flex-grow-1 text-center">
+      <h1 class="mb-0">Find a Donor</h1>
+    </div>
+
+    <!-- Right spacer -->
+    <div style="width: 40px;"></div>
+
+  </div>
+
+
+
 
   <%= form_with url: donors_path, method: :get, local: true do |f| %>
     <div class="search mb-4">

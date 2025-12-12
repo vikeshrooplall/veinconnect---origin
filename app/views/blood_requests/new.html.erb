@@ -1,10 +1,27 @@
 <div class="container"
      style="max-width:420px; background:#FFF6F7; min-height:100vh; padding:22px 12px;">
 
-  <!-- Page Title -->
-  <h3 class="fw-bold text-center mb-4" style="color:#EC1B35;">
-    Make a Blood Request
-  </h3>
+  <!-- Page Header -->
+  <div class="d-flex align-items-center mb-4">
+
+    <div style="width: 40px;">
+      <button type="button"
+              onclick="if (window.history.length > 1) { history.back(); } else { window.location.href='/' }"
+              class="p-0 border-0 bg-transparent text-danger fs-4"
+              style="outline:none;">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+    </div>
+
+    <div class="flex-grow-1 text-center">
+      <h3 class="fw-bold mb-0" style="color:#EC1B35;">
+        Make a Blood Request
+      </h3>
+    </div>
+
+    <div style="width: 40px;"></div>
+
+  </div>
 
   <!-- Soft Pink Form Card -->
   <div class="card shadow-sm border-0"
@@ -59,11 +76,10 @@
       <!-- NOTES -->
       <div class="mb-3">
         <%= f.input :message,
-                    as: :text,
                     label: "Notes (optional)",
                     input_html: {
                       class: "form-control",
-                      rows: 3,
+                      rows: 1,
                       style:"border-radius:10px; background:white; resize:none;"
                     },
                     label_html: { style:"color:#EC1B35; font-weight:600;" } %>
