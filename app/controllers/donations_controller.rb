@@ -1,6 +1,6 @@
 class DonationsController < ApplicationController
   def index
-    @donations = Donation.all
+     @donations = current_user.donor&.donations || Donation.none
   end
 
   def show

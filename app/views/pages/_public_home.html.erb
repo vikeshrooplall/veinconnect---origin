@@ -1,158 +1,147 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VeinConnect</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="application.css">
 </head>
 
 <body>
 
+<div class="home-page">
+
   <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-content text-center text-white p-4">
       <h1 class="display-4 fw-bold">VEINCONNECT</h1>
-      <p class="lead mb-4 text-white">
-        Blood donation app matching blood donors with patients in need quickly and reliably. Every drop counts.
+
+      <p class="lead mb-4">
+        Blood donation app matching blood donors with patients in need quickly and reliably.
+        Every drop counts.
       </p>
 
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center p-3">
-        <%= link_to "Sign up as Donor", new_user_registration_path(user_type: "donor"),
-              class: "btn btn-outline-light btn-lg gap-3 hero-button" %>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center p-2">
+        <%= link_to "Sign up as Donor",
+              new_user_registration_path(user_type: "donor"),
+              class: "btn btn-outline-light btn-lg hero-button" %>
       </div>
 
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center p-3">
-        <%= link_to "Sign up as Patient", new_user_registration_path(user_type: "patient"),
-              class: "btn btn-outline-light btn-lg gap-3 hero-button" %>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center p-2">
+        <%= link_to "Sign up as Patient",
+              new_user_registration_path(user_type: "patient"),
+              class: "btn btn-outline-light btn-lg hero-button" %>
       </div>
     </div>
   </section>
-  <section class="how-it-works-section" style="background-color: #FFF1F2;">
-    <h2 class="display-4 fw-bold text-center my-4" style="background-color: #FFF1F2;">How it Works? 🩸</h2>
-      <div class="d-flex justify-content-center my-3">
-        <div class="card mb-3 p-3" style="max-width: 300px;">
 
-          <h3 class="display-6 fw-bold text-center mb-4" style="color: #EC1B35;">For Donors</h3>
+  <section class="how-it-works-section">
 
-          <div class="row g-0 mb-3 align-items-center">
-            <div class="col-3 d-flex justify-content-center">
-              <%= image_tag "Blood type.png", class: "img-fluid", alt: "blood-type" %>
-            </div>
-            <div class="col-9">
-              <h5 class="fw-semibold mb-1">Sign up and fill details</h5>
-              <p class="mb-0">Provide your blood type and contact information to get started.</p>
-            </div>
+    <h2 class="display-4 fw-bold text-center mt-2 mb-3">
+      How it Works? 🩸
+    </h2>
+
+    <div class="d-flex justify-content-center card-wrapper first-card">
+      <div class="card wide-card p-3">
+
+        <h3 class="display-6 fw-bold text-center mb-3 text-danger">
+          For Donors
+        </h3>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "Blood type.png" %></div>
+          <div class="col-9">
+            <strong>Sign up and fill details</strong>
+            <p class="mb-0">Provide your blood type and contact information.</p>
           </div>
-
-
-          <div class="row g-0 mb-3 align-items-center">
-            <div class="col-3 d-flex justify-content-center">
-              <%= image_tag "Notification.png", class: "img-fluid", alt: "Notification" %>
-            </div>
-            <div class="col-9">
-              <h5 class="fw-semibold mb-1">Receive Notifications</h5>
-              <p class="mb-0">Get instant alerts for blood requests matching your blood type.</p>
-            </div>
-          </div>
-
-
-          <div class="row g-0 mb-3 align-items-center">
-            <div class="col-3 d-flex justify-content-center">
-              <%= image_tag "accept.png", class: "img-fluid", alt: "accept" %>
-            </div>
-            <div class="col-9">
-                <h5 class="fw-semibold mb-1">Accept Requests</h5>
-                <p class="mb-0">Accept requests, communicate with patients, and help save lives.</p>
-            </div>
-          </div>
-
-
         </div>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "Notification.png" %></div>
+          <div class="col-9">
+            <strong>Receive Notifications</strong>
+            <p class="mb-0">Get instant alerts for blood requests.</p>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "accept.png" %></div>
+          <div class="col-9">
+            <strong>Accept Requests</strong>
+            <p class="mb-0">Communicate with patients and help save lives.</p>
+          </div>
+        </div>
+
       </div>
-    </section>
-    <section class="how-it-works-section" style="background-color: #FFF1F2;">
-      <div class="d-flex justify-content-center my-3">
-        <div class="card mb-3 p-3" style="max-width: 300px;">
-
-          <h3 class="display-6 fw-bold text-center mb-4" style="color: #EC1B35;">For Patients</h3>
-
-          <div class="row g-0 mb-3 align-items-center">
-            <div class="col-3 d-flex justify-content-center">
-              <%= image_tag "4.png", class: "img-fluid", alt: "blood-request" %>
-            </div>
-            <div class="col-9">
-                <h5 class="fw-semibold mb-1">Create a Blood Request</h5>
-                <p class="mb-0">Specify the blood type, quantity, location and due date.</p>
-            </div>
-          </div>
-
-          <div class="row g-0 mb-3 align-items-center">
-            <div class="col-3 d-flex justify-content-center">
-              <%= image_tag "5.png", class: "img-fluid", alt: "donor" %>
-            </div>
-            <div class="col-9">
-                <h5 class="fw-semibold mb-1">Donors are notified</h5>
-                <p class="mb-0">Matching donors in your area are notified immediately.</p>
-            </div>
-          </div>
-
-          <div class="row g-0 mb-3 align-items-center">
-            <div class="col-3 d-flex justify-content-center">
-              <%= image_tag "6.png", class: "img-fluid", alt: "accept" %>
-            </div>
-            <div class="col-9">
-                <h5 class="fw-semibold mb-1">Mark as Complete</h5>
-                <p class="mb-0">Confirm when the blood request has been fulfilled.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  <section class="why-veinconnect-section">
-  <div class="d-flex justify-content-center my-3">
-    <div class="card mb-3 p-3" style="max-width: 300px; background-color: #FFF1F2; border: 2px solid #EC1B35; border-radius: 10px;">
-
-      <h3 class="display-6 fw-bold text-center mb-4" style="color: #EC1B35;">Why Use Veinconnect?</h3>
-
-      <!-- Row inside card -->
-      <div class="row g-0 mb-3 align-items-center">
-        <div class="col-3 d-flex justify-content-center">
-          <%= image_tag "flash.png", class: "img-fluid", alt: "blood-request" %>
-        </div>
-        <div class="col-9">
-            <p class="mb-0">Specify the blood type, quantity, location and due date.</p>
-        </div>
-      </div>
-      <!-- Second Row -->
-      <div class="row g-0 mb-3 align-items-center">
-        <div class="col-3 d-flex justify-content-center">
-          <%= image_tag "Notification.png", class: "img-fluid", alt: "Notification" %>
-        </div>
-        <div class="col-9">
-            <p class="mb-0">Real-life notifications for urgent blood requests.</p>
-        </div>
-      </div>
-      <div class="row g-0 mb-3 align-items-center">
-        <div class="col-3 d-flex justify-content-center">
-          <%= image_tag "secure.png", class: "img-fluid", alt: "secure" %>
-        </div>
-        <div class="col-9">
-            <p class="mb-0">Secure and private profiles for donors and patients.</p>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
 
-  <!-- MAP PARTIAL -->
-  <%= render partial: 'shared/map' %>
+    <div class="d-flex justify-content-center card-wrapper">
+      <div class="card wide-card p-3">
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <h3 class="display-6 fw-bold text-center mb-3 text-danger">
+          For Patients
+        </h3>
 
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "4.png" %></div>
+          <div class="col-9">
+            <strong>Create a Blood Request</strong>
+            <p class="mb-0">Specify blood type, quantity, location and due date.</p>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "5.png" %></div>
+          <div class="col-9">
+            <strong>Donors are notified</strong>
+            <p class="mb-0">Matching donors are notified immediately.</p>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "6.png" %></div>
+          <div class="col-9">
+            <strong>Mark as Complete</strong>
+            <p class="mb-0">Confirm when the request is fulfilled.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center card-wrapper">
+      <div class="card wide-card p-3 border border-danger"
+           style="background:#FFF1F2">
+
+        <h3 class="display-6 fw-bold text-center mb-3 text-danger">
+          Why Use Veinconnect?
+        </h3>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "flash.png" %></div>
+          <div class="col-9">Immediate access to matching donors.</div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "Notification.png" %></div>
+          <div class="col-9">Real-time alerts for urgent requests.</div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-3 text-center"><%= image_tag "secure.png" %></div>
+          <div class="col-9">Secure and private profiles.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <%= render partial: "shared/map" %>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

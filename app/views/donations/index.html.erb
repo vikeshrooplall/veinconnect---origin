@@ -11,7 +11,7 @@
           <th>Hospital</th>
           <th>Blood Request</th>
           <th>Date</th>
-          <th>Status</th>
+          <%# <th>Status</th> %>
           <th>Last Updated</th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
             <td data-label="Hospital"><%= donation.facility.name %></td>
             <td data-label="Blood Request"><%= donation.blood_request_id %></td>
             <td data-label="Date"><%= donation.created_at.strftime('%d %b %Y') %></td>
-            <td data-label="Status"><%= donation.status %></td>
+            <%# <td data-label="Status"> <%= donation.status.humanize %></td>
             <td data-label="Last Updated"><%= donation.updated_at.strftime('%d %b %Y') %></td>
           </tr>
         <% end %>
@@ -30,6 +30,10 @@
   </div>
 
   <div class="d-flex justify-content-center mt-4">
-    <%= link_to 'Back to Blood Requests', blood_requests_path, class: 'btn btn-danger px-4' %>
+    <%= link_to 'Back to Blood Requests',
+          blood_requests_path,
+          class: 'btn btn-danger px-4 py-2 w-100',
+          style: 'max-width: 320px; border-radius: 10px; color: white;' %>
   </div>
+
 </div>
