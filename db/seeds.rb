@@ -1,6 +1,7 @@
 require 'faker'
 require 'open-uri'
 require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 puts 'Cleaning database...'
 # Destroy all previous records
@@ -87,16 +88,9 @@ MALE_AVATARS = ["1.png", "2.png", "3.png"]
 
 users = 20.times.map do
   is_female = [true, false].sample
-  if is_female
-    first_name = FEMALE_NAMES.sample
-    avatar = FEMALE_AVATARS.sample
-  else
-    first_name = MALE_NAMES.sample
-    avatar = MALE_AVATARS.sample
-  end
 
+  first_name = is_female ? FEMALE_NAMES.sample : MALE_NAMES.sample
   avatar = is_female ? FEMALE_AVATARS.sample : MALE_AVATARS.sample
-
 
   User.create!(
     first_name: first_name,
@@ -111,7 +105,6 @@ users = 20.times.map do
     avatar_url: avatar
   )
 end
-
 puts "✅ 20 users seeded with local avatars!"
 
 puts "🌱 Seeding blood requests..."
