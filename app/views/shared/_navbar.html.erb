@@ -1,55 +1,95 @@
 <nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
+
+    <!-- Logo -->
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "Veinconnect.png", alt: "logo", class: "navbar-logo" %>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- RIGHT SIDE ICONS (always visible) -->
+    <div class="d-flex align-items-center ms-auto">
+
+      <% if user_signed_in? %>
+
+        <!-- 🔔 NOTIFICATIONS (icon always visible) -->
+        <div class="nav-item dropdown me-3">
+          <a href="#" id="notificationsDropdown"
+             class="nav-link position-relative"
+             data-bs-toggle="dropdown" aria-expanded="false">
+
+            <i class="bi bi-bell-fill" style="font-size: 1.5rem;"></i>
+
+            <% unread = current_user.notifications.unread.count %>
+
+            <% if unread > 0 %>
+              <span id="notification-count"
+                class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                <%= unread %>
+              </span>
+            <% end %>
+
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-end"
+               aria-labelledby="notificationsDropdown"
+               id="notifications">
+            <%= render partial: "notifications/notification",
+                       collection: current_user.notifications.order(created_at: :desc).limit(10) %>
+          </div>
+        </div>
+
+        <div class="nav-item dropdown">
+          <a href="#" class="avatar" id="navbarDropdown"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= image_tag "navbar.png", class: "avatar", alt: "dropdown menu" %> </a>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Log out", destroy_user_session_path,
+                        data: { turbo_method: :delete }, class: "dropdown-item" %>
+          </div>
+        </div>
+
+
+      <% end %>
+    </div>
+
+    <!-- HAMBURGER BUTTON -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- COLLAPSIBLE MENU -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
+
         <% if user_signed_in? %>
           <li class="nav-item active">
             <%= link_to "Find a Center", facilities_path, class: "nav-link" %>
           </li>
+
           <li class="nav-item">
             <%= link_to "Blood Requests", blood_requests_path, class: "nav-link" %>
           </li>
-          <% if current_user.donor?%>
+
+          <% if current_user.donor? %>
             <li class="nav-item">
               <%= link_to "Donation History", donations_path, class: "nav-link" %>
             </li>
           <% end %>
-          <li class="nav-item dropdown">
-              <a href="#" id="notificationsDropdown" class="nav-link position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                🔔
-                <span id="notification-count" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-                  <%= current_user.notifications.unread.count %>
-                </span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown" id="notifications">
-                <%= render partial: "notifications/notification", collection: current_user.notifications.order(created_at: :desc).limit(10) %>
-              </div>
-          </li>
-          <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%# <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%# <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
-          </li>
+
         <% else %>
           <li class="nav-item">
             <%= link_to "Login", new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
+
       </ul>
     </div>
+
   </div>
 </nav>

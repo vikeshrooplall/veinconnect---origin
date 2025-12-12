@@ -30,10 +30,13 @@
     <div class='cards blood-request-c'>
 
       <%# Active Donor count %>
-      <div class='card donor-count'>
-        <h3>Active Donors</h3>
-        <p class='count'><%= Donor.active.count %></p>
-      </div>
+      <%= link_to donors_path, class: "text-decoration-none" do %>
+        <div class='card donor-count p-3 text-center'>
+          <h3>Active Donors</h3>
+          <p class='count'><%= Donor.active.count %></p>
+        </div>
+      <% end %>
+
 
       <%# Blood requests count %>
       <div class='card blood-request-count'>

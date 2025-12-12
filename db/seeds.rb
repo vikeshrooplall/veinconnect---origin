@@ -1,8 +1,7 @@
 require 'faker'
 require 'open-uri'
 require 'openssl'
-require 'securerandom'
-
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 puts 'Cleaning database...'
 # Destroy all previous records
@@ -78,16 +77,23 @@ facility55 = Facility.create(name: "Red Cross Society of Mauritius - Blood Donat
 
 puts "Creating facilities..."
 
-
 puts "🌱 Seeding users..."
 blood_types = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
 mauritius_cities = ["Port Louis", "Quatre Bornes", "Curepipe", "Beau Bassin", "Rose Belle", "Grand Baie", "Moka", "Flacq", "Tamarin", "Vacoas", "Phoenix", "Goodlands", "Mahebourg", "Calodyne", "Montagne Blanche", "Souillac", "Flic en Flac"]
-mauritian_first_names = ["Anjali", "Jemilla", "Tom", "Richard", "Devon", "Priya", "Jean", "Marie", "Kevin", "Paul", "Aisha", "Sunil", "Tania", "Vikesh", "Yaasir", "Ikhlass", "Brandon", "Anne-Marie", "Deven", "Anil", "Dave", "Kristel", "Sofia", "Naziah", "Javed", "Aurelie"]
-mauritian_last_names  = ["Gopaul", "Henri", "Bunwaree", "Ramsamy", "Richard", "Dulloo", "Kellock", "Paul", "Nundlall", "Mungur", "Gungadin", "Mungroo", "Ghanty", "Oomar", "Lee", "Cheekoree", "Lo-Hun", "Colin", "Ranglall", "Sobha", "Ramsaib", "Cheung", "Chen", "Annoar", "Brasse"]
+MALE_NAMES = ["Tom", "Richard", "Devon", "Kevin", "Paul", "Sunil", "Vikesh", "Yaasir", "Brandon", "Deven", "Anil", "Dave", "Javed", "Jean", "Ikhlass"]
+FEMALE_NAMES = ["Anjali", "Jemilla", "Priya", "Marie", "Aisha", "Tania", "Anne-Marie", "Kristel", "Sofia", "Naziah", "Aurelie"]
+mauritian_last_names = ["Gopaul", "Henri", "Bunwaree", "Ramsamy", "Richard", "Dulloo", "Kellock", "Paul", "Nundlall", "Mungur", "Gungadin", "Mungroo", "Ghanty", "Oomar", "Lee", "Cheekoree", "Lo-Hun", "Colin", "Ranglall", "Sobha", "Ramsaib", "Cheung", "Chen", "Annoar", "Brasse"]
+FEMALE_AVATARS = ["female4.png", "female5.png", "female6.png"]
+MALE_AVATARS = ["1.png", "2.png", "3.png"]
 
-users = 35.times.map do
+users = 20.times.map do
+  is_female = [true, false].sample
+
+  first_name = is_female ? FEMALE_NAMES.sample : MALE_NAMES.sample
+  avatar = is_female ? FEMALE_AVATARS.sample : MALE_AVATARS.sample
+
   User.create!(
-    first_name: mauritian_first_names.sample,
+    first_name: first_name,
     last_name: mauritian_last_names.sample,
     date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 70),
     email: Faker::Internet.unique.email,
@@ -96,9 +102,10 @@ users = 35.times.map do
     address: mauritius_cities.sample,
     blood_type: blood_types.sample,
     is_donor: [true, false].sample,
-    avatar_url: "https://avatar.iran.liara.run/public?username=#{SecureRandom.hex(8)}"
+    avatar_url: avatar
   )
 end
+puts "✅ 20 users seeded with local avatars!"
 
 puts "🌱 Seeding blood requests..."
 statuses = ["pending", "completed", "accepted"]
