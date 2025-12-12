@@ -1,6 +1,29 @@
 <div class="container mt-1" style="max-width:420px; padding-top:0; margin-top:0;">
 
-  <h4 class="fw-bold text-center mb-3 pt-4">Blood Requests for Your Blood Type</h4>
+  <!-- Page Header -->
+  <div class="d-flex align-items-center pt-4 mb-3">
+
+    <!-- Left: Back arrow → HOME -->
+    <div style="width: 40px;">
+      <button type="button"
+              onclick="window.location.href='<%= root_path %>'"
+              class="p-0 border-0 bg-transparent text-dark fs-4"
+              style="outline:none;">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+    </div>
+
+    <!-- Center: Title -->
+    <div class="flex-grow-1 text-center">
+      <h4 class="fw-bold mb-0">
+        Blood Requests for Your Blood Type
+      </h4>
+    </div>
+
+    <!-- Right spacer -->
+    <div style="width: 40px;"></div>
+
+  </div>
 
   <% @blood_requests.each do |r| %>
 
@@ -16,11 +39,12 @@
       "completed" => "#22C55E"
     }[r.status] %>
 
-    <%= link_to blood_request_path(r), class:"text-decoration-none", style:"color:inherit;" do %>
+    <%= link_to blood_request_path(r),
+          class:"text-decoration-none",
+          style:"color:inherit;" do %>
 
       <div class="card border-0 shadow-sm mb-4"
            style="background:#FFF1F2; border-radius:18px; max-width:360px; margin:0 auto; cursor:pointer;">
-
 
         <div class="card-body p-3">
 
@@ -71,7 +95,6 @@
           </div>
 
           <div class="info-row">
-
             <span>
               <i class="bi bi-droplet-half"></i>
               <strong><%= r.quantity %></strong> bags
@@ -90,7 +113,6 @@
               <i class="bi bi-person-fill"></i>
               <%= r.patient_name %>
             </span>
-
           </div>
 
         </div>
