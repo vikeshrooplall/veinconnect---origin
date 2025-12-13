@@ -6,12 +6,14 @@ class MessagesController < ApplicationController
 
     if @message.save
       respond_to do |format|
-        format.turbo_stream
+        format.turbo_stream { render :create }
         format.html { redirect_to blood_request_path(@blood_request) }
       end
     else
-      @messages = @blood_request.messages
-      render "blood_request/show", status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("message_form", partial: "messages/form") }
+        format.html { render "blood_requests/show", status: :unprocessable_entity }
+      end
     end
   end
 
